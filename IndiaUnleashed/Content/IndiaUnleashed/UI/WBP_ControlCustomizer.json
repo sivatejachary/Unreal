@@ -1,0 +1,25 @@
+{
+  "AssetType": "WidgetBlueprint",
+  "BlueprintClass": "/Game/IndiaUnleashed/UI/WBP_ControlCustomizer.WBP_ControlCustomizer_C",
+  "ParentClass": "/Script/UMG.UserWidget",
+  "Description": "Settings -> Controls Layout Editor allowing dragging, scaling, opacity adjustment, and preset selection.",
+  "Presets": [
+    { "Id": "TwoFinger", "Name": "Two-Finger (Thumb Default)" },
+    { "Id": "ThreeFinger", "Name": "Three-Finger (Claw Index Fire)" },
+    { "Id": "FourFinger", "Name": "Four-Finger (Pro Claw Index Fire + Scope)" },
+    { "Id": "Custom", "Name": "Custom Layout" }
+  ],
+  "AdjustmentRanges": {
+    "ScaleMultiplier": [0.70, 1.50],
+    "Opacity": [0.20, 1.00],
+    "CameraSensitivity": [0.10, 3.00],
+    "ADSSensitivity": [0.10, 3.00],
+    "Scope4xSensitivity": [0.10, 2.00],
+    "Scope8xSensitivity": [0.05, 1.00]
+  },
+  "ActionButtons": [
+    { "Name": "Btn_Save", "Action": "SaveToLocalStorage" },
+    { "Name": "Btn_Reset", "Action": "ResetToDefaultPreset" },
+    { "Name": "Btn_Exit", "Action": "CloseControlsCustomizer" }
+  ]
+}

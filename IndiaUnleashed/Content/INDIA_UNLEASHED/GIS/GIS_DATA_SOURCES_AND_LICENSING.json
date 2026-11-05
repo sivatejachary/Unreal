@@ -1,0 +1,51 @@
+{
+  "project": "INDIA UNLEASHED - Hyderabad Open World",
+  "pipeline": "Automated GIS-to-Unreal 3D Reconstruction Pipeline",
+  "coordinate_system": "WGS84 EPSG:4326 to Unreal Engine 5 LHS (Centimeters)",
+  "georeference_origin": {
+    "latitude": 17.385044,
+    "longitude": 78.486671,
+    "elevation_m": 505.0
+  },
+  "data_sources_and_licensing": [
+    {
+      "source": "OpenStreetMap (OSM)",
+      "data_types": [
+        "Road Networks",
+        "Building Footprints",
+        "Water Bodies",
+        "Land Use"
+      ],
+      "license": "Open Data Commons Open Database License (ODbL) 1.0",
+      "attribution": "\u00a9 OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright"
+    },
+    {
+      "source": "SRTM (Shuttle Radar Topography Mission) & Bhuvan ISRO",
+      "data_types": [
+        "Deccan Plateau 30m Digital Elevation Model (DEM)"
+      ],
+      "license": "Public Domain / Open Data Policy (ISRO National Remote Sensing Centre)",
+      "attribution": "NASA JPL / ISRO NRSC Bhuvan Portal",
+      "url": "https://bhuvan.nrsc.gov.in"
+    },
+    {
+      "source": "Greater Hyderabad Municipal Corporation (GHMC) & HMDA",
+      "data_types": [
+        "Master Plan 2031 Zonal Classifications, Ward Boundaries, Flyover Interchanges"
+      ],
+      "license": "Government Open Data License - India (GODL)",
+      "attribution": "Government of Telangana - Metropolitan Development Authority",
+      "url": "https://data.telangana.gov.in"
+    },
+    {
+      "source": "Cesium for Unreal Engine",
+      "data_types": [
+        "Georeference Runtime, Ellipsoidal Coordinate Math, 3D Tiles Streaming"
+      ],
+      "license": "Apache License 2.0",
+      "attribution": "Cesium GS, Inc.",
+      "url": "https://github.com/CesiumGS/cesium-unreal"
+    }
+  ]
+}

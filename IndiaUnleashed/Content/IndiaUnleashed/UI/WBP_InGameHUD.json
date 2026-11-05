@@ -1,0 +1,97 @@
+{
+  "AssetType": "WidgetBlueprint",
+  "BlueprintClass": "/Game/IndiaUnleashed/UI/WBP_InGameHUD.WBP_InGameHUD_C",
+  "ParentClass": "/Script/IndiaUnleashed.IUGameplayHUD",
+  "Description": "Production Mobile Battle Royale Gameplay HUD following PUBG Mobile and BGMI layout conventions.",
+  "RootWidget": {
+    "Type": "CanvasPanel",
+    "Name": "RootCanvas",
+    "Children": [
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_SquadStatusPanel",
+        "Slot": {
+          "Anchor": { "Min": [0.0, 0.0], "Max": [0.0, 0.0] },
+          "Offsets": { "Left": 24.0, "Top": 20.0, "Width": 260.0, "Height": 140.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Description": "Compact 4-player squad roster (Vikram, Ananya, Kabir, Rohan) with health bars, voice icons, and distance."
+      },
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_CompassAndMinimap",
+        "Slot": {
+          "Anchor": { "Min": [0.5, 0.0], "Max": [0.5, 0.0] },
+          "Offsets": { "Left": -200.0, "Top": 12.0, "Width": 400.0, "Height": 44.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Description": "Dynamic rotating compass (360 degrees, N/NE/E/SE/S/SW/W/NW, yellow heading needle, squad dots, gunfire blips)."
+      },
+      {
+        "Type": "HorizontalBox",
+        "Name": "MatchStatusHeader",
+        "Slot": {
+          "Anchor": { "Min": [1.0, 0.0], "Max": [1.0, 0.0] },
+          "Offsets": { "Left": -310.0, "Top": 16.0, "Width": 290.0, "Height": 36.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Children": [
+          { "Type": "TextBlock", "Name": "Txt_Alive", "DefaultText": "ALIVE: 57", "Color": "#FFFFFF" },
+          { "Type": "TextBlock", "Name": "Txt_Kills", "DefaultText": "KILLS: 4", "Color": "#FFB300" },
+          { "Type": "TextBlock", "Name": "Txt_ZoneTimer", "DefaultText": "ZONE: 01:39", "Color": "#38BDF8" }
+        ]
+      },
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_Minimap",
+        "Slot": {
+          "Anchor": { "Min": [1.0, 0.0], "Max": [1.0, 0.0] },
+          "Offsets": { "Left": -180.0, "Top": 58.0, "Width": 160.0, "Height": 160.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Description": "Compact circular Hyderabad Minimap with safe zone circle, blue zone contraction, player pointer, and tap-to-expand."
+      },
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_MobileControlsLayout",
+        "Slot": {
+          "Anchor": { "Min": [0.0, 0.0], "Max": [1.0, 1.0] },
+          "Offsets": { "Left": 0.0, "Top": 0.0, "Width": 0.0, "Height": 0.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Description": "Ergonomic multi-touch touch layer: Left joystick + sprint lock, right fire button, ADS, jump, crouch, prone, reload, and peeks."
+      },
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_WeaponSlotAndAmmo",
+        "Slot": {
+          "Anchor": { "Min": [0.5, 1.0], "Max": [0.5, 1.0] },
+          "Offsets": { "Left": -190.0, "Top": -110.0, "Width": 380.0, "Height": 70.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Description": "Two sleek PUBG weapon slots (VAJRA-556 30/150, GOLCONDA-300 5/35, fire mode, quick switch)."
+      },
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_PlayerVitals",
+        "Slot": {
+          "Anchor": { "Min": [0.5, 1.0], "Max": [0.5, 1.0] },
+          "Offsets": { "Left": -150.0, "Top": -36.0, "Width": 300.0, "Height": 28.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "Description": "Health bar (100 HP), Vest bar (Lv2), Helmet bar (Lv3), Boost bar (4 segments)."
+      },
+      {
+        "Type": "UserWidget",
+        "Name": "WBP_DeveloperDebugDrawer",
+        "Slot": {
+          "Anchor": { "Min": [0.0, 0.0], "Max": [1.0, 1.0] },
+          "Offsets": { "Left": 0.0, "Top": 0.0, "Width": 0.0, "Height": 0.0 },
+          "Alignment": [0.0, 0.0]
+        },
+        "bIsVisible": false,
+        "Description": "Decoupled developer debug drawer, strictly hidden in normal gameplay matches. Toggled via ~ key or dev toggle."
+      }
+    ]
+  }
+}

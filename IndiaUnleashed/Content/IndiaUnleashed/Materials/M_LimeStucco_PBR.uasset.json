@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_LimeStucco_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_LimeStucco_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_LimeStucco_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_LimeStucco_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_LimeStucco_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_LimeStucco_AO"
+  }
+}

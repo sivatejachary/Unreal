@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_Golconda300_Sniper",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_Golconda300_Sniper_LOD0",
+      "extras": {
+        "DimensionsM": [
+          1.18,
+          0.09,
+          0.28
+        ],
+        "Material": "M_BrushedMetal_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 7200,
+          "LOD1_PC_High": 3600,
+          "LOD2_Android_High": 1800,
+          "LOD3_Android_Low": 864
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_Golconda300_Sniper",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

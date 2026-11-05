@@ -1,0 +1,23 @@
+{
+  "weaponClass": "SMG",
+  "codeName": "WPN_UMP45_Vector_SMG",
+  "displayName": "UMP45 / Vector Close-Quarters SMG (.45 ACP)",
+  "gripType": "TwoHanded_Compact_VerticalGrip",
+  "rightHandSocket": "socket_weapon_r_smg",
+  "leftHandIKOffsetCm": [
+    -14.0,
+    31.0,
+    9.5
+  ],
+  "adsEyeOffsetCm": [
+    0.0,
+    24.0,
+    13.8
+  ],
+  "verticalRecoilDegPerShot": 0.85,
+  "horizontalRecoilDegPerShot": 0.42,
+  "tacticalReloadSec": 1.65,
+  "emptyReloadSec": 2.05,
+  "equipDurationSec": 0.38,
+  "moveSpeedMultiplier": 0.98
+}

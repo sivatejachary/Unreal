@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_TeakWood_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_TeakWood_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_TeakWood_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_TeakWood_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_TeakWood_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_TeakWood_AO"
+  }
+}

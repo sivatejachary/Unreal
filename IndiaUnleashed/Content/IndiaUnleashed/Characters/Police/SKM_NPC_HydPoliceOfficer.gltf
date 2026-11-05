@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_NPC_HydPoliceOfficer",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_NPC_HydPoliceOfficer_LOD0",
+      "extras": {
+        "DimensionsM": [
+          0.56,
+          0.36,
+          1.8
+        ],
+        "Material": "M_CottonKurtaFabric_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 10400,
+          "LOD1_PC_High": 5200,
+          "LOD2_Android_High": 2600,
+          "LOD3_Android_Low": 1248
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_NPC_HydPoliceOfficer",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

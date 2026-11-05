@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SM_CyberTowers_Quad",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SM_CyberTowers_Quad_LOD0",
+      "extras": {
+        "DimensionsM": [
+          68.0,
+          68.0,
+          48.0
+        ],
+        "Material": "M_CyberGlass_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 11800,
+          "LOD1_PC_High": 5900,
+          "LOD2_Android_High": 2950,
+          "LOD3_Android_Low": 1416
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SM_CyberTowers_Quad",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

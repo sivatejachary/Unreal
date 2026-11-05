@@ -1,0 +1,97 @@
+{
+  "schema": "browser-fbx-material-package/1",
+  "profile": "portable",
+  "units": "meter",
+  "upAxis": "Y",
+  "handedness": "right",
+  "imageRows": "file-image upright",
+  "uvConvention": "FBX bottom-left; glTF V converted once",
+  "triangles": 10409,
+  "degenerateTriangles": 0,
+  "arraysCompressed": 4,
+  "attributeTablesCompacted": 2,
+  "geometryDecimated": false,
+  "geometryVerification": "All emitted positions, triangle indices/winding, available UV0 corners and available normal corners checked against the prepared source scene",
+  "materials": [
+    {
+      "id": "conversion_material_0",
+      "name": "BakedMaterial",
+      "baseColorFactorLinear": [
+        1,
+        1,
+        1
+      ],
+      "emissiveFactorLinear": [
+        0,
+        0,
+        0
+      ],
+      "emissiveIntensity": 1,
+      "opacity": 1,
+      "alphaTest": 0,
+      "doubleSided": true,
+      "transparent": false,
+      "normalMapType": 0,
+      "unlit": false,
+      "aoMapIntensity": 1,
+      "bumpScale": 1,
+      "normalScaleTargetFBX": [
+        1,
+        -1
+      ],
+      "roughnessFactor": 1,
+      "metalnessFactor": 1,
+      "maps": {
+        "map": {
+          "sourceChannel": "rgb",
+          "sourceFactor": 1,
+          "file": "textures/conversion_material_0_map.png",
+          "uvChannel": 0,
+          "colorSpace": "sRGB",
+          "factorsBaked": false,
+          "normalScaleBaked": false,
+          "wrapS": 1000,
+          "wrapT": 1000,
+          "minFilter": 1008,
+          "magFilter": 1006,
+          "anisotropy": 1
+        },
+        "roughnessMap": {
+          "sourceFile": "textures/source_0.png",
+          "sourceChannel": "g",
+          "sourceFactor": 1,
+          "file": "textures/conversion_material_0_roughnessMap.png",
+          "uvChannel": 0,
+          "colorSpace": "linear",
+          "factorsBaked": true,
+          "normalScaleBaked": false,
+          "wrapS": 1000,
+          "wrapT": 1000,
+          "minFilter": 1008,
+          "magFilter": 1006,
+          "anisotropy": 1
+        },
+        "metalnessMap": {
+          "sourceFile": "textures/source_0.png",
+          "sourceChannel": "b",
+          "sourceFactor": 1,
+          "file": "textures/conversion_material_0_metalnessMap.png",
+          "uvChannel": 0,
+          "colorSpace": "linear",
+          "factorsBaked": true,
+          "normalScaleBaked": false,
+          "wrapS": 1000,
+          "wrapT": 1000,
+          "minFilter": 1008,
+          "magFilter": 1006,
+          "anisotropy": 1
+        }
+      },
+      "legacyPhongApproximation": {
+        "roughnessAverage": 0.4991460674119232,
+        "shininess": 25.085466178894173,
+        "metalnessAverage": 0.0019532972690844965
+      }
+    }
+  ]
+}

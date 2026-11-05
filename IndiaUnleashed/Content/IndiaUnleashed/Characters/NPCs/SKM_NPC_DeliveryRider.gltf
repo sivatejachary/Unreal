@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_NPC_DeliveryRider",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_NPC_DeliveryRider_LOD0",
+      "extras": {
+        "DimensionsM": [
+          0.54,
+          0.33,
+          1.74
+        ],
+        "Material": "M_CottonKurtaFabric_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 8900,
+          "LOD1_PC_High": 4450,
+          "LOD2_Android_High": 2225,
+          "LOD3_Android_Low": 1068
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_NPC_DeliveryRider",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,173 @@
+{
+  "MapPackage": "/Game/Maps/Hyderabad/L_Hyderabad_Prototype",
+  "EngineVersion": "5.4",
+  "WorldPartitionEnabled": true,
+  "GridCellSizeCm": 12800,
+  "LoadingRangeCm": 38400,
+  "DefaultGameMode": "/Script/IndiaUnleashed.IUGameMode",
+  "Lighting": {
+    "DirectionalLight_Sun": {
+      "IntensityLux": 110000.0,
+      "TimeOfDayHours": 16.5,
+      "DynamicShadowCascades": 4
+    },
+    "SkyAtmosphere": "DeccanPlateau_RayleighPreset",
+    "VolumetricCloud": "MonsoonCumulus_Layer01",
+    "ExponentialHeightFog": {
+      "Density": 0.015
+    }
+  },
+  "PlacedActors": [
+    {
+      "ActorClass": "/Script/IUWorld.IUCharminarBlockoutActor",
+      "ActorLabel": "Landmark_Charminar_Centerpiece",
+      "LocationCm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "RotationDeg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "DataLayer": "DL_OldCity_Core"
+    },
+    {
+      "ActorClass": "PlayerStart",
+      "ActorLabel": "PlayerStart_Charminar_West_P1",
+      "LocationCm": [
+        -2200.0,
+        450.0,
+        110.0
+      ],
+      "RotationDeg": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "PlayerStart",
+      "ActorLabel": "PlayerStart_Charminar_East_P2",
+      "LocationCm": [
+        2200.0,
+        -450.0,
+        110.0
+      ],
+      "RotationDeg": [
+        0.0,
+        180.0,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUVehicles.IUVehicleBase",
+      "ActorLabel": "Vehicle_Hyderabad_AutoRickshaw_01",
+      "Preset": "AutoRickshaw",
+      "LocationCm": [
+        -1800.0,
+        850.0,
+        20.0
+      ],
+      "RotationDeg": [
+        0.0,
+        45.0,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUVehicles.IUVehicleBase",
+      "ActorLabel": "Vehicle_Deccan_Sedan_01",
+      "Preset": "SedanCar",
+      "LocationCm": [
+        1800.0,
+        -850.0,
+        20.0
+      ],
+      "RotationDeg": [
+        0.0,
+        -135.0,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "WaterBodyLake",
+      "ActorLabel": "WaterBody_HussainSagar_PrototypeBasin",
+      "LocationCm": [
+        0.0,
+        -145000.0,
+        -120.0
+      ],
+      "ExtentCm": [
+        65000.0,
+        65000.0,
+        800.0
+      ]
+    },
+    {
+      "ActorClass": "StaticMeshActor",
+      "ActorLabel": "BR_Airdrop_SupplyCrate_CharminarPlaza_01",
+      "StaticMesh": "/Game/IndiaUnleashed/Equipment/SM_BR_AirdropSupplyCrate",
+      "LocationCm": [
+        520.0,
+        680.0,
+        135.0
+      ],
+      "RotationDeg": [
+        0.0,
+        25.0,
+        0.0
+      ],
+      "DataLayer": "DL_OldCity_Core"
+    },
+    {
+      "ActorClass": "StaticMeshActor",
+      "ActorLabel": "Landmark_CyberTowers_Quad_HitechCity",
+      "StaticMesh": "/Game/IndiaUnleashed/Environment/Hyderabad/HitechCity/SM_CyberTowers_Quad",
+      "LocationCm": [
+        -280000.0,
+        -210000.0,
+        800.0
+      ],
+      "RotationDeg": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "DataLayer": "DL_CyberCity"
+    },
+    {
+      "ActorClass": "StaticMeshActor",
+      "ActorLabel": "Landmark_DurgamCheruvu_CableBridge",
+      "StaticMesh": "/Game/IndiaUnleashed/Environment/Hyderabad/JubileeHills/SM_DurgamCheruvu_Bridge",
+      "LocationCm": [
+        -230000.0,
+        -190000.0,
+        650.0
+      ],
+      "RotationDeg": [
+        0.0,
+        42.0,
+        0.0
+      ],
+      "DataLayer": "DL_CyberCity"
+    },
+    {
+      "ActorClass": "StaticMeshActor",
+      "ActorLabel": "Landmark_GolcondaFort_BalaHisar_Citadel",
+      "StaticMesh": "/Game/IndiaUnleashed/Environment/Hyderabad/Buildings/SM_Golconda_BalaHisar",
+      "LocationCm": [
+        -190000.0,
+        -45000.0,
+        3800.0
+      ],
+      "RotationDeg": [
+        0.0,
+        -15.0,
+        0.0
+      ],
+      "DataLayer": "DL_Golconda"
+    }
+  ]
+}

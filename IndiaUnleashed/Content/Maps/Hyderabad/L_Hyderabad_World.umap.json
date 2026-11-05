@@ -1,0 +1,555 @@
+{
+  "MapPackage": "/Game/Maps/Hyderabad/L_Hyderabad_World",
+  "EngineVersion": "5.4",
+  "WorldPartitionEnabled": true,
+  "GridCellSizeCm": 25600,
+  "LoadingRangeCm": 76800,
+  "TotalActorCount": 40,
+  "PlacedActors": [
+    {
+      "ActorClass": "/Script/CesiumRuntime.CesiumGeoreference",
+      "ActorLabel": "CesiumGeoreference_CentralHyderabad",
+      "OriginPlacement": "CartographicOrigin",
+      "OriginLatitude": 17.385044,
+      "OriginLongitude": 78.486671,
+      "OriginHeight": 505.0,
+      "Scale": 1.0,
+      "LocationCm": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/CesiumRuntime.CesiumSunSky",
+      "ActorLabel": "CesiumSunSky_Hyderabad",
+      "SolarTimeHours": 14.5,
+      "TimeZoneOffsetHours": 5.5,
+      "DayOfYear": 180,
+      "LocationCm": [
+        0.0,
+        0.0,
+        50000.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IURoadSplineActor",
+      "ActorLabel": "Road_ROAD_ORR_EXPRESSWAY",
+      "RoadName": "Outer Ring Road (ORR) - 8-Lane Expressway",
+      "RoadType": "Motorway_Expressway",
+      "Lanes": 8,
+      "WidthMeters": 35.0,
+      "SpeedLimitKmh": 120,
+      "SplinePointsCount": 9,
+      "LocationCm": [
+        1641199.1,
+        -2357071.6,
+        -6477.4
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IURoadSplineActor",
+      "ActorLabel": "Road_ROAD_PVNR_EXPRESSWAY",
+      "RoadName": "PVNR Elevated Expressway (Airport Corridor)",
+      "RoadType": "Elevated_Expressway_Pillared",
+      "Lanes": 4,
+      "WidthMeters": 18.2,
+      "SpeedLimitKmh": 80,
+      "SplinePointsCount": 5,
+      "LocationCm": [
+        72619.4,
+        -477909.6,
+        -183.1
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IURoadSplineActor",
+      "ActorLabel": "Road_ROAD_HITEC_MAIN_BLVD",
+      "RoadName": "HITEC City Main Boulevard (Cyber Towers to Mindspace)",
+      "RoadType": "Primary_Urban_Arterial",
+      "Lanes": 6,
+      "WidthMeters": 24.0,
+      "SpeedLimitKmh": 60,
+      "SplinePointsCount": 5,
+      "LocationCm": [
+        774637.0,
+        -1186324.4,
+        -1576.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IURoadSplineActor",
+      "ActorLabel": "Road_ROAD_DURGAM_CABLE_BRIDGE",
+      "RoadName": "Durgam Cheruvu Cable-Stayed Bridge",
+      "RoadType": "Bridge_CableStayed",
+      "Lanes": 4,
+      "WidthMeters": 16.5,
+      "SpeedLimitKmh": 50,
+      "SplinePointsCount": 3,
+      "LocationCm": [
+        525544.8,
+        -1086597.9,
+        -1143.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IURoadSplineActor",
+      "ActorLabel": "Road_ROAD_NH65_CORRIDOR",
+      "RoadName": "National Highway 65 (Pune-Hyderabad-Vijayawada)",
+      "RoadType": "National_Highway",
+      "Lanes": 6,
+      "WidthMeters": 28.0,
+      "SpeedLimitKmh": 90,
+      "SplinePointsCount": 8,
+      "LocationCm": [
+        1641199.1,
+        -2357071.6,
+        -6477.4
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IURoadSplineActor",
+      "ActorLabel": "Road_ROAD_NECKLACE_WATERFRONT",
+      "RoadName": "Necklace Road (PV Narasimha Rao Marg)",
+      "RoadType": "Scenic_Waterfront_Boulevard",
+      "Lanes": 4,
+      "WidthMeters": 16.0,
+      "SpeedLimitKmh": 50,
+      "SplinePointsCount": 5,
+      "LocationCm": [
+        519737.8,
+        -262122.6,
+        -266.8
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_CYBER_TOWERS",
+      "BuildingName": "Cyber Towers Core Structure",
+      "HeightMeters": 52.0,
+      "Floors": 11,
+      "MaterialPreset": "Precast_Concrete_ReflectiveGlass",
+      "LocationCm": [
+        722803.0,
+        -1125799.9,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_CYBER_GATEWAY",
+      "BuildingName": "Cyber Gateway Complex",
+      "HeightMeters": 38.0,
+      "Floors": 8,
+      "MaterialPreset": "Granite_GlassCurtainWall",
+      "LocationCm": [
+        662783.7,
+        -1071650.9,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_INORBIT_MALL",
+      "BuildingName": "Inorbit Mall Hyderabad",
+      "HeightMeters": 28.0,
+      "Floors": 6,
+      "MaterialPreset": "Composite_Aluminum_Panel_Glass",
+      "LocationCm": [
+        606309.8,
+        -1021746.7,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_THUB_2",
+      "BuildingName": "T-Hub 2.0 Global Innovation Hub",
+      "HeightMeters": 45.0,
+      "Floors": 10,
+      "MaterialPreset": "Sculptural_Cantilever_Steel_Glass",
+      "LocationCm": [
+        638706.1,
+        -1165155.6,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_WAVEROCK_GACHIBOWLI",
+      "BuildingName": "Waverock SEZ Complex (TSIIC)",
+      "HeightMeters": 68.0,
+      "Floors": 16,
+      "MaterialPreset": "DoubleGlazed_LowE_Glass_WhiteConcrete",
+      "LocationCm": [
+        608795.4,
+        -1466901.3,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_SECRETARIAT_TELANGANA",
+      "BuildingName": "Dr. B.R. Ambedkar Telangana Secretariat",
+      "HeightMeters": 82.0,
+      "Floors": 7,
+      "MaterialPreset": "Deccan_RedSandstone_WhiteDomes",
+      "LocationCm": [
+        291720.2,
+        -149517.3,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUProceduralBuildingActor",
+      "ActorLabel": "Building_BLDG_RGIA_TERMINAL",
+      "BuildingName": "Rajiv Gandhi International Airport Passenger Terminal",
+      "HeightMeters": 32.0,
+      "Floors": 4,
+      "MaterialPreset": "Curved_Tensile_Steel_Roof_Glass",
+      "LocationCm": [
+        -1607488.1,
+        -613376.6,
+        0.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/Water.WaterBodyOcean",
+      "ActorLabel": "Water_Osman_Sagar_Gandipet",
+      "WaterType": "Reservoir_Freshwater",
+      "ElevationMeters": 546.0,
+      "LocationCm": [
+        111379.6,
+        -2196274.3,
+        310.3
+      ]
+    },
+    {
+      "ActorClass": "/Script/Water.WaterBodyOcean",
+      "ActorLabel": "Water_Hussain_Sagar_Lake",
+      "WaterType": "Urban_Lake",
+      "ElevationMeters": 512.0,
+      "LocationCm": [
+        519738.4,
+        -262122.9,
+        433.2
+      ]
+    },
+    {
+      "ActorClass": "/Script/Water.WaterBodyOcean",
+      "ActorLabel": "Water_Durgam_Cheruvu_Secret_Lake",
+      "WaterType": "GraniteValley_Lake",
+      "ElevationMeters": 560.0,
+      "LocationCm": [
+        564314.2,
+        -1133334.6,
+        4242.4
+      ]
+    },
+    {
+      "ActorClass": "/Script/Water.WaterBodyRiver",
+      "ActorLabel": "Water_Musi_River_Central_Channel",
+      "WaterType": "River_UrbanChannel",
+      "ElevationMeters": 498.0,
+      "LocationCm": [
+        -32921.9,
+        -1771311.0,
+        -3159.5
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_CYBER_01",
+      "LocationName": "HITEC City - Cyber Towers",
+      "District": "Cyberabad IT Zone",
+      "Latitude": 17.450417,
+      "Longitude": 78.380833,
+      "ElevationMeters": 585.0,
+      "LocationCm": [
+        723885.0,
+        -1124400.4,
+        6596.1
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_MADHAPUR_01",
+      "LocationName": "Madhapur - Mindspace IT Park & Inorbit",
+      "District": "Cyberabad IT Zone",
+      "Latitude": 17.4399,
+      "Longitude": 78.3908,
+      "ElevationMeters": 575.0,
+      "LocationCm": [
+        607421.7,
+        -1018570.0,
+        5896.1
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_GACHIBOWLI_01",
+      "LocationName": "Gachibowli - Financial District & Waverock",
+      "District": "Gachibowli Financial Hub",
+      "Latitude": 17.4401,
+      "Longitude": 78.3489,
+      "ElevationMeters": 590.0,
+      "LocationCm": [
+        609908.0,
+        -1463732.7,
+        6527.8
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_KONDAPUR_01",
+      "LocationName": "Kondapur - Sarath City Capital Mall",
+      "District": "Cyberabad North",
+      "Latitude": 17.4699,
+      "Longitude": 78.3578,
+      "ElevationMeters": 595.0,
+      "LocationCm": [
+        939682.6,
+        -1368954.3,
+        6835.3
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_MIYAPUR_01",
+      "LocationName": "Miyapur - Metro Terminal & Allwyn X Roads",
+      "District": "Northwest Industrial Corridor",
+      "Latitude": 17.4968,
+      "Longitude": 78.3614,
+      "ElevationMeters": 580.0,
+      "LocationCm": [
+        1237396.4,
+        -1330514.1,
+        4905.6
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_PATANCHERU_01",
+      "LocationName": "Patancheru - Industrial Corridor & ORR Exit 3",
+      "District": "Outer Industrial Ring",
+      "Latitude": 17.5332,
+      "Longitude": 78.2647,
+      "ElevationMeters": 545.0,
+      "LocationCm": [
+        1641209.5,
+        -2357086.4,
+        -2477.4
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_BANJARA_01",
+      "LocationName": "Banjara Hills - Road No. 1 & Taj Krishna",
+      "District": "Deccan Luxury & National Park",
+      "Latitude": 17.4156,
+      "Longitude": 78.4358,
+      "ElevationMeters": 540.0,
+      "LocationCm": [
+        338274.9,
+        -540541.6,
+        3180.8
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_MEHDIPATNAM_01",
+      "LocationName": "Mehdipatnam - PVNR Expressway Ramp",
+      "District": "Central Southwest Corridor",
+      "Latitude": 17.3916,
+      "Longitude": 78.4417,
+      "ElevationMeters": 515.0,
+      "LocationCm": [
+        72619.5,
+        -477910.3,
+        816.9
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_CENTRAL_01",
+      "LocationName": "Central Hyderabad - Abids Commercial Circle",
+      "District": "Central Heritage Commercial",
+      "Latitude": 17.3911,
+      "Longitude": 78.4764,
+      "ElevationMeters": 508.0,
+      "LocationCm": [
+        67032.2,
+        -109150.9,
+        287.1
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_NAMPALLY_01",
+      "LocationName": "Nampally - Hyderabad Deccan Railway Station",
+      "District": "Central Transit District",
+      "Latitude": 17.3933,
+      "Longitude": 78.4697,
+      "ElevationMeters": 510.0,
+      "LocationCm": [
+        91387.4,
+        -180350.3,
+        467.9
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_KOTI_01",
+      "LocationName": "Koti - Sultan Bazaar & Osmania Medical",
+      "District": "Central Commercial Hub",
+      "Latitude": 17.3828,
+      "Longitude": 78.4867,
+      "ElevationMeters": 502.0,
+      "LocationCm": [
+        -24837.1,
+        308.2,
+        -300.5
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_CHARMINAR_01",
+      "LocationName": "Charminar Surrounding Area & Laad Bazaar",
+      "District": "Old City Historic Core",
+      "Latitude": 17.3616,
+      "Longitude": 78.4747,
+      "ElevationMeters": 505.0,
+      "LocationCm": [
+        -259479.3,
+        -127237.3,
+        -65.8
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_SECUNDERABAD_01",
+      "LocationName": "Secunderabad - Clock Tower & Railway Junction",
+      "District": "Twin City Northern Hub",
+      "Latitude": 17.4399,
+      "Longitude": 78.4983,
+      "ElevationMeters": 543.0,
+      "LocationCm": [
+        607167.7,
+        123550.4,
+        3497.4
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_UPPAL_01",
+      "LocationName": "Uppal - Skywalk & Rajiv Gandhi Stadium",
+      "District": "East City Sports & Tech",
+      "Latitude": 17.4019,
+      "Longitude": 78.5603,
+      "ElevationMeters": 495.0,
+      "LocationCm": [
+        186716.1,
+        782414.7,
+        -1507.2
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_GHATKESAR_01",
+      "LocationName": "Ghatkesar - Eastern ORR Growth Corridor",
+      "District": "Eastern Outer Ring",
+      "Latitude": 17.4478,
+      "Longitude": 78.6833,
+      "ElevationMeters": 490.0,
+      "LocationCm": [
+        695669.2,
+        2088940.5,
+        -5301.1
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_OSMANSAGAR_01",
+      "LocationName": "Osman Sagar (Gandipet) Reservoir & Spillway",
+      "District": "Western Water Reservoir",
+      "Latitude": 17.3811,
+      "Longitude": 78.2989,
+      "ElevationMeters": 546.0,
+      "LocationCm": [
+        -42676.3,
+        -1995577.1,
+        977.9
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_AIRPORT_01",
+      "LocationName": "Rajiv Gandhi International Airport (RGIA)",
+      "District": "Southern Aeropolis Zone",
+      "Latitude": 17.2403,
+      "Longitude": 78.4294,
+      "ElevationMeters": 617.0,
+      "LocationCm": [
+        -1601983.8,
+        -609131.3,
+        8885.8
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_SHAMSHABAD_01",
+      "LocationName": "Shamshabad - Aeropolis & NH44 Hub",
+      "District": "Southern Gateway",
+      "Latitude": 17.26,
+      "Longitude": 78.398,
+      "ElevationMeters": 590.0,
+      "LocationCm": [
+        -1383806.4,
+        -942995.7,
+        6293.4
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_RAMOJI_01",
+      "LocationName": "Ramoji Film City Surroundings",
+      "District": "Southeast Cinematic Zone",
+      "Latitude": 17.2543,
+      "Longitude": 78.6808,
+      "ElevationMeters": 485.0,
+      "LocationCm": [
+        -1446044.3,
+        2064543.6,
+        -6988.8
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_DURGAM_01",
+      "LocationName": "Durgam Cheruvu & Cable-Stayed Bridge",
+      "District": "Cyberabad Water Corridor",
+      "Latitude": 17.4325,
+      "Longitude": 78.3844,
+      "ElevationMeters": 560.0,
+      "LocationCm": [
+        525549.4,
+        -1086607.2,
+        4357.0
+      ]
+    },
+    {
+      "ActorClass": "/Script/IUWorld.IUPOIAnchorActor",
+      "ActorLabel": "POI_LOC_HYD_HUSSAINSAGAR_01",
+      "LocationName": "Hussain Sagar Lake & Necklace Road Promenade",
+      "District": "Tank Bund Promenade",
+      "Latitude": 17.4239,
+      "Longitude": 78.4738,
+      "ElevationMeters": 512.0,
+      "LocationCm": [
+        430073.0,
+        -136757.0,
+        539.5
+      ]
+    }
+  ]
+}

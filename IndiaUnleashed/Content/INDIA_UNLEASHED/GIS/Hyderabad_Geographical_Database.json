@@ -1,0 +1,639 @@
+{
+  "project": "INDIA UNLEASHED",
+  "version": "2.0-Production",
+  "schema": "IU_Geographical_Database/v2.0",
+  "georeference_origin": {
+    "datum": "WGS84",
+    "name": "Central Hyderabad (Abids-Nampally-HussainSagar Axis)",
+    "latitude": 17.385044,
+    "longitude": 78.486671,
+    "elevation_m": 505.0,
+    "unreal_coordinate_mapping": "X=North(cm), Y=East(cm), Z=Up(cm)"
+  },
+  "bounding_box": {
+    "north_lat": 17.55,
+    "south_lat": 17.2,
+    "west_lon": 78.25,
+    "east_lon": 78.7,
+    "span_north_south_km": 38.8,
+    "span_east_west_km": 47.8,
+    "total_area_sq_km": 1854.6
+  },
+  "location_count": 21,
+  "locations": [
+    {
+      "location_id": "LOC_HYD_CYBER_01",
+      "name": "HITEC City - Cyber Towers",
+      "district": "Cyberabad IT Zone",
+      "latitude": 17.450417,
+      "longitude": 78.380833,
+      "elevation_m": 585.0,
+      "category": "Commercial_HighDensity_IT",
+      "road_connections": [
+        "HITEC_Main_Blvd",
+        "Mindspace_Flyover",
+        "Hitec_Junction_XRoads"
+      ],
+      "building_references": [
+        "SM_CyberTowers_Core",
+        "SM_CyberGateway_BlockA",
+        "SM_T_Hub_InnovationCampus"
+      ],
+      "asset_references": [
+        "BP_CyberTowers_Complex",
+        "BP_MetroPillar_Viaduct_BlueLine"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 723885.0,
+        "y_east_cm": -1124400.4,
+        "z_up_cm": 6596.1
+      },
+      "distance_from_central_origin_km": 13.37
+    },
+    {
+      "location_id": "LOC_HYD_MADHAPUR_01",
+      "name": "Madhapur - Mindspace IT Park & Inorbit",
+      "district": "Cyberabad IT Zone",
+      "latitude": 17.4399,
+      "longitude": 78.3908,
+      "elevation_m": 575.0,
+      "category": "Commercial_Mall_ITPark",
+      "road_connections": [
+        "Inorbit_Mall_Road",
+        "Durgam_Cheruvu_Approach",
+        "Mindspace_Ring"
+      ],
+      "building_references": [
+        "SM_Inorbit_Mall_Facade",
+        "SM_Mindspace_Bldg_12B",
+        "SM_TheWestin_Hotel"
+      ],
+      "asset_references": [
+        "BP_Mindspace_Plaza",
+        "BP_TrafficSignal_SmartCity"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 607421.7,
+        "y_east_cm": -1018570.0,
+        "z_up_cm": 5896.1
+      },
+      "distance_from_central_origin_km": 11.86
+    },
+    {
+      "location_id": "LOC_HYD_GACHIBOWLI_01",
+      "name": "Gachibowli - Financial District & Waverock",
+      "district": "Gachibowli Financial Hub",
+      "latitude": 17.4401,
+      "longitude": 78.3489,
+      "elevation_m": 590.0,
+      "category": "Skyscrapers_Financial",
+      "road_connections": [
+        "Gachibowli_ORR_Interchange",
+        "ISB_Road",
+        "Financial_District_Expressway"
+      ],
+      "building_references": [
+        "SM_Waverock_Tower_A",
+        "SM_Gachibowli_Stadium_Canopy",
+        "SM_ICICI_Regional_HQ"
+      ],
+      "asset_references": [
+        "BP_ORR_Flyover_Interchange",
+        "BP_GlassSkyscraper_Highrise"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 609908.0,
+        "y_east_cm": -1463732.7,
+        "z_up_cm": 6527.8
+      },
+      "distance_from_central_origin_km": 15.86
+    },
+    {
+      "location_id": "LOC_HYD_KONDAPUR_01",
+      "name": "Kondapur - Sarath City Capital Mall",
+      "district": "Cyberabad North",
+      "latitude": 17.4699,
+      "longitude": 78.3578,
+      "elevation_m": 595.0,
+      "category": "Commercial_MegaMall",
+      "road_connections": [
+        "Gachibowli_Miyapur_Road",
+        "Botanical_Garden_Road",
+        "Kothaguda_Flyover"
+      ],
+      "building_references": [
+        "SM_SarathCity_CapitalMall",
+        "SM_KIMS_Hospital_Kondapur"
+      ],
+      "asset_references": [
+        "BP_Kothaguda_MultiLevel_Flyover",
+        "BP_Pedestrian_Skywalk"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 939682.6,
+        "y_east_cm": -1368954.3,
+        "z_up_cm": 6835.3
+      },
+      "distance_from_central_origin_km": 16.6
+    },
+    {
+      "location_id": "LOC_HYD_MIYAPUR_01",
+      "name": "Miyapur - Metro Terminal & Allwyn X Roads",
+      "district": "Northwest Industrial Corridor",
+      "latitude": 17.4968,
+      "longitude": 78.3614,
+      "elevation_m": 580.0,
+      "category": "Transit_Terminal_Commercial",
+      "road_connections": [
+        "NH65_Mumbai_Highway",
+        "Allwyn_X_Roads",
+        "Miyapur_Depot_Way"
+      ],
+      "building_references": [
+        "SM_Miyapur_Metro_Terminal",
+        "SM_Miyapur_Bus_Interchange"
+      ],
+      "asset_references": [
+        "BP_MetroTrain_ElevatedPillar",
+        "BP_Highway_TollGate"
+      ],
+      "priority_phase": "Phase3_RegionalExpansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 1237396.4,
+        "y_east_cm": -1330514.1,
+        "z_up_cm": 4905.6
+      },
+      "distance_from_central_origin_km": 18.17
+    },
+    {
+      "location_id": "LOC_HYD_PATANCHERU_01",
+      "name": "Patancheru - Industrial Corridor & ORR Exit 3",
+      "district": "Outer Industrial Ring",
+      "latitude": 17.5332,
+      "longitude": 78.2647,
+      "elevation_m": 545.0,
+      "category": "Industrial_Warehousing",
+      "road_connections": [
+        "ORR_Expressway_NH65",
+        "Patancheru_Industrial_Ring",
+        "ICRISAT_Boulevard"
+      ],
+      "building_references": [
+        "SM_Industrial_Warehouse_Rig",
+        "SM_Freight_Logistics_Shed"
+      ],
+      "asset_references": [
+        "BP_OuterRingRoad_TollPlaza",
+        "BP_TruckTrailer_Static"
+      ],
+      "priority_phase": "Phase3_RegionalExpansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 1641209.5,
+        "y_east_cm": -2357086.4,
+        "z_up_cm": -2477.4
+      },
+      "distance_from_central_origin_km": 28.72
+    },
+    {
+      "location_id": "LOC_HYD_BANJARA_01",
+      "name": "Banjara Hills - Road No. 1 & Taj Krishna",
+      "district": "Deccan Luxury & National Park",
+      "latitude": 17.4156,
+      "longitude": 78.4358,
+      "elevation_m": 540.0,
+      "category": "Hilly_Residential_Commercial",
+      "road_connections": [
+        "Banjara_Road_No_1",
+        "Road_No_12_Overpass",
+        "Panjagutta_Flyover"
+      ],
+      "building_references": [
+        "SM_TajKrishna_Hotel_Estate",
+        "SM_CityCenter_Mall_Facade"
+      ],
+      "asset_references": [
+        "BP_Granite_Boulder_Slope",
+        "BP_Luxury_Villa_Perimeter"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 338274.9,
+        "y_east_cm": -540541.6,
+        "z_up_cm": 3180.8
+      },
+      "distance_from_central_origin_km": 6.38
+    },
+    {
+      "location_id": "LOC_HYD_MEHDIPATNAM_01",
+      "name": "Mehdipatnam - PVNR Expressway Ramp",
+      "district": "Central Southwest Corridor",
+      "latitude": 17.3916,
+      "longitude": 78.4417,
+      "elevation_m": 515.0,
+      "category": "HighDensity_Transit_Market",
+      "road_connections": [
+        "PVNR_Expressway_Main",
+        "Asif_Nagar_Road",
+        "Gudimalkapur_Ring"
+      ],
+      "building_references": [
+        "SM_RythuBazar_CoveredShed",
+        "SM_Mehdipatnam_Bus_Hub"
+      ],
+      "asset_references": [
+        "BP_PVNR_Elevated_Expressway_Pillars",
+        "BP_StreetMarket_Kiosks"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 72619.5,
+        "y_east_cm": -477910.3,
+        "z_up_cm": 816.9
+      },
+      "distance_from_central_origin_km": 4.83
+    },
+    {
+      "location_id": "LOC_HYD_CENTRAL_01",
+      "name": "Central Hyderabad - Abids Commercial Circle",
+      "district": "Central Heritage Commercial",
+      "latitude": 17.3911,
+      "longitude": 78.4764,
+      "elevation_m": 508.0,
+      "category": "Historic_Commercial",
+      "road_connections": [
+        "Abids_Main_Road",
+        "JN_Road",
+        "Bank_Street_Koti"
+      ],
+      "building_references": [
+        "SM_GPO_Heritage_Dome",
+        "SM_Abids_Shopping_Arcade"
+      ],
+      "asset_references": [
+        "BP_Heritage_Stone_Clock",
+        "BP_Police_Chowki_Booth"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 67032.2,
+        "y_east_cm": -109150.9,
+        "z_up_cm": 287.1
+      },
+      "distance_from_central_origin_km": 1.28
+    },
+    {
+      "location_id": "LOC_HYD_NAMPALLY_01",
+      "name": "Nampally - Hyderabad Deccan Railway Station",
+      "district": "Central Transit District",
+      "latitude": 17.3933,
+      "longitude": 78.4697,
+      "elevation_m": 510.0,
+      "category": "Railway_Terminal_Hub",
+      "road_connections": [
+        "Station_Road_Nampally",
+        "Exhibition_Grounds_Lane",
+        "Mukarram_Jahi_Road"
+      ],
+      "building_references": [
+        "SM_Deccan_Railway_Station_Facade",
+        "SM_Numaish_Exhibition_Hall"
+      ],
+      "asset_references": [
+        "BP_Train_Platform_Canopy",
+        "BP_Railway_Tracks_Spline"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 91387.4,
+        "y_east_cm": -180350.3,
+        "z_up_cm": 467.9
+      },
+      "distance_from_central_origin_km": 2.02
+    },
+    {
+      "location_id": "LOC_HYD_KOTI_01",
+      "name": "Koti - Sultan Bazaar & Osmania Medical",
+      "district": "Central Commercial Hub",
+      "latitude": 17.3828,
+      "longitude": 78.4867,
+      "elevation_m": 502.0,
+      "category": "Dense_Market_Medical",
+      "road_connections": [
+        "Turrebaz_Khan_Road",
+        "Women_College_Road",
+        "Chaderghat_Bridge_Road"
+      ],
+      "building_references": [
+        "SM_Osmania_Medical_College",
+        "SM_SultanBazar_Arcade"
+      ],
+      "asset_references": [
+        "BP_Pedestrian_Bazaar_Canopy",
+        "BP_Footpath_Pavement_Stall"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": -24837.1,
+        "y_east_cm": 308.2,
+        "z_up_cm": -300.5
+      },
+      "distance_from_central_origin_km": 0.25
+    },
+    {
+      "location_id": "LOC_HYD_CHARMINAR_01",
+      "name": "Charminar Surrounding Area & Laad Bazaar",
+      "district": "Old City Historic Core",
+      "latitude": 17.3616,
+      "longitude": 78.4747,
+      "elevation_m": 505.0,
+      "category": "Heritage_Plaza_Market",
+      "road_connections": [
+        "Charminar_Pedestrian_Promenade",
+        "Laad_Bazaar_Street",
+        "Gulzar_Houz_Junction"
+      ],
+      "building_references": [
+        "SM_Charminar_104MB_Production",
+        "SM_LaadBazaar_Shops_Row",
+        "SM_CharKaman_Gateways"
+      ],
+      "asset_references": [
+        "BP_Charminar_Plaza_Fountain",
+        "BP_Heritage_Granite_Paving"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": -259479.3,
+        "y_east_cm": -127237.3,
+        "z_up_cm": -65.8
+      },
+      "distance_from_central_origin_km": 2.89
+    },
+    {
+      "location_id": "LOC_HYD_SECUNDERABAD_01",
+      "name": "Secunderabad - Clock Tower & Railway Junction",
+      "district": "Twin City Northern Hub",
+      "latitude": 17.4399,
+      "longitude": 78.4983,
+      "elevation_m": 543.0,
+      "category": "Cantonment_RailwayHub",
+      "road_connections": [
+        "Rashtrapati_Road",
+        "MG_Road_Secunderabad",
+        "Paradise_Circle_Flyover"
+      ],
+      "building_references": [
+        "SM_Secunderabad_ClockTower",
+        "SM_Secunderabad_Junction_Terminal"
+      ],
+      "asset_references": [
+        "BP_Cantonment_Stone_Boundary",
+        "BP_Paradise_Biryani_Landmark"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 607167.7,
+        "y_east_cm": 123550.4,
+        "z_up_cm": 3497.4
+      },
+      "distance_from_central_origin_km": 6.2
+    },
+    {
+      "location_id": "LOC_HYD_UPPAL_01",
+      "name": "Uppal - Skywalk & Rajiv Gandhi Stadium",
+      "district": "East City Sports & Tech",
+      "latitude": 17.4019,
+      "longitude": 78.5603,
+      "elevation_m": 495.0,
+      "category": "Stadium_ElevatedTransit",
+      "road_connections": [
+        "Warangal_Highway_NH163",
+        "Uppal_Crossroads_Flyover",
+        "Ramanthapur_Road"
+      ],
+      "building_references": [
+        "SM_RajivGandhi_CricketStadium",
+        "SM_Uppal_Elevated_Skywalk"
+      ],
+      "asset_references": [
+        "BP_Circular_Skywalk_Pillars",
+        "BP_Stadium_Floodlight_Tower"
+      ],
+      "priority_phase": "Phase3_RegionalExpansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 186716.1,
+        "y_east_cm": 782414.7,
+        "z_up_cm": -1507.2
+      },
+      "distance_from_central_origin_km": 8.04
+    },
+    {
+      "location_id": "LOC_HYD_GHATKESAR_01",
+      "name": "Ghatkesar - Eastern ORR Growth Corridor",
+      "district": "Eastern Outer Ring",
+      "latitude": 17.4478,
+      "longitude": 78.6833,
+      "elevation_m": 490.0,
+      "category": "Expressway_Industrial_Educational",
+      "road_connections": [
+        "ORR_Exit_9_Ghatkesar",
+        "Warangal_Highway_Expressway",
+        "AIIMS_Bibinagar_Approach"
+      ],
+      "building_references": [
+        "SM_Ghatkesar_Logistics_Park",
+        "SM_Tech_Campus_Block"
+      ],
+      "asset_references": [
+        "BP_ORR_8Lane_Segment",
+        "BP_Highway_LED_MastLight"
+      ],
+      "priority_phase": "Phase3_RegionalExpansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 695669.2,
+        "y_east_cm": 2088940.5,
+        "z_up_cm": -5301.1
+      },
+      "distance_from_central_origin_km": 22.02
+    },
+    {
+      "location_id": "LOC_HYD_OSMANSAGAR_01",
+      "name": "Osman Sagar (Gandipet) Reservoir & Spillway",
+      "district": "Western Water Reservoir",
+      "latitude": 17.3811,
+      "longitude": 78.2989,
+      "elevation_m": 546.0,
+      "category": "WaterBody_Dam_NaturePark",
+      "road_connections": [
+        "Gandipet_Main_Road",
+        "CBIT_Shankarpalli_Road",
+        "Musi_Headwaters_Bund"
+      ],
+      "building_references": [
+        "SM_Gandipet_Heritage_Bunglow",
+        "SM_Dam_Spillway_SluiceGates"
+      ],
+      "asset_references": [
+        "BP_WaterSurface_Lake_Large",
+        "BP_Shoreline_Granite_RipRap"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": -42676.3,
+        "y_east_cm": -1995577.1,
+        "z_up_cm": 977.9
+      },
+      "distance_from_central_origin_km": 19.96
+    },
+    {
+      "location_id": "LOC_HYD_AIRPORT_01",
+      "name": "Rajiv Gandhi International Airport (RGIA)",
+      "district": "Southern Aeropolis Zone",
+      "latitude": 17.2403,
+      "longitude": 78.4294,
+      "elevation_m": 617.0,
+      "category": "Aviation_InternationalAirport",
+      "road_connections": [
+        "Airport_Expressway_PVNR",
+        "ORR_Exit_16_Shamshabad",
+        "Cargo_Apron_Spur"
+      ],
+      "building_references": [
+        "SM_RGIA_Terminal_Main",
+        "SM_AirTrafficControl_Tower",
+        "SM_Novotel_Aeropolis"
+      ],
+      "asset_references": [
+        "BP_Runway_Asphalt_09L_27R",
+        "BP_Runway_Edge_Lighting"
+      ],
+      "priority_phase": "Phase2_Expansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": -1601983.8,
+        "y_east_cm": -609131.3,
+        "z_up_cm": 8885.8
+      },
+      "distance_from_central_origin_km": 17.14
+    },
+    {
+      "location_id": "LOC_HYD_SHAMSHABAD_01",
+      "name": "Shamshabad - Aeropolis & NH44 Hub",
+      "district": "Southern Gateway",
+      "latitude": 17.26,
+      "longitude": 78.398,
+      "elevation_m": 590.0,
+      "category": "Logistics_Commercial_NH44",
+      "road_connections": [
+        "NH44_Bengaluru_Highway",
+        "Shamshabad_Junction",
+        "PVNR_Starting_Interchange"
+      ],
+      "building_references": [
+        "SM_Aeropolis_Business_Tower",
+        "SM_Shamshabad_Freight_Hub"
+      ],
+      "asset_references": [
+        "BP_Highway_Cloverleaf_Interchange",
+        "BP_Overhead_Gantry_Sign"
+      ],
+      "priority_phase": "Phase3_RegionalExpansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": -1383806.4,
+        "y_east_cm": -942995.7,
+        "z_up_cm": 6293.4
+      },
+      "distance_from_central_origin_km": 16.75
+    },
+    {
+      "location_id": "LOC_HYD_RAMOJI_01",
+      "name": "Ramoji Film City Surroundings",
+      "district": "Southeast Cinematic Zone",
+      "latitude": 17.2543,
+      "longitude": 78.6808,
+      "elevation_m": 485.0,
+      "category": "Cinematic_Studio_Tourism",
+      "road_connections": [
+        "NH65_Vijayawada_Highway",
+        "Film_City_Main_Drive",
+        "Abdullapurmet_Spur"
+      ],
+      "building_references": [
+        "SM_FilmCity_Grand_Arch",
+        "SM_Studio_Soundstage_Hangar"
+      ],
+      "asset_references": [
+        "BP_Scenic_Hills_Landscape",
+        "BP_Highway_Median_Greenery"
+      ],
+      "priority_phase": "Phase3_RegionalExpansion",
+      "unreal_coordinates_cm": {
+        "x_north_cm": -1446044.3,
+        "y_east_cm": 2064543.6,
+        "z_up_cm": -6988.8
+      },
+      "distance_from_central_origin_km": 25.21
+    },
+    {
+      "location_id": "LOC_HYD_DURGAM_01",
+      "name": "Durgam Cheruvu & Cable-Stayed Bridge",
+      "district": "Cyberabad Water Corridor",
+      "latitude": 17.4325,
+      "longitude": 78.3844,
+      "elevation_m": 560.0,
+      "category": "Bridge_Lake_Promenade",
+      "road_connections": [
+        "Jubilee_Hills_Road_No_45",
+        "Inorbit_Cable_Bridge_Flyover",
+        "Knowledge_City_Way"
+      ],
+      "building_references": [
+        "SM_CableStayed_Pylon_East",
+        "SM_CableStayed_Pylon_West"
+      ],
+      "asset_references": [
+        "BP_CableStayed_Bridge_Complete",
+        "BP_DurgamCheruvu_WaterBody"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 525549.4,
+        "y_east_cm": -1086607.2,
+        "z_up_cm": 4357.0
+      },
+      "distance_from_central_origin_km": 12.07
+    },
+    {
+      "location_id": "LOC_HYD_HUSSAINSAGAR_01",
+      "name": "Hussain Sagar Lake & Necklace Road Promenade",
+      "district": "Tank Bund Promenade",
+      "latitude": 17.4239,
+      "longitude": 78.4738,
+      "elevation_m": 512.0,
+      "category": "Waterfront_Promenade_Lake",
+      "road_connections": [
+        "Necklace_Road_Boulevard",
+        "Tank_Bund_Main",
+        "Secretariat_Approach"
+      ],
+      "building_references": [
+        "SM_Telangana_Secretariat_Facade",
+        "SM_Sanjeevaiah_Park_Pavilion"
+      ],
+      "asset_references": [
+        "BP_HussainSagar_WaterBody",
+        "BP_TankBund_Granite_Pillars"
+      ],
+      "priority_phase": "Phase1_HighDetailPrototype",
+      "unreal_coordinates_cm": {
+        "x_north_cm": 430073.0,
+        "y_east_cm": -136757.0,
+        "z_up_cm": 539.5
+      },
+      "distance_from_central_origin_km": 4.51
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_Charminar",
+  "real_world_name": "Charminar Monument (ASI Monument N-AP-78)",
+  "district": "Old City",
+  "wgs84_coordinates": {
+    "lat": 17.3616,
+    "lon": 78.4747,
+    "elevation_m": 505.0
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 231615.0,
+    "utm_northing_m": 1921490.0,
+    "ue5_x_cm": 0.0,
+    "ue5_y_cm": -0.0,
+    "ue5_z_cm": 0.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 20.0,
+    "depth_y": 20.0,
+    "height_z": 56.0
+  },
+  "source_url": "https://commons.wikimedia.org/wiki/File:Charminar-front.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Charminar-front.jpg",
+  "secondary_reference_url": "https://commons.wikimedia.org/wiki/File:Charminar-Pride_of_Hyderabad.jpg",
+  "osm_gis_reference": "https://www.openstreetmap.org/way/247829412",
+  "license": "CC BY-SA 4.0 / ASI Monument Photo Policy",
+  "attribution": "Wikimedia Commons Contributors / Archaeological Survey of India",
+  "viewing_angles_collected": 18,
+  "reconstruction_method": "METHOD_A_HYBRID_PHOTOGRAMMETRY_AND_CAD",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}

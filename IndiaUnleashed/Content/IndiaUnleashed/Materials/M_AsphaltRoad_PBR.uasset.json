@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_AsphaltRoad_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_AsphaltRoad_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_AsphaltRoad_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_AsphaltRoad_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_AsphaltRoad_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_AsphaltRoad_AO"
+  }
+}

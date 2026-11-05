@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_GolcondaFort",
+  "real_world_name": "Golconda Fort Citadel & Bala Hisar Pavilion",
+  "district": "Golconda District",
+  "wgs84_coordinates": {
+    "lat": 17.3833,
+    "lon": 78.4011,
+    "elevation_m": 610.0
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 223792.83,
+    "utm_northing_m": 1923891.61,
+    "ue5_x_cm": -782216.9,
+    "ue5_y_cm": -240160.9,
+    "ue5_z_cm": 10500.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 160.0,
+    "depth_y": 160.0,
+    "height_z": 48.0
+  },
+  "source_url": "https://commons.wikimedia.org/wiki/File:Golconda_Fort_in_all_it%27s_glory.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Golconda_Fort_in_all_it%27s_glory.jpg",
+  "secondary_reference_url": "https://commons.wikimedia.org/wiki/File:Golconda_fort_15032012.jpg",
+  "osm_gis_reference": "https://commons.wikimedia.org/wiki/Category:Golconda_Fort",
+  "license": "CC BY-SA 3.0 / ASI Monument",
+  "attribution": "Wikimedia Commons Contributors",
+  "viewing_angles_collected": 20,
+  "reconstruction_method": "METHOD_A_HYBRID_PHOTOGRAMMETRY_AND_CAD",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}

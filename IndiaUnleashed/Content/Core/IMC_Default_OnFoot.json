@@ -1,0 +1,89 @@
+{
+  "MappingContextName": "IMC_Default_OnFoot",
+  "Bindings": [
+    {
+      "Action": "IA_Move",
+      "ValueType": "Axis2D",
+      "Keys": [
+        "W",
+        "S",
+        "A",
+        "D",
+        "Gamepad_Left2D",
+        "Touch_LeftVirtualJoystick"
+      ]
+    },
+    {
+      "Action": "IA_Look",
+      "ValueType": "Axis2D",
+      "Keys": [
+        "Mouse2D",
+        "Gamepad_Right2D",
+        "Touch_RightSwipeZone"
+      ]
+    },
+    {
+      "Action": "IA_Jump",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "SpaceBar",
+        "Gamepad_FaceButton_Bottom",
+        "Touch_Btn_Jump"
+      ]
+    },
+    {
+      "Action": "IA_Sprint",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "LeftShift",
+        "Gamepad_LeftThumbstick",
+        "Touch_Btn_Sprint"
+      ]
+    },
+    {
+      "Action": "IA_Crouch",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "C",
+        "Gamepad_FaceButton_Right",
+        "Touch_Btn_Crouch"
+      ]
+    },
+    {
+      "Action": "IA_Interact",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "E",
+        "Gamepad_FaceButton_Left",
+        "Touch_Btn_Interact"
+      ]
+    },
+    {
+      "Action": "IA_Fire",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "LeftMouseButton",
+        "Gamepad_RightTrigger",
+        "Touch_Btn_Fire"
+      ]
+    },
+    {
+      "Action": "IA_Aim",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "RightMouseButton",
+        "Gamepad_LeftTrigger",
+        "Touch_Btn_Aim"
+      ]
+    },
+    {
+      "Action": "IA_Reload",
+      "ValueType": "DigitalBool",
+      "Keys": [
+        "R",
+        "Gamepad_FaceButton_Top",
+        "Touch_Btn_Reload"
+      ]
+    }
+  ]
+}

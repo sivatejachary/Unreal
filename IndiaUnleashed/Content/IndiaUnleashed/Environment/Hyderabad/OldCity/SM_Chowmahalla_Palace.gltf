@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SM_Chowmahalla_Palace",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SM_Chowmahalla_Palace_LOD0",
+      "extras": {
+        "DimensionsM": [
+          85.0,
+          42.0,
+          18.0
+        ],
+        "Material": "M_LimeStucco_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 9800,
+          "LOD1_PC_High": 4900,
+          "LOD2_Android_High": 2450,
+          "LOD3_Android_Low": 1176
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SM_Chowmahalla_Palace",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+# Large 3D Binary Meshes (Excluded per user instruction)
+*.glb
+*.fbx
+
+# Archives and Large Backups
+*.zip
+*.7z
+*.rar
+*.tar.gz
+Backup_*/
+*/Backup_*/
+
+# Unreal Engine Generated Folders & Cache
+Binaries/
+Intermediate/
+DerivedDataCache/
+Saved/
+Build/
+.vscode/
+.vs/
+*.VC.db
+*.opensdf
+*.opendb
+*.sdf
+*.sln
+
+# Python & Backend Artifacts
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+.venv/
+.pytest_cache/
+*.log
+
+# System & OS Files
+.DS_Store
+Thumbs.db
+desktop.ini

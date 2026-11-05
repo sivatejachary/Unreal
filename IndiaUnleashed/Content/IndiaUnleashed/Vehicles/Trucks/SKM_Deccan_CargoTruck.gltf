@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_Deccan_CargoTruck",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_Deccan_CargoTruck_LOD0",
+      "extras": {
+        "DimensionsM": [
+          8.6,
+          2.48,
+          3.3
+        ],
+        "Material": "M_AutoRickshawPaint_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 13900,
+          "LOD1_PC_High": 6950,
+          "LOD2_Android_High": 3475,
+          "LOD3_Android_Low": 1668
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_Deccan_CargoTruck",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

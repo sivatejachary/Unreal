@@ -1,0 +1,11 @@
+# INDIA UNLEASHED – 7-Phase Development Roadmap
+
+| Phase | Milestone Name | Status | Key Deliverables & Gate Criteria |
+| :--- | :--- | :--- | :--- |
+| **Phase 1** | **Foundation (Alpha 0.1)** | **COMPLETED** | Modular 7-module C++ architecture, Enhanced Input, `AIUCharacter` + `UIUCharacterMovementComponent` (walk/jog/sprint/crouch/jump/swim), `AIUPlayerCameraManager`, replicated `AIUPlayerState`, 2-player listen-server session flow, 13 C++ test suites passing. |
+| **Phase 2** | **Hyderabad Prototype (Alpha 0.1/0.2)** | **IN PROGRESS (Blockout Complete)** | `AIUCharminarBlockoutActor` (56m monument blockout), 18-POI Hyderabad registry across 6 districts, Old City & Tank Bund data layers, Editor automated map builder (`Scripts/BuildHyderabadPrototypeInEditor.py`). Next: custom PBR materials and minimap UI widget binding in Editor. |
+| **Phase 3** | **Core Open-World Gameplay (Alpha 0.3)** | **FOUNDATION READY** | `AIUVehicleBase` (Auto-Rickshaw, Sedan, Bike, Bus, Boat), `AIUWeaponBase` + `UIUInventoryComponent`, `UIUMissionSubsystem` (`M01_OldCityArrival`), NPC/Traffic distance LOD scaling (`Tier0` to `Tier3`), Wanted Level (`0–5`) Police dispatch. Next: Behavior Tree assets & Chaos Wheel Blueprints. |
+| **Phase 4** | **Multiplayer City (Beta 0.1)** | **FOUNDATION READY** | `IndiaUnleashedServer.Target.cs`, `UIUSessionSubsystem`, FastAPI + SQLite/PostgreSQL + Redis backend (`Backend/app`), HMAC-signed authoritative rewards, party & vehicle garage sync. Next: EOS SDK production credentials & 32-player stress test. |
+| **Phase 5** | **Battle Royale Mode (Beta 0.2)** | **ARCHITECTED (Gated)** | `AIUBRGameMode` shrinking safe-zone math centered on Hussain Sagar Lake, storm damage ticks, match victory attribution. Gated behind 32-player Multiplayer City validation before scaling to 100 players. |
+| **Phase 6** | **Cross-Platform & Android (Beta 0.3)** | **CONFIGURED** | `Config/Android/AndroidEngine.ini` (`ASTC`, `Vulkan`/`ES3.1`, API 29–34), `Config/DefaultDeviceProfiles.ini` (`Android_Low`/`Mid`/`High`), Touch input context. Next: physical device thermal & memory profiling. |
+| **Phase 7** | **QA, Load Testing & Release (v1.0)** | **PLANNED** | 100-bot headless dedicated server load test, penetration testing on FastAPI endpoints, Play Store `.aab` and Windows Steam/Epic release packaging. |

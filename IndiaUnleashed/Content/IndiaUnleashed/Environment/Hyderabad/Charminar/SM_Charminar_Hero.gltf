@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SM_Charminar_Hero",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SM_Charminar_Hero_LOD0",
+      "extras": {
+        "DimensionsM": [
+          20.0,
+          20.0,
+          56.0
+        ],
+        "Material": "M_LimeStucco_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 14800,
+          "LOD1_PC_High": 7400,
+          "LOD2_Android_High": 3700,
+          "LOD3_Android_Low": 1776
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SM_Charminar_Hero",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

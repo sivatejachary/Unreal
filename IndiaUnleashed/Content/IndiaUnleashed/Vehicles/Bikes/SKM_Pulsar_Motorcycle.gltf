@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_Pulsar_Motorcycle",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_Pulsar_Motorcycle_LOD0",
+      "extras": {
+        "DimensionsM": [
+          2.05,
+          0.78,
+          1.12
+        ],
+        "Material": "M_BrushedMetal_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 9400,
+          "LOD1_PC_High": 4700,
+          "LOD2_Android_High": 2350,
+          "LOD3_Android_Low": 1128
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_Pulsar_Motorcycle",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

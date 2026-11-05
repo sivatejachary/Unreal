@@ -1,0 +1,25 @@
+{
+  "assetName": "ABP_IU_MasterHumanoid",
+  "targetSkeleton": "/Game/IndiaUnleashed/Characters/Player/SK_IU_Humanoid_Master",
+  "totalSequenceCount": 50,
+  "weaponClassProfiles": 5,
+  "stateMachines": [
+    "SM_Locomotion_MotionMatching_14States",
+    "SM_Traversal_JumpVaultClimb_10States",
+    "SM_UpperBody_WeaponCombat_12States",
+    "SM_FullBody_HitReactionsAndDBNO_7States",
+    "SM_FullBody_ObjectAndVehicleInteractions_7States"
+  ],
+  "layeredBlendPerBone": {
+    "blendRootBone": "spine_01",
+    "meshSpaceRotationBlend": true,
+    "curveBlendOption": "Override"
+  },
+  "mobileOptimization": {
+    "bEnableUpdateRateOptimization": true,
+    "lod0RateHz": 60,
+    "lod1RateHz": 30,
+    "lod2RateHz": 15,
+    "fingerAndFaceBoneCullThresholdLOD": 2
+  }
+}

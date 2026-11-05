@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_NPC_LaadShopkeeper",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_NPC_LaadShopkeeper_LOD0",
+      "extras": {
+        "DimensionsM": [
+          0.54,
+          0.34,
+          1.72
+        ],
+        "Material": "M_CottonKurtaFabric_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 9200,
+          "LOD1_PC_High": 4600,
+          "LOD2_Android_High": 2300,
+          "LOD3_Android_Low": 1104
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_NPC_LaadShopkeeper",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

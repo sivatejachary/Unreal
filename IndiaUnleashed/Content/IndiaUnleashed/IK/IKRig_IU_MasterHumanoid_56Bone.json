@@ -1,0 +1,47 @@
+{
+  "assetName": "IKRig_IU_MasterHumanoid_56Bone",
+  "pelvisBone": "pelvis",
+  "solvers": [
+    {
+      "solverType": "TwoBoneFootIK",
+      "leftChain": [
+        "thigh_l",
+        "calf_l",
+        "foot_l"
+      ],
+      "rightChain": [
+        "thigh_r",
+        "calf_r",
+        "foot_r"
+      ]
+    },
+    {
+      "solverType": "TwoBoneHandWeaponIK",
+      "leftChain": [
+        "upperarm_l",
+        "lowerarm_l",
+        "hand_l"
+      ],
+      "rightChain": [
+        "upperarm_r",
+        "lowerarm_r",
+        "hand_r"
+      ]
+    },
+    {
+      "solverType": "FullBodyAimSpineIK",
+      "spineChain": [
+        "spine_01",
+        "spine_02",
+        "spine_03",
+        "neck_01",
+        "head"
+      ]
+    },
+    {
+      "solverType": "ArticulatedFingerGripRig",
+      "fingersPerHand": 5,
+      "bonesPerHand": 15
+    }
+  ]
+}

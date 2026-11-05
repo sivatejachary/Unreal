@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_CottonKurtaFabric_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_CottonKurtaFabric_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_CottonKurtaFabric_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_CottonKurtaFabric_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_CottonKurtaFabric_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_CottonKurtaFabric_AO"
+  }
+}

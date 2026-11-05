@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_OldCityBrick_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_OldCityBrick_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_OldCityBrick_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_OldCityBrick_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_OldCityBrick_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_OldCityBrick_AO"
+  }
+}

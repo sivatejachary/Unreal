@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_DeccanGranite_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_DeccanGranite_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_DeccanGranite_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_DeccanGranite_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_DeccanGranite_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_DeccanGranite_AO"
+  }
+}

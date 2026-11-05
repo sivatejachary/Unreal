@@ -1,0 +1,89 @@
+{
+  "AssetType": "WidgetBlueprint",
+  "BlueprintClass": "/Game/IndiaUnleashed/UI/WBP_MobileControlsLayout.WBP_MobileControlsLayout_C",
+  "ParentClass": "/Script/UMG.UserWidget",
+  "Description": "Production PUBG/BGMI Mobile Multi-Touch Control Layout for Android & Touch Devices.",
+  "Widgets": [
+    {
+      "Name": "Joystick_Move",
+      "Type": "AnalogVirtualJoystick",
+      "NormalizedPos": [0.16, 0.72],
+      "Radius": 72.0,
+      "Deadzone": 0.12,
+      "bSupportsSprintLock": true,
+      "SprintLockThresholdY": 0.52
+    },
+    {
+      "Name": "Btn_PrimaryFire_Right",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.84, 0.68],
+      "Radius": 52.0,
+      "Icon": "T_Icon_Bullet_Fire",
+      "HapticFeedback": true
+    },
+    {
+      "Name": "Btn_SecondaryFire_Left",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.14, 0.22],
+      "Radius": 42.0,
+      "Icon": "T_Icon_Left_Fire",
+      "bVisibleInClawModeOnly": true
+    },
+    {
+      "Name": "Btn_ADS_Scope",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.88, 0.44],
+      "Radius": 46.0,
+      "Icon": "T_Icon_Crosshair_Scope",
+      "ToggleMode": "HoldOrTap"
+    },
+    {
+      "Name": "Btn_Jump",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.93, 0.78],
+      "Radius": 40.0,
+      "Icon": "T_Icon_Jump"
+    },
+    {
+      "Name": "Btn_Crouch",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.83, 0.86],
+      "Radius": 38.0,
+      "Icon": "T_Icon_Crouch"
+    },
+    {
+      "Name": "Btn_Prone",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.74, 0.90],
+      "Radius": 36.0,
+      "Icon": "T_Icon_Prone"
+    },
+    {
+      "Name": "Btn_Reload",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.75, 0.74],
+      "Radius": 38.0,
+      "Icon": "T_Icon_Reload"
+    },
+    {
+      "Name": "Btn_Peek_Left",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.22, 0.46],
+      "Radius": 36.0,
+      "Icon": "T_Icon_Peek_L"
+    },
+    {
+      "Name": "Btn_Peek_Right",
+      "Type": "TouchButton",
+      "NormalizedPos": [0.29, 0.46],
+      "Radius": 36.0,
+      "Icon": "T_Icon_Peek_R"
+    },
+    {
+      "Name": "TouchArea_CameraSwipe",
+      "Type": "TouchRegion",
+      "NormalizedBounds": [0.45, 0.0, 1.0, 0.9],
+      "Description": "Smooth right-half camera look surface with scope-dependent sensitivity scaling"
+    }
+  ]
+}

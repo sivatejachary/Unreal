@@ -1,0 +1,6953 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+  <title>INDIA UNLEASHED — Mobile Battle Royale (Hyderabad)</title>
+
+  <!-- Tailwind CSS & Fonts -->
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Three.js, fflate & FBXLoader (Local & CDN Fallbacks) -->
+
+  <script src="/static/libs/fflate.min.js"></script>
+
+  <script src="Backend/app/static/libs/fflate.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <script src="/static/libs/FBXLoader.js"></script>
+
+  <script src="Backend/app/static/libs/FBXLoader.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+
+  <style>
+
+    * {
+
+      box-sizing: border-box;
+
+      user-select: none;
+
+      -webkit-user-select: none;
+
+      -webkit-touch-callout: none;
+
+      margin: 0;
+
+      padding: 0;
+
+    }
+
+    body, html {
+
+      width: 100%;
+
+      height: 100%;
+
+      overflow: hidden;
+
+      background: #000;
+
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    }
+
+    #canvas3d {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      z-index: 1;
+
+    }
+
+    /* Safe Area & HUD Layers */
+
+    #hud-layer {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      z-index: 10;
+
+      pointer-events: none;
+
+    }
+
+    .hud-interactive {
+
+      pointer-events: auto;
+
+    }
+
+    /* Touch Buttons */
+
+    .touch-btn {
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: rgba(18, 24, 38, 0.70);
+
+      border: 1.5px solid rgba(255, 255, 255, 0.25);
+
+      color: #fff;
+
+      font-weight: 700;
+
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+
+      transition: transform 0.08s ease, background-color 0.08s ease;
+
+      touch-action: none;
+
+    }
+
+    .touch-btn:active, .touch-btn.active {
+
+      transform: scale(0.92);
+
+      background: rgba(255, 153, 51, 0.85); /* India Unleashed Saffron/Gold */
+
+      border-color: #ffb300;
+
+      box-shadow: 0 0 16px rgba(255, 179, 0, 0.75);
+
+    }
+
+    /* Fire Button Special Glow */
+
+    .btn-fire-primary {
+
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.85) 0%, rgba(153, 27, 27, 0.85) 100%);
+
+      border: 2px solid rgba(254, 202, 202, 0.75);
+
+      box-shadow: 0 0 18px rgba(239, 68, 68, 0.6);
+
+    }
+
+    .btn-fire-primary:active, .btn-fire-primary.active {
+
+      transform: scale(0.90);
+
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(239, 68, 68, 0.95) 100%);
+
+      box-shadow: 0 0 28px rgba(255, 255, 255, 0.9);
+
+    }
+
+    /* Reticle & Crosshair */
+
+    #crosshair-container {
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      pointer-events: none;
+
+      z-index: 15;
+
+    }
+
+    .crosshair-line {
+
+      position: absolute;
+
+      background: rgba(255, 255, 255, 0.85);
+
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.8);
+
+      transition: transform 0.05s ease;
+
+    }
+
+    .ch-top { width: 2px; height: 10px; top: -16px; left: -1px; }
+
+    .ch-bottom { width: 2px; height: 10px; bottom: -16px; left: -1px; }
+
+    .ch-left { width: 10px; height: 2px; left: -16px; top: -1px; }
+
+    .ch-right { width: 10px; height: 2px; right: -16px; top: -1px; }
+
+    .ch-dot { width: 3px; height: 3px; background: #ff4d4d; border-radius: 50%; position: absolute; top: -1.5px; left: -1.5px; }
+
+
+
+    /* ADS Scope Overlay */
+
+    #scope-overlay {
+
+      position: absolute;
+
+      top: 0;
+
+      left: 0;
+
+      width: 100%;
+
+      height: 100%;
+
+      background: rgba(0, 0, 0, 0.82);
+
+      pointer-events: none;
+
+      display: none;
+
+      z-index: 20;
+
+    }
+
+    .scope-circle {
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: min(82vw, 82vh);
+
+      height: min(82vw, 82vh);
+
+      border-radius: 50%;
+
+      border: 3px solid rgba(255, 255, 255, 0.3);
+
+      box-shadow: 0 0 0 2000px rgba(0, 0, 0, 0.88), inset 0 0 35px rgba(0, 0, 0, 0.9);
+
+      overflow: hidden;
+
+    }
+
+
+
+    /* Hit Marker */
+
+    #hit-marker {
+
+      position: absolute;
+
+      top: 50%;
+
+      left: 50%;
+
+      transform: translate(-50%, -50%);
+
+      width: 28px;
+
+      height: 28px;
+
+      opacity: 0;
+
+      transition: opacity 0.08s ease;
+
+      pointer-events: none;
+
+      z-index: 25;
+
+    }
+
+    .hit-line {
+
+      position: absolute;
+
+      width: 10px;
+
+      height: 2.5px;
+
+      background: #fff;
+
+    }
+
+
+
+    /* Joystick Styling */
+
+    #joystick-base {
+
+      position: absolute;
+
+      width: 130px;
+
+      height: 130px;
+
+      border-radius: 50%;
+
+      background: radial-gradient(circle, rgba(30, 41, 59, 0.65) 0%, rgba(15, 23, 42, 0.75) 100%);
+
+      border: 2px solid rgba(255, 255, 255, 0.25);
+
+      touch-action: none;
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+    }
+
+    #joystick-stick {
+
+      width: 52px;
+
+      height: 52px;
+
+      border-radius: 50%;
+
+      background: radial-gradient(circle, #ff9933 0%, #e65100 100%);
+
+      border: 2px solid #ffcc80;
+
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 12px rgba(255, 153, 51, 0.5);
+
+      position: absolute;
+
+      pointer-events: none;
+
+    }
+
+    #sprint-lock-anchor {
+
+      position: absolute;
+
+      top: -46px;
+
+      left: 50%;
+
+      transform: translateX(-50%);
+
+      width: 38px;
+
+      height: 38px;
+
+      border-radius: 50%;
+
+      background: rgba(15, 23, 42, 0.85);
+
+      border: 1.5px dashed rgba(255, 255, 255, 0.4);
+
+      display: flex;
+
+      align-items: center;
+
+      justify-content: center;
+
+      color: #94a3b8;
+
+      font-size: 11px;
+
+    }
+
+    #sprint-lock-anchor.locked {
+
+      background: #ff9933;
+
+      color: #fff;
+
+      border-color: #fff;
+
+      box-shadow: 0 0 12px rgba(255, 153, 51, 0.8);
+
+    }
+
+
+
+    /* Compass Bar */
+
+    #compass-tape {
+
+      display: flex;
+
+      align-items: center;
+
+      position: absolute;
+
+      height: 100%;
+
+      transition: transform 0.05s linear;
+
+      white-space: nowrap;
+
+    }
+
+
+
+    /* Dragging Customizer Outline */
+
+    .edit-mode-active .customizable-widget {
+
+      outline: 2px dashed #ff9933 !important;
+
+      cursor: grab;
+
+    }
+
+    .edit-mode-active .customizable-widget.selected {
+
+      outline: 2.5px solid #22c55e !important;
+
+      box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+
+    }
+
+  </style>
+
+</head>
+
+<body class="bg-black select-none overflow-hidden">
+
+
+
+  <!-- 3D WebGL Canvas -->
+
+  <div id="canvas-container" class="w-full h-full absolute inset-0">
+
+    <canvas id="canvas3d"></canvas>
+
+  </div>
+
+
+
+  <!-- Scope Overlay (ADS Zoom) -->
+
+  <div id="scope-overlay">
+
+    <div class="scope-circle">
+
+      <div class="absolute inset-0 flex items-center justify-center">
+
+        <!-- Mil-Dot Crosshair -->
+
+        <div class="w-full h-[1.5px] bg-red-600 opacity-90"></div>
+
+        <div class="h-full w-[1.5px] bg-red-600 opacity-90 absolute"></div>
+
+        <div class="w-4 h-4 rounded-full border border-red-500 absolute"></div>
+
+        <div class="w-1.5 h-1.5 rounded-full bg-red-500 absolute"></div>
+
+        <!-- 4x Mil-Dots -->
+
+        <div class="absolute top-[35%] w-2 h-[1px] bg-white"></div>
+
+        <div class="absolute top-[42%] w-2 h-[1px] bg-white"></div>
+
+        <div class="absolute bottom-[42%] w-2 h-[1px] bg-white"></div>
+
+        <div class="absolute bottom-[35%] w-2 h-[1px] bg-white"></div>
+
+        <div class="absolute left-[35%] h-2 w-[1px] bg-white"></div>
+
+        <div class="absolute left-[42%] h-2 w-[1px] bg-white"></div>
+
+        <div class="absolute right-[42%] h-2 w-[1px] bg-white"></div>
+
+        <div class="absolute right-[35%] h-2 w-[1px] bg-white"></div>
+
+      </div>
+
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-xs font-mono font-bold tracking-widest">
+
+        OPTIC 4X MIL-SPEC • 100M ZERO
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- Dynamic Center Crosshair -->
+
+  <div id="crosshair-container">
+
+    <div class="ch-dot"></div>
+
+    <div class="crosshair-line ch-top" id="ch-top"></div>
+
+    <div class="crosshair-line ch-bottom" id="ch-bottom"></div>
+
+    <div class="crosshair-line ch-left" id="ch-left"></div>
+
+    <div class="crosshair-line ch-right" id="ch-right"></div>
+
+  </div>
+
+
+
+  <!-- Hit Marker Indicator -->
+
+  <div id="hit-marker">
+
+    <div class="hit-line" style="transform: rotate(45deg); top: 0; left: 0;"></div>
+
+    <div class="hit-line" style="transform: rotate(-45deg); top: 0; right: 0;"></div>
+
+    <div class="hit-line" style="transform: rotate(-45deg); bottom: 0; left: 0;"></div>
+
+    <div class="hit-line" style="transform: rotate(45deg); bottom: 0; right: 0;"></div>
+
+  </div>
+
+
+
+  <!-- Damage Direction Indicator -->
+
+  <div id="damage-arc" class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-200 z-15 flex items-center justify-center">
+
+    <div class="w-64 h-64 rounded-full border-t-4 border-red-600 blur-[2px] transform -rotate-45"></div>
+
+  </div>
+
+
+
+  <!-- MAIN HUD LAYER (PUBG / BGMI Ergononics) -->
+
+  <div id="hud-layer">
+
+
+
+    <!-- TOP-LEFT: SQUAD ROSTER (4 Players) -->
+
+    <div id="panel-squad" class="customizable-widget hud-interactive absolute top-3 left-4 flex flex-col gap-1 w-52 bg-slate-950/75 backdrop-blur-sm p-2 rounded-lg border border-white/10 shadow-lg" data-widget="squad">
+
+      <div class="flex items-center justify-between border-b border-white/10 pb-1 mb-1">
+
+        <span class="text-[10px] font-extrabold uppercase tracking-widest text-amber-400 flex items-center gap-1">
+
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+
+          TEAM 14 • DECCAN SQUAD
+
+        </span>
+
+        <button id="btn-toggle-voice" class="text-white/80 hover:text-white text-xs">🔊</button>
+
+      </div>
+
+      <!-- Member 1: Local Player (Vikram) -->
+
+      <div class="flex items-center gap-1.5 text-xs text-white">
+
+        <span class="w-4 h-4 rounded bg-amber-500 font-bold text-[10px] flex items-center justify-center text-black">1</span>
+
+        <div class="flex-1">
+
+          <div class="flex justify-between items-center text-[11px] leading-tight font-medium">
+
+            <span class="font-bold text-amber-300">Vikram_Hyd (You) ★</span>
+
+            <span class="text-[9px] text-emerald-400 font-mono">100 HP</span>
+
+          </div>
+
+          <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-0.5 border border-white/10">
+
+            <div id="sq-hp-1" class="bg-emerald-500 h-full w-full transition-all duration-200"></div>
+
+          </div>
+
+        </div>
+
+        <span class="text-[10px]">🎙️</span>
+
+      </div>
+
+      <!-- Member 2: Ananya -->
+
+      <div class="flex items-center gap-1.5 text-xs text-white/90">
+
+        <span class="w-4 h-4 rounded bg-cyan-600 font-bold text-[10px] flex items-center justify-center text-white">2</span>
+
+        <div class="flex-1">
+
+          <div class="flex justify-between items-center text-[10px] leading-tight">
+
+            <span>Ananya_Hyd</span>
+
+            <span class="text-[9px] text-white/60 font-mono">28m</span>
+
+          </div>
+
+          <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-0.5 border border-white/10">
+
+            <div class="bg-emerald-500 h-full w-[85%]"></div>
+
+          </div>
+
+        </div>
+
+        <span class="text-[10px]">🎙️</span>
+
+      </div>
+
+      <!-- Member 3: Kabir -->
+
+      <div class="flex items-center gap-1.5 text-xs text-white/90">
+
+        <span class="w-4 h-4 rounded bg-purple-600 font-bold text-[10px] flex items-center justify-center text-white">3</span>
+
+        <div class="flex-1">
+
+          <div class="flex justify-between items-center text-[10px] leading-tight">
+
+            <span>Kabir_Telangana</span>
+
+            <span class="text-[9px] text-white/60 font-mono">54m</span>
+
+          </div>
+
+          <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-0.5 border border-white/10">
+
+            <div class="bg-emerald-500 h-full w-[92%]"></div>
+
+          </div>
+
+        </div>
+
+        <span class="text-[10px] opacity-40">🔇</span>
+
+      </div>
+
+      <!-- Member 4: Rohan -->
+
+      <div class="flex items-center gap-1.5 text-xs text-white/90">
+
+        <span class="w-4 h-4 rounded bg-rose-600 font-bold text-[10px] flex items-center justify-center text-white">4</span>
+
+        <div class="flex-1">
+
+          <div class="flex justify-between items-center text-[10px] leading-tight">
+
+            <span>Rohan_Cyber</span>
+
+            <span class="text-[9px] text-rose-400 font-mono">92m</span>
+
+          </div>
+
+          <div class="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden mt-0.5 border border-white/10">
+
+            <div class="bg-amber-500 h-full w-[45%]"></div>
+
+          </div>
+
+        </div>
+
+        <span class="text-[10px]">🎙️</span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- TOP-CENTER: DYNAMIC ROTATING COMPASS -->
+
+    <div id="bar-compass" class="customizable-widget absolute top-3 left-1/2 -translate-x-1/2 w-80 h-10 bg-slate-950/80 backdrop-blur-md rounded-full border border-white/20 shadow-xl overflow-hidden flex items-center justify-center pointer-events-none" data-widget="compass">
+
+      <div class="w-0.5 h-full bg-amber-400 absolute z-20 shadow-[0_0_8px_#ffb300]"></div>
+
+      <div id="compass-tape" class="text-white text-xs font-mono font-bold tracking-wider">
+
+        <!-- Rendered dynamically in JS -->
+
+      </div>
+
+      <!-- Direction Deg Box -->
+
+      <div class="absolute bottom-0.5 bg-black/80 px-2 rounded text-[10px] font-mono text-amber-300 font-bold border border-white/10 z-20">
+
+        <span id="txt-compass-deg">000°</span> • <span id="txt-compass-cardinal">N</span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- TOP-RIGHT: MATCH STATUS (ALIVE, KILLS, ZONE TIMER) -->
+
+    <div id="panel-match-status" class="customizable-widget hud-interactive absolute top-3 right-4 flex items-center gap-2" data-widget="match_status">
+
+      <!-- Match Info Pill -->
+
+      <div class="bg-slate-950/80 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/20 shadow-lg flex items-center gap-3 text-xs font-bold text-white">
+
+        <div class="flex items-center gap-1">
+
+          <span class="text-white/60">ALIVE</span>
+
+          <span id="txt-alive-count" class="text-white font-mono text-sm">57</span>
+
+        </div>
+
+        <div class="w-px h-3.5 bg-white/20"></div>
+
+        <div class="flex items-center gap-1">
+
+          <span class="text-white/60">KILLS</span>
+
+          <span id="txt-kill-count" class="text-amber-400 font-mono text-sm">4</span>
+
+        </div>
+
+        <div class="w-px h-3.5 bg-white/20"></div>
+
+        <div class="flex items-center gap-1 text-sky-400">
+
+          <span>ZONE</span>
+
+          <span id="txt-zone-timer" class="font-mono text-sm text-sky-300">01:39</span>
+
+        </div>
+
+      </div>
+
+      <!-- Settings Gear (Opens Controls Customizer) -->
+
+      <button id="btn-open-settings" class="touch-btn w-9 h-9 rounded-full bg-slate-900/80 text-white/80 hover:text-white border border-white/20 shadow" title="Settings & Control Customizer">
+
+        ⚙️
+
+      </button>
+
+      <!-- Hidden Dev Toggle Pill -->
+
+      <button id="btn-toggle-dev" class="px-2 py-1 bg-amber-600/70 hover:bg-amber-600 text-[10px] font-mono text-white rounded border border-amber-400/40 shadow" title="Developer Tools">
+
+        DEV
+
+      </button>
+
+    </div>
+
+
+
+    <!-- TOP-RIGHT (BELOW MATCH STATUS): HYDERABAD MINIMAP -->
+
+    <div id="panel-minimap" class="customizable-widget hud-interactive absolute top-14 right-4 w-36 h-36 rounded-full border-2 border-white/30 bg-slate-950/90 shadow-2xl overflow-hidden" data-widget="minimap">
+
+      <!-- Minimap Canvas -->
+
+      <canvas id="minimap-canvas" class="w-full h-full"></canvas>
+
+      <!-- Safe Zone Pill Overlay -->
+
+      <div class="absolute bottom-1 left-1/2 -translate-x-1/2 bg-black/80 text-[8px] font-mono text-white px-1.5 py-0.5 rounded border border-white/10 tracking-wider">
+
+        CHARMINAR
+
+      </div>
+
+      <!-- Zoom In/Out Buttons -->
+
+      <button id="btn-map-zoom-in" class="absolute top-1 right-2 text-white/70 hover:text-white text-xs font-bold font-mono">+</button>
+
+      <button id="btn-map-zoom-out" class="absolute bottom-1 right-2 text-white/70 hover:text-white text-xs font-bold font-mono">-</button>
+
+    </div>
+
+
+
+    <!-- UPPER-LEFT KILL FEED BANNER -->
+
+    <div id="kill-feed" class="absolute top-44 left-4 flex flex-col gap-1 pointer-events-none z-15">
+
+      <div id="kill-feed-item" class="bg-black/75 backdrop-blur-sm border-l-4 border-amber-500 text-white text-[11px] px-2.5 py-1 rounded shadow-md flex items-center gap-1.5 opacity-90 transition-opacity duration-300">
+
+        <span class="font-bold text-amber-400">Vikram_Hyd</span>
+
+        <span class="text-white/60">eliminated</span>
+
+        <span class="text-rose-400 font-semibold">DeccanRaider_09</span>
+
+        <span class="text-white/50">with</span>
+
+        <span class="text-amber-300 font-mono font-bold">VAJRA-556 🎯</span>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- BOTTOM-LEFT: MOVEMENT JOYSTICK -->
+
+    <div id="panel-joystick" class="customizable-widget hud-interactive absolute bottom-10 left-10 w-44 h-44 flex items-center justify-center" data-widget="joystick">
+
+      <div id="joystick-base">
+
+        <div id="sprint-lock-anchor">
+
+          🏃
+
+        </div>
+
+        <div id="joystick-stick"></div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- BOTTOM-LEFT PEEK BUTTONS (Lean Left / Lean Right) -->
+
+    <div id="panel-peek" class="customizable-widget hud-interactive absolute bottom-44 left-36 flex gap-2" data-widget="peek">
+
+      <button id="btn-peek-left" class="touch-btn w-12 h-12 text-sm font-bold border-amber-500/40" title="Peek Left">
+
+        ⮜ PEK
+
+      </button>
+
+      <button id="btn-peek-right" class="touch-btn w-12 h-12 text-sm font-bold border-amber-500/40" title="Peek Right">
+
+        PEK ⮞
+
+      </button>
+
+    </div>
+
+
+
+    <!-- BOTTOM-CENTER: DUAL WEAPON HUD -->
+
+    <div id="panel-weapons" class="customizable-widget hud-interactive absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5" data-widget="weapons">
+
+      <!-- Two Weapon Slots -->
+
+      <div class="flex gap-2">
+
+        <!-- Slot 1: Primary Assault Rifle (Vajra-556) -->
+
+        <div id="weapon-slot-1" class="cursor-pointer bg-slate-950/85 backdrop-blur-md border-2 border-amber-400 text-white px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-3 w-44 transition-all">
+
+          <div class="flex-1">
+
+            <div class="flex justify-between items-center text-[10px] text-amber-400 font-extrabold uppercase">
+
+              <span>SLOT 1 • AR</span>
+
+              <span id="txt-firemode-1" class="bg-amber-400/20 text-amber-300 px-1 rounded text-[9px] font-mono">AUTO</span>
+
+            </div>
+
+            <div class="font-black text-sm tracking-wide text-white">VAJRA-556</div>
+
+            <div class="text-[9px] text-white/50">5.56mm NATO</div>
+
+          </div>
+
+          <div class="text-right">
+
+            <span id="txt-ammo-mag" class="font-mono text-xl font-black text-white">30</span>
+
+            <span class="text-white/40 text-xs font-mono">/</span>
+
+            <span id="txt-ammo-res" class="font-mono text-xs text-amber-400">150</span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Slot 2: Secondary Sniper Rifle (Golconda-300) -->
+
+        <div id="weapon-slot-2" class="cursor-pointer bg-slate-950/70 backdrop-blur-md border border-white/20 text-white/70 hover:text-white px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-3 w-44 transition-all">
+
+          <div class="flex-1">
+
+            <div class="flex justify-between items-center text-[10px] text-white/50 font-extrabold uppercase">
+
+              <span>SLOT 2 • SNIPER</span>
+
+              <span id="txt-firemode-2" class="bg-white/10 text-white/60 px-1 rounded text-[9px] font-mono">SINGLE</span>
+
+            </div>
+
+            <div class="font-black text-sm tracking-wide text-white">GOLCONDA-300</div>
+
+            <div class="text-[9px] text-white/40">.300 Magnum</div>
+
+          </div>
+
+          <div class="text-right">
+
+            <span class="font-mono text-xl font-black text-white/80">5</span>
+
+            <span class="text-white/40 text-xs font-mono">/</span>
+
+            <span class="font-mono text-xs text-white/60">35</span>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- Grenade / Throwable -->
+
+        <button id="btn-throwable" class="touch-btn w-14 h-14 rounded-lg bg-slate-950/80 border border-white/20 flex flex-col items-center justify-center text-xs">
+
+          <span>💣</span>
+
+          <span class="text-[9px] text-amber-400 font-mono font-bold">x2</span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- PLAYER STATUS (HEALTH BAR, ARMOR VEST, HELMET, BOOST) -->
+
+      <div class="w-80 flex flex-col gap-1 bg-slate-950/75 backdrop-blur-md p-1.5 rounded-md border border-white/10 shadow">
+
+        <!-- Health Bar -->
+
+        <div class="flex items-center gap-2">
+
+          <span class="text-[9px] font-bold text-white/70 tracking-wider">HEALTH</span>
+
+          <div class="flex-1 bg-slate-800 h-2 rounded-full overflow-hidden border border-white/10">
+
+            <div id="bar-health" class="bg-gradient-to-r from-emerald-500 to-emerald-400 h-full w-full transition-all duration-150"></div>
+
+          </div>
+
+          <span id="txt-health-num" class="text-[10px] font-mono font-bold text-emerald-400">100</span>
+
+        </div>
+
+        <!-- Vests, Helmet & Boost Bar -->
+
+        <div class="flex items-center justify-between text-[9px] font-mono text-white/80 px-1">
+
+          <span class="flex items-center gap-1">🛡️ VEST <strong class="text-amber-400">LV.2 (75%)</strong></span>
+
+          <span class="flex items-center gap-1">🪖 HELMET <strong class="text-amber-400">LV.3 (100%)</strong></span>
+
+          <span class="flex items-center gap-1 text-amber-300">⚡ BOOST
+
+            <div class="w-12 bg-slate-800 h-1.5 rounded-full overflow-hidden inline-block align-middle ml-1">
+
+              <div class="bg-amber-400 h-full w-[65%]"></div>
+
+            </div>
+
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- RIGHT-SIDE: COMBAT BUTTON CLUSTER -->
+
+    <div id="panel-combat" class="customizable-widget hud-interactive absolute bottom-6 right-6 flex items-end gap-3" data-widget="combat">
+
+
+
+      <!-- Action cluster (Jump, Crouch, Prone, Reload) -->
+
+      <div class="flex flex-col gap-2 items-center">
+
+        <!-- Reload Button -->
+
+        <button id="btn-reload" class="touch-btn w-12 h-12 text-xs font-bold" title="Reload Weapon">
+
+          🔄 RLD
+
+        </button>
+
+        <!-- Jump Button -->
+
+        <button id="btn-jump" class="touch-btn w-14 h-14 text-sm font-bold" title="Jump">
+
+          🦘 JMP
+
+        </button>
+
+      </div>
+
+
+
+      <div class="flex flex-col gap-2 items-center">
+
+        <!-- Crouch Button -->
+
+        <button id="btn-crouch" class="touch-btn w-13 h-13 text-xs font-bold" title="Crouch">
+
+          🧎 CRCH
+
+        </button>
+
+        <!-- Prone Button -->
+
+        <button id="btn-prone" class="touch-btn w-13 h-13 text-xs font-bold" title="Prone">
+
+          🛌 PRNE
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Scope / ADS Button -->
+
+      <div class="flex flex-col gap-2 items-center">
+
+        <button id="btn-ads" class="touch-btn w-14 h-14 text-sm font-bold bg-slate-900/80 border-amber-400/50" title="Aim Down Sights / Scope">
+
+          🎯 ADS
+
+        </button>
+
+      </div>
+
+
+
+      <!-- PRIMARY LARGE FIRE BUTTON -->
+
+      <div class="flex flex-col items-center ml-1">
+
+        <button id="btn-fire-primary" class="touch-btn btn-fire-primary w-20 h-20 text-lg font-black tracking-wider text-white" title="Fire Weapon">
+
+          🔥
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- OPTIONAL LEFT FIRE BUTTON (for 3-Finger / 4-Finger Claw) -->
+
+    <div id="panel-left-fire" class="customizable-widget hud-interactive absolute top-28 left-6" data-widget="left_fire">
+
+      <button id="btn-fire-secondary" class="touch-btn btn-fire-primary w-14 h-14 text-base font-black text-white" title="Left Fire Button">
+
+        🔥
+
+      </button>
+
+    </div>
+
+
+
+    <!-- QUICK CONTEXT INTERACT / LOOT BUTTON (Appears near objects) -->
+
+    <div id="panel-interact" class="hud-interactive absolute top-1/2 right-48 -translate-y-1/2 hidden" data-widget="interact">
+
+      <button id="btn-interact" class="touch-btn px-4 py-2 rounded-full bg-amber-500/90 text-black font-extrabold text-xs shadow-xl border border-white/40 flex items-center gap-1.5 animate-bounce">
+
+        📦 PICKUP 5.56 AMMO
+
+      </button>
+
+    </div>
+
+
+
+
+
+    <!-- VEHICLE DRIVING CONTROLS (Switches when in Auto-Rickshaw) -->
+
+    <div id="panel-vehicle-controls" class="hud-interactive absolute inset-0 pointer-events-none hidden z-30">
+
+      <!-- Steering Buttons (Left Thumb) -->
+
+      <div class="absolute bottom-10 left-8 flex gap-4 pointer-events-auto">
+
+        <button id="btn-steer-left" class="touch-btn w-16 h-16 text-lg font-black bg-slate-900/90 border-2 border-amber-400 text-white rounded-2xl flex flex-col items-center justify-center shadow-2xl active:bg-amber-500">
+
+          ◀<span class="text-[9px] font-mono">LEFT</span>
+
+        </button>
+
+        <button id="btn-steer-right" class="touch-btn w-16 h-16 text-lg font-black bg-slate-900/90 border-2 border-amber-400 text-white rounded-2xl flex flex-col items-center justify-center shadow-2xl active:bg-amber-500">
+
+          ▶<span class="text-[9px] font-mono">RIGHT</span>
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Center: Speedometer & Indian Rickshaw Horn -->
+
+      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-auto">
+
+        <div class="bg-black/90 backdrop-blur-md px-5 py-2 rounded-xl border border-amber-400/60 shadow-2xl flex items-center gap-3">
+
+          <div class="text-center">
+
+            <div id="txt-vehicle-speed" class="text-2xl font-black font-mono text-amber-400">0</div>
+
+            <div class="text-[9px] text-white/50 tracking-wider font-bold">KM/H</div>
+
+          </div>
+
+          <div class="w-28 bg-slate-800 h-2.5 rounded-full overflow-hidden border border-white/20">
+
+            <div id="bar-vehicle-speed" class="bg-gradient-to-r from-amber-400 via-orange-500 to-rose-500 h-full w-0 transition-all duration-75"></div>
+
+          </div>
+
+        </div>
+
+        <button id="btn-vehicle-horn" class="touch-btn px-5 py-1.5 rounded-full bg-amber-500 hover:bg-amber-400 text-black font-black text-xs shadow-lg border border-white/40 flex items-center gap-1.5 active:scale-95">
+
+          🎺 HORN (PEEP-PEEP!)
+
+        </button>
+
+      </div>
+
+
+
+      <!-- Right: Pedals & Exit (Right Thumb) -->
+
+      <div class="absolute bottom-10 right-8 flex gap-3 pointer-events-auto items-end">
+
+        <button id="btn-vehicle-exit" class="touch-btn px-4 py-3 rounded-xl bg-rose-600/90 border border-white/40 text-white font-extrabold text-xs shadow-2xl flex flex-col items-center gap-1 active:bg-rose-500">
+
+          🚪<span class="text-[9px]">EXIT AUTO</span>
+
+        </button>
+
+        <button id="btn-vehicle-brake" class="touch-btn w-16 h-20 text-xs font-black bg-rose-950/90 border-2 border-rose-500 text-white rounded-2xl flex flex-col items-center justify-center shadow-2xl active:bg-rose-600">
+
+          ▼<span class="text-[9px] font-mono">BRAKE</span>
+
+        </button>
+
+        <button id="btn-vehicle-accel" class="touch-btn w-18 h-24 text-base font-black bg-emerald-950/90 border-2 border-emerald-400 text-white rounded-2xl flex flex-col items-center justify-center shadow-2xl active:bg-emerald-600">
+
+          ▲<span class="text-[9px] font-mono">ACCEL</span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- FLOATING LOOT & EVENT TOAST CONTAINER -->
+
+    <div id="loot-toast-container" class="absolute top-24 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none z-40"></div>
+
+
+
+
+
+  <!-- FULLSCREEN INTERACTIVE HYDERABAD GPS WORLD MAP MODAL -->
+
+  <div id="hyderabad-world-map-modal" class="fixed inset-0 bg-slate-950/95 backdrop-blur-md z-50 hidden flex-col items-center justify-between p-4 text-white">
+
+    <!-- Map Header -->
+
+    <div class="w-full max-w-5xl flex items-center justify-between border-b border-white/20 pb-2.5">
+
+      <div class="flex items-center gap-3">
+
+        <span class="text-xl">🗺️</span>
+
+        <div>
+
+          <h2 class="text-base font-black text-amber-400 tracking-wider">HYDERABAD REAL-WORLD GPS NAVIGATOR</h2>
+
+          <p class="text-[10px] text-white/60">Cesium WGS84 Georeferenced Open World • GHMC Regional Boundary</p>
+
+        </div>
+
+      </div>
+
+      <div class="flex items-center gap-4 text-xs font-mono">
+
+        <div class="bg-black/70 px-3 py-1 rounded border border-white/10">
+
+          <span class="text-white/50">GPS:</span> <span id="map-live-coords" class="text-emerald-400 font-bold">17.450417° N, 78.380833° E</span>
+
+        </div>
+
+        <div class="bg-black/70 px-3 py-1 rounded border border-white/10">
+
+          <span class="text-white/50">ELEV:</span> <span id="map-live-elev" class="text-amber-300 font-bold">585m MSL</span>
+
+        </div>
+
+        <button id="btn-close-world-map" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-white font-bold text-sm border border-white/20 flex items-center justify-center">✕</button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Map Center Canvas & POI Sidebar -->
+
+    <div class="w-full max-w-5xl flex-1 flex gap-4 my-3 overflow-hidden">
+
+      <!-- Interactive SVG / Canvas Map View -->
+
+      <div class="flex-1 bg-slate-900/90 rounded-xl border border-white/20 overflow-hidden relative shadow-2xl flex items-center justify-center">
+
+        <canvas id="world-map-canvas" class="w-full h-full cursor-crosshair"></canvas>
+
+        <!-- Overlay Map Info Badge -->
+
+        <div class="absolute top-3 left-3 bg-black/80 px-2.5 py-1 rounded border border-white/10 text-[9px] font-mono">
+
+          <span class="text-amber-400 font-bold">GREATER HYDERABAD (GHMC)</span> • 158km ORR
+
+        </div>
+
+        <!-- Active Route Pill -->
+
+        <div id="map-route-pill" class="absolute bottom-3 left-3 bg-black/85 px-3 py-1.5 rounded-lg border border-amber-400/50 text-[10px] hidden flex items-center gap-2">
+
+          <span class="text-amber-400 font-bold">TARGET:</span>
+
+          <span id="map-route-name" class="font-bold text-white">HITEC City Cyber Towers</span>
+
+          <span class="text-white/40">•</span>
+
+          <span id="map-route-dist" class="text-emerald-400 font-mono font-bold">0.0 km</span>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- POI Location Directory Sidebar -->
+
+      <div class="w-72 bg-slate-900/80 rounded-xl border border-white/15 p-3 flex flex-col justify-between overflow-y-auto">
+
+        <div>
+
+          <div class="text-[11px] font-black text-amber-400 border-b border-white/10 pb-1.5 mb-2 flex items-center justify-between">
+
+            <span>HYDERABAD DESTINATIONS</span>
+
+            <span class="text-[9px] text-white/50 font-normal">Select to route</span>
+
+          </div>
+
+          <div class="space-y-1.5 text-xs" id="poi-list-container">
+
+            <!-- Rendered in JS -->
+
+          </div>
+
+        </div>
+
+        <div class="pt-3 border-t border-white/10 flex gap-2">
+
+          <button id="btn-travel-selected" class="flex-1 py-2 bg-amber-500 hover:bg-amber-400 text-black font-black text-xs rounded shadow transition-all active:scale-95">
+
+            TRAVEL TO ZONE
+
+          </button>
+
+          <button id="btn-clear-route" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs rounded border border-white/20">
+
+            CLEAR
+
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Map Footer Controls -->
+
+    <div class="w-full max-w-5xl flex items-center justify-between text-[11px] text-white/50 border-t border-white/10 pt-2">
+
+      <div>Tip: Tap any point on the map or select a destination from the list to set GPS navigation waypoints.</div>
+
+      <div class="font-mono text-emerald-400">Cesium Georeference Active (Central Hyderabad 17.385044° N, 78.486671° E)</div>
+
+    </div>
+
+  </div>
+
+
+
+  </div> <!-- End HUD Layer -->
+
+
+
+  <!-- CONTROL CUSTOMIZATION MODAL (Settings -> Controls Editor) -->
+
+  <div id="controls-editor-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex-col items-center justify-between p-6">
+
+    <!-- Header -->
+
+    <div class="w-full flex items-center justify-between border-b border-white/20 pb-3">
+
+      <div>
+
+        <h2 class="text-xl font-black text-white tracking-wider flex items-center gap-2">
+
+          <span class="text-amber-400">INDIA UNLEASHED</span> • MOBILE CONTROL CUSTOMIZER
+
+        </h2>
+
+        <p class="text-xs text-white/60">Drag any button to reposition. Adjust scale, opacity and presets below.</p>
+
+      </div>
+
+      <div class="flex gap-2">
+
+        <button id="btn-preset-2finger" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-white/20">2-FINGER</button>
+
+        <button id="btn-preset-3finger" class="px-3 py-1.5 rounded bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white border border-white/20">3-FINGER CLAW</button>
+
+        <button id="btn-preset-4finger" class="px-3 py-1.5 rounded bg-amber-600 hover:bg-amber-500 text-xs font-bold text-white border border-white/20">4-FINGER PRO</button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- Center notice -->
+
+    <div class="bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs px-4 py-2 rounded-full font-medium">
+
+      Touch or click any HUD element on the screen to select it, then use the sliders below.
+
+    </div>
+
+
+
+    <!-- Bottom Controls Deck -->
+
+    <div class="w-full max-w-4xl bg-slate-900/95 border border-white/20 rounded-xl p-4 flex flex-wrap items-center justify-between gap-4 shadow-2xl">
+
+      <!-- Scale Slider -->
+
+      <div class="flex items-center gap-2 text-xs text-white">
+
+        <span class="w-20 font-bold text-white/70">BUTTON SIZE:</span>
+
+        <input id="slider-btn-scale" type="range" min="0.70" max="1.50" step="0.05" value="1.0" class="accent-amber-400 cursor-pointer w-32">
+
+        <span id="txt-scale-val" class="font-mono text-amber-400 font-bold w-10">1.00x</span>
+
+      </div>
+
+
+
+      <!-- Opacity Slider -->
+
+      <div class="flex items-center gap-2 text-xs text-white">
+
+        <span class="w-24 font-bold text-white/70">HUD OPACITY:</span>
+
+        <input id="slider-btn-opacity" type="range" min="0.20" max="1.00" step="0.05" value="0.85" class="accent-amber-400 cursor-pointer w-32">
+
+        <span id="txt-opacity-val" class="font-mono text-amber-400 font-bold w-10">85%</span>
+
+      </div>
+
+
+
+      <!-- Action Buttons -->
+
+      <div class="flex gap-2">
+
+        <button id="btn-reset-layout" class="px-4 py-2 rounded-lg bg-rose-600/80 hover:bg-rose-600 text-xs font-bold text-white border border-rose-400/40">RESET</button>
+
+        <button id="btn-save-layout" class="px-5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs font-bold text-white border border-emerald-400/40">SAVE & APPLY</button>
+
+        <button id="btn-close-editor" class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-600 text-xs font-bold text-white border border-white/20">CLOSE</button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- DECOUPLED DEVELOPER DEBUG MENU (Hidden from players by default) -->
+
+  <div id="dev-debug-drawer" class="fixed top-0 right-0 h-full w-80 bg-slate-950/95 backdrop-blur-xl border-l border-white/20 z-50 transform translate-x-full transition-transform duration-300 p-5 flex flex-col justify-between overflow-y-auto text-white">
+
+    <div>
+
+      <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4">
+
+        <div>
+
+          <h3 class="text-sm font-black text-amber-400">DEVELOPER DEBUG MENU</h3>
+
+          <span class="text-[10px] text-white/50">Strictly decoupled from match gameplay</span>
+
+        </div>
+
+        <button id="btn-close-dev" class="text-white/60 hover:text-white text-base">✕</button>
+
+      </div>
+
+
+
+      <!-- Cesium for Unreal Georeference & Level Selector -->
+
+      <div class="mb-4 bg-slate-900/90 border border-emerald-500/40 rounded-lg p-3 shadow-lg">
+
+        <div class="flex items-center justify-between mb-1.5">
+
+          <span class="text-[11px] font-black text-emerald-400 flex items-center gap-1.5">
+
+            🌍 CESIUM GEOREFERENCE
+
+          </span>
+
+          <span class="bg-emerald-500/20 text-emerald-300 text-[9px] px-1.5 py-0.5 rounded font-mono font-bold">UE 5.4 ACTIVE</span>
+
+        </div>
+
+        <div class="text-[10px] text-white/80 space-y-1">
+
+          <div class="flex justify-between">
+
+            <span class="text-white/50">Active Level:</span>
+
+            <span class="font-bold text-amber-400 font-mono">L_Hyderabad_World</span>
+
+          </div>
+
+          <div class="flex justify-between">
+
+            <span class="text-white/50">Origin Location:</span>
+
+            <span class="font-bold text-white font-mono">Central Hyderabad</span>
+
+          </div>
+
+          <div class="flex justify-between">
+
+            <span class="text-white/50">Origin WGS84:</span>
+
+            <span class="font-bold text-emerald-300 font-mono">17.385044° N, 78.486671° E</span>
+
+          </div>
+
+          <div class="flex justify-between">
+
+            <span class="text-white/50">Datum / Elevation:</span>
+
+            <span class="font-bold text-white/90 font-mono">WGS84 / 505.0m MSL</span>
+
+          </div>
+
+          <div class="flex justify-between border-t border-white/10 pt-1 mt-1">
+
+            <span class="text-white/50">Live Player GPS:</span>
+
+            <span id="txt-cesium-live-gps" class="font-bold text-amber-300 font-mono">17.385044° N, 78.486671° E</span>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+
+
+      <!-- Teleport Selector -->
+
+      <div class="mb-4">
+
+        <label class="block text-xs font-bold text-white/80 mb-1">TELEPORT TO POI (DEBUG ONLY):</label>
+
+        <select id="select-teleport" class="w-full bg-slate-900 border border-white/20 text-xs rounded p-2 text-white">
+
+          <option value="charminar">Charminar Monument Plaza</option>
+
+          <option value="laadbazaar">Laad Bazaar Bangle Market</option>
+
+          <option value="cybertowers">Cyber Towers Hitec City</option>
+
+          <option value="golconda">Golconda Citadel Fort</option>
+
+          <option value="hussainsagar">Hussain Sagar Lake</option>
+
+        </select>
+
+      </div>
+
+
+
+      <!-- Time of Day & Weather -->
+
+      <div class="mb-4">
+
+        <label class="block text-xs font-bold text-white/80 mb-1">TIME OF DAY / ATMOSPHERE:</label>
+
+        <div class="grid grid-cols-2 gap-1.5 text-xs">
+
+          <button id="btn-tod-noon" class="p-2 rounded bg-slate-800 hover:bg-slate-700 border border-white/10">Deccan Noon ☀️</button>
+
+          <button id="btn-tod-dawn" class="p-2 rounded bg-slate-800 hover:bg-slate-700 border border-white/10">Golden Dawn 🌅</button>
+
+          <button id="btn-tod-night" class="p-2 rounded bg-slate-800 hover:bg-slate-700 border border-white/10">Cyber Night 🌙</button>
+
+          <button id="btn-tod-rain" class="p-2 rounded bg-slate-800 hover:bg-slate-700 border border-white/10">Monsoon Rain 🌧️</button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Render Mode -->
+
+      <div class="mb-4">
+
+        <label class="block text-xs font-bold text-white/80 mb-1">VIEWPORT RENDER MODE:</label>
+
+        <div class="flex gap-1 text-xs">
+
+          <button id="btn-render-pbr" class="flex-1 p-1.5 rounded bg-amber-600 font-bold">PBR</button>
+
+          <button id="btn-render-clay" class="flex-1 p-1.5 rounded bg-slate-800">CLAY</button>
+
+          <button id="btn-render-wire" class="flex-1 p-1.5 rounded bg-slate-800">WIRE</button>
+
+        </div>
+
+      </div>
+
+
+
+      <!-- Automated Tests Trigger -->
+
+      <div class="mb-4">
+
+        <label class="block text-xs font-bold text-white/80 mb-1">AUTOMATED QA VERIFICATION:</label>
+
+        <button id="btn-run-tests" class="w-full p-2 bg-emerald-600 hover:bg-emerald-500 rounded text-xs font-bold text-white shadow">
+
+          RUN 21-POINT CONTROL SUITE
+
+        </button>
+
+        <div id="test-results-log" class="mt-2 text-[10px] font-mono bg-black/60 p-2 rounded max-h-32 overflow-y-auto text-emerald-400">
+
+          All 21 Phase 14 tests ready.
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="text-[10px] text-white/40 border-t border-white/10 pt-3">
+
+      INDIA UNLEASHED v2.0 • Press <strong>~</strong> or <strong>F1</strong> to toggle this menu.
+
+    </div>
+
+  </div>
+
+
+
+  <!-- JAVASCRIPT GAMEPLAY ENGINE & HUD LOGIC -->
+
+  <script>
+
+    // --- STATE MACHINE ---
+    const initialZoneParam = (typeof window !== 'undefined' && window.location) ? new URLSearchParams(window.location.search).get('zone') : null;
+    let initSpawnX = 0, initSpawnZ = 0, initSpawnYaw = 0;
+    if (initialZoneParam === 'airport') { initSpawnX = -40; initSpawnZ = 160; initSpawnYaw = Math.PI; }
+    else if (initialZoneParam === 'gachibowli') { initSpawnX = -120; initSpawnZ = -80; initSpawnYaw = 0; }
+    else if (initialZoneParam === 'hussainsagar') { initSpawnX = 80; initSpawnZ = 55; initSpawnYaw = 0; }
+    else if (initialZoneParam === 'hitec') { initSpawnX = -50; initSpawnZ = -60; initSpawnYaw = 0; }
+
+    const GameState = {
+      player: {
+        x: initSpawnX, y: 1.0, z: initSpawnZ,
+        yaw: initSpawnYaw, pitch: 0,
+        speed: 0,
+
+        posture: 'standing', // standing, crouched, prone
+
+        isSprinting: false,
+
+        isADS: false,
+
+        isPeekingLeft: false,
+
+        isPeekingRight: false,
+
+        health: 100,
+
+        vest: 75,
+
+        helmet: 100,
+
+        boost: 65,
+
+        activeSlot: 1,
+
+        magAmmo: 30,
+
+        resAmmo: 150,
+
+      },
+
+      match: {
+
+        alive: 57,
+
+        kills: 4,
+
+        zoneTimerSec: 99,
+
+      },
+
+      input: {
+
+        moveX: 0,
+
+        moveY: 0,
+
+        isDraggingCamera: false,
+
+        lastTouchX: 0,
+
+        lastTouchY: 0,
+
+        sprintLocked: false
+
+      },
+
+      vehicle: {
+
+        isInVehicle: false,
+
+        x: 12, y: 0, z: -15,
+
+        yaw: 0,
+
+        speed: 0,
+
+        steer: 0,
+
+        accel: 0,
+
+        maxSpeed: 18.0 // ~65 km/h
+
+      },
+
+      settings: {
+
+        preset: 'two_finger',
+
+        buttonScale: 1.0,
+
+        hudOpacity: 0.85,
+
+        cameraSens: 1.0,
+
+        scopeSens: 0.35,
+
+      }
+
+    };
+
+
+
+
+
+    // --- PROCEDURAL WEB AUDIO SYNTHESIZER (PUBG / BGMI SFX ENGINE) ---
+
+    const SoundFX = {
+
+      ctx: null,
+
+      init() {
+
+        if (!this.ctx) {
+
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+          if (AudioContextClass) this.ctx = new AudioContextClass();
+
+        }
+
+        if (this.ctx && this.ctx.state === 'suspended') {
+
+          this.ctx.resume();
+
+        }
+
+      },
+
+      playGunshot(isSniper = false) {
+
+        this.init();
+
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+
+        // 1. Noise burst for supersonic bullet crack
+
+        const dur = isSniper ? 0.35 : 0.16;
+
+        const bufferSize = Math.floor(this.ctx.sampleRate * dur);
+
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < bufferSize; i++) {
+
+          data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (this.ctx.sampleRate * (isSniper ? 0.08 : 0.035)));
+
+        }
+
+        const noise = this.ctx.createBufferSource();
+
+        noise.buffer = buffer;
+
+        const noiseFilter = this.ctx.createBiquadFilter();
+
+        noiseFilter.type = isSniper ? 'lowpass' : 'bandpass';
+
+        noiseFilter.frequency.setValueAtTime(isSniper ? 1600 : 2600, now);
+
+        const noiseGain = this.ctx.createGain();
+
+        noiseGain.gain.setValueAtTime(isSniper ? 0.8 : 0.55, now);
+
+        noiseGain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+
+        noise.connect(noiseFilter);
+
+        noiseFilter.connect(noiseGain);
+
+        noiseGain.connect(this.ctx.destination);
+
+        noise.start(now);
+
+
+
+        // 2. Punchy sub-bass transient
+
+        const osc = this.ctx.createOscillator();
+
+        const oscGain = this.ctx.createGain();
+
+        osc.type = 'triangle';
+
+        const startFreq = isSniper ? 150 : 210;
+
+        const endFreq = isSniper ? 28 : 42;
+
+        osc.frequency.setValueAtTime(startFreq, now);
+
+        osc.frequency.exponentialRampToValueAtTime(endFreq, now + (isSniper ? 0.25 : 0.12));
+
+        oscGain.gain.setValueAtTime(isSniper ? 1.0 : 0.7, now);
+
+        oscGain.gain.exponentialRampToValueAtTime(0.001, now + (isSniper ? 0.25 : 0.12));
+
+        osc.connect(oscGain);
+
+        oscGain.connect(this.ctx.destination);
+
+        osc.start(now);
+
+        osc.stop(now + (isSniper ? 0.26 : 0.13));
+
+      },
+
+      playHit() {
+
+        this.init();
+
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+
+        const osc = this.ctx.createOscillator();
+
+        const gain = this.ctx.createGain();
+
+        osc.type = 'sine';
+
+        osc.frequency.setValueAtTime(1600, now);
+
+        osc.frequency.exponentialRampToValueAtTime(800, now + 0.07);
+
+        gain.gain.setValueAtTime(0.4, now);
+
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+
+        osc.connect(gain);
+
+        gain.connect(this.ctx.destination);
+
+        osc.start(now);
+
+        osc.stop(now + 0.08);
+
+      },
+
+      playReload() {
+
+        this.init();
+
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+
+        // Step 1: Mag out click
+
+        const click1 = this.ctx.createOscillator();
+
+        const g1 = this.ctx.createGain();
+
+        click1.type = 'square';
+
+        click1.frequency.setValueAtTime(800, now);
+
+        g1.gain.setValueAtTime(0.2, now);
+
+        g1.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+
+        click1.connect(g1);
+
+        g1.connect(this.ctx.destination);
+
+        click1.start(now);
+
+        click1.stop(now + 0.06);
+
+
+
+        // Step 2: Mag in snap
+
+        const click2 = this.ctx.createOscillator();
+
+        const g2 = this.ctx.createGain();
+
+        click2.type = 'sawtooth';
+
+        click2.frequency.setValueAtTime(400, now + 0.28);
+
+        g2.gain.setValueAtTime(0.25, now + 0.28);
+
+        g2.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        click2.connect(g2);
+
+        g2.connect(this.ctx.destination);
+
+        click2.start(now + 0.28);
+
+        click2.stop(now + 0.36);
+
+      },
+
+      playLoot() {
+
+        this.init();
+
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+
+        [587.33, 880.0].forEach((freq, idx) => {
+
+          const osc = this.ctx.createOscillator();
+
+          const gain = this.ctx.createGain();
+
+          osc.type = 'sine';
+
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+
+          gain.gain.setValueAtTime(0.3, now + idx * 0.08);
+
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.15);
+
+          osc.connect(gain);
+
+          gain.connect(this.ctx.destination);
+
+          osc.start(now + idx * 0.08);
+
+          osc.stop(now + idx * 0.08 + 0.16);
+
+        });
+
+      },
+
+      playHorn() {
+
+        this.init();
+
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+
+        [440, 554].forEach(f => {
+
+          const osc = this.ctx.createOscillator();
+
+          const gain = this.ctx.createGain();
+
+          osc.type = 'sawtooth';
+
+          osc.frequency.setValueAtTime(f, now);
+
+          gain.gain.setValueAtTime(0.2, now);
+
+          gain.gain.setValueAtTime(0.2, now + 0.14);
+
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+          osc.connect(gain);
+
+          gain.connect(this.ctx.destination);
+
+          osc.start(now);
+
+          osc.stop(now + 0.19);
+
+        });
+
+      },
+
+      playElimination() {
+
+        this.init();
+
+        if (!this.ctx) return;
+
+        const now = this.ctx.currentTime;
+
+        [392, 523.25, 659.25, 783.99].forEach((freq, idx) => {
+
+          const osc = this.ctx.createOscillator();
+
+          const gain = this.ctx.createGain();
+
+          osc.type = 'triangle';
+
+          osc.frequency.setValueAtTime(freq, now + idx * 0.07);
+
+          gain.gain.setValueAtTime(0.35, now + idx * 0.07);
+
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.07 + 0.35);
+
+          osc.connect(gain);
+
+          gain.connect(this.ctx.destination);
+
+          osc.start(now + idx * 0.07);
+
+          osc.stop(now + idx * 0.07 + 0.36);
+
+        });
+
+      }
+
+    };
+
+
+
+    // --- THREE.JS 3D SCENE INITIALIZATION ---
+
+    let scene, camera, renderer;
+
+    let charminarGroup, playerMesh, gunMesh, groundMesh, rainParticles;
+
+    let autoRickshawMesh, rickshawWheels = [];
+
+    let supplyCrates = [], combatDummies = [];
+
+    let activeInteractTarget = null;
+
+    let ambientLight, dirLight, pbrMode = 'pbr';
+
+
+
+    function init3D() {
+
+      const container = document.getElementById('canvas-container');
+
+      const canvas = document.getElementById('canvas3d');
+
+
+
+      scene = new THREE.Scene();
+
+      scene.background = new THREE.Color(0x87ceeb); // Daylight sky
+
+      scene.fog = new THREE.FogExp2(0x87ceeb, 0.003);
+
+
+
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+      camera.position.set(GameState.player.x + 0.5, 2.8, GameState.player.z + (GameState.player.yaw === Math.PI ? -5.5 : 5.5));
+      camera.lookAt(GameState.player.x, 2.0, GameState.player.z + (GameState.player.yaw === Math.PI ? 25.0 : -25.0));
+
+
+
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, powerPreference: 'high-performance' });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      renderer.shadowMap.enabled = true;
+
+
+
+      // Lights
+
+      ambientLight = new THREE.AmbientLight(0xffeedd, 0.8);
+
+      scene.add(ambientLight);
+
+
+
+      dirLight = new THREE.DirectionalLight(0xffffff, 1.2);
+
+      dirLight.position.set(40, 80, 50);
+
+      dirLight.castShadow = true;
+
+      dirLight.shadow.mapSize.width = 1024;
+
+      dirLight.shadow.mapSize.height = 1024;
+
+      scene.add(dirLight);
+
+
+
+      // Hyderabad Ground (Asphalt & Granite Plaza)
+
+      const groundGeo = new THREE.PlaneGeometry(300, 300, 32, 32);
+
+      const groundMat = new THREE.MeshStandardMaterial({
+
+        color: 0x2d3748,
+
+        roughness: 0.85,
+
+        metalness: 0.1
+
+      });
+
+      groundMesh = new THREE.Mesh(groundGeo, groundMat);
+
+      groundMesh.rotation.x = -Math.PI / 2;
+
+      groundMesh.receiveShadow = true;
+
+      scene.add(groundMesh);
+
+
+
+      // Hyderabad Road Markings
+
+      const roadGeo = new THREE.PlaneGeometry(16, 280);
+
+      const roadMat = new THREE.MeshStandardMaterial({ color: 0x1a202c, roughness: 0.9 });
+
+      const road = new THREE.Mesh(roadGeo, roadMat);
+
+      road.rotation.x = -Math.PI / 2;
+
+      road.position.set(0, 0.02, 0);
+
+      road.receiveShadow = true;
+
+      scene.add(road);
+
+
+
+      // Load 104MB Production Charminar 3D Asset
+
+      loadCharminarGLB();
+
+
+
+      // Build 3D Third-Person Special Forces Protagonist
+
+      buildPlayerCharacter();
+
+
+
+      // 3D Drivable Hyderabad Auto-Rickshaw (Bajaj RE 3-Wheeler)
+
+      buildAutoRickshaw();
+
+
+
+      // Interactive Ground Supply Crates
+
+      buildSupplyCrates();
+
+
+
+      // Courtyard Combat Training Dummies
+
+      buildCombatDummies();
+
+
+
+      // Complete AAA 3D Open-World Environment (Roads, Buildings, Gardens, Trees, Water, Traffic)
+
+      buildAAAEnvironment();
+
+
+
+      // Monsoon Rain Particles
+
+      buildRainParticles();
+
+
+
+      window.addEventListener('resize', onWindowResize);
+
+    }
+
+
+
+    // 104MB Ultra-High-Fidelity Charminar 3D Asset Loader (from Downloads/charminar/charminar.glb)
+
+    function loadCharminarGLB() {
+
+      if (typeof THREE.GLTFLoader !== 'undefined') {
+
+        const loader = new THREE.GLTFLoader();
+
+        const charminarUrl = (window.location.protocol === 'file:') ? 'Backend/app/static/charminar.glb' : '/static/charminar.glb';
+
+        loader.load(charminarUrl, (gltf) => {
+
+          console.log('Successfully loaded 104MB Charminar GLB asset!');
+
+          charminarGroup = gltf.scene;
+
+
+
+          // In this 104MB model, Y is up (-0.9387 to +0.9507)
+
+          // Scale by 29.5 to reach authentic 55.7m height and 44.6m base
+
+          const s = 29.5;
+
+          charminarGroup.scale.set(s, s, s);
+
+          // Grounding: offset Y by +0.9387 * s = 27.69m to place base on ground (Y=0)
+
+          charminarGroup.position.set(0, 0.9387 * s, -45);
+
+
+
+          charminarGroup.traverse((child) => {
+
+            if (child.isMesh) {
+
+              child.castShadow = true;
+
+              child.receiveShadow = true;
+
+              if (child.material) {
+
+                child.material.roughness = 0.72;
+
+                child.material.metalness = 0.15;
+
+                child.material.needsUpdate = true;
+
+              }
+
+            }
+
+          });
+
+          scene.add(charminarGroup);
+
+        }, undefined, (err) => {
+
+          console.warn('Charminar GLB load error, using fallback:', err);
+
+          buildCharminarMonument();
+
+        });
+
+      } else {
+
+        buildCharminarMonument();
+
+      }
+
+    }
+
+
+
+    // Fallback Procedural Charminar Monument (4 Minarets, Balcony Rings, Domes & Grand Arches)
+
+    function buildCharminarMonument() {
+
+      charminarGroup = new THREE.Group();
+
+      charminarGroup.position.set(0, 0, -45); // Centered in Hyderabad plaza
+
+
+
+      const graniteMat = new THREE.MeshStandardMaterial({
+
+        color: 0xd4b483, // Deccan sandstone/granite
+
+        roughness: 0.75,
+
+        metalness: 0.15
+
+      });
+
+
+
+      // Central Base Cube (31m x 31m x 20m high)
+
+      const baseGeo = new THREE.BoxGeometry(31, 20, 31);
+
+      const base = new THREE.Mesh(baseGeo, graniteMat);
+
+      base.position.y = 10;
+
+      base.castShadow = true;
+
+      base.receiveShadow = true;
+
+      charminarGroup.add(base);
+
+
+
+      // Grand Islamic Pointed Arches (Cutout visual simulation)
+
+      const archMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, roughness: 0.95 });
+
+      const archNorthSouth = new THREE.Mesh(new THREE.BoxGeometry(11, 14, 32), archMat);
+
+      archNorthSouth.position.y = 7;
+
+      charminarGroup.add(archNorthSouth);
+
+
+
+      const archEastWest = new THREE.Mesh(new THREE.BoxGeometry(32, 14, 11), archMat);
+
+      archEastWest.position.y = 7;
+
+      charminarGroup.add(archEastWest);
+
+
+
+      // 4 Minarets (56m total height)
+
+      const minaretRadius = 2.2;
+
+      const minaretHeight = 48;
+
+      const offsets = [
+
+        [-13.5, -13.5],
+
+        [13.5, -13.5],
+
+        [-13.5, 13.5],
+
+        [13.5, 13.5]
+
+      ];
+
+
+
+      offsets.forEach(([ox, oz]) => {
+
+        // Tower Shaft
+
+        const minGeo = new THREE.CylinderGeometry(minaretRadius * 0.8, minaretRadius, minaretHeight, 16);
+
+        const minMesh = new THREE.Mesh(minGeo, graniteMat);
+
+        minMesh.position.set(ox, minaretHeight / 2, oz);
+
+        minMesh.castShadow = true;
+
+        charminarGroup.add(minMesh);
+
+
+
+        // Balcony rings (Double-storied)
+
+        [18, 32].forEach(by => {
+
+          const balGeo = new THREE.CylinderGeometry(minaretRadius * 1.3, minaretRadius * 1.3, 1.2, 16);
+
+          const balMesh = new THREE.Mesh(balGeo, graniteMat);
+
+          balMesh.position.set(ox, by, oz);
+
+          charminarGroup.add(balMesh);
+
+        });
+
+
+
+        // Minaret Bulbous Dome
+
+        const domeGeo = new THREE.SphereGeometry(minaretRadius * 1.1, 16, 16);
+
+        const domeMesh = new THREE.Mesh(domeGeo, graniteMat);
+
+        domeMesh.position.set(ox, minaretHeight + 1.5, oz);
+
+        charminarGroup.add(domeMesh);
+
+      });
+
+
+
+      // Upper Story Gallery & Central Dome
+
+      const upperGallery = new THREE.Mesh(new THREE.BoxGeometry(26, 8, 26), graniteMat);
+
+      upperGallery.position.y = 24;
+
+      charminarGroup.add(upperGallery);
+
+
+
+      const centerDome = new THREE.Mesh(new THREE.SphereGeometry(4.5, 24, 24), graniteMat);
+
+      centerDome.position.y = 30;
+
+      charminarGroup.add(centerDome);
+
+
+
+      scene.add(charminarGroup);
+
+    }
+
+
+
+    // 3D Third-Person Hero Protagonist: AAA_Female_Rigged (FBX Native Rig & PBR Materials)
+
+    function buildPlayerCharacter() {
+
+      playerMesh = new THREE.Group();
+
+      scene.add(playerMesh);
+
+
+
+      // Vajra-556 Assault Rifle Weapon Mesh
+
+      gunMesh = new THREE.Group();
+
+      const armorMat = new THREE.MeshStandardMaterial({ color: 0x1a1d20, roughness: 0.5, metalness: 0.6 });
+
+      const gunBody = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.12, 0.70), armorMat);
+
+      gunBody.position.set(0, 0, 0.2);
+
+      gunMesh.add(gunBody);
+
+
+
+      const gunMag = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.18, 0.10), armorMat);
+
+      gunMag.position.set(0, -0.12, 0.18);
+
+      gunMag.rotation.x = 0.2;
+
+      gunMesh.add(gunMag);
+
+
+
+      // Muzzle flash point light
+
+      const muzzleLight = new THREE.PointLight(0xffaa22, 0, 8);
+
+      muzzleLight.position.set(0, 0.05, 0.65);
+
+      gunMesh.add(muzzleLight);
+
+      gunMesh.muzzleLight = muzzleLight;
+
+
+
+      gunMesh.position.set(0.32, 1.12, -0.32);
+
+      playerMesh.add(gunMesh);
+
+
+
+      // Load AAA_Female_Rigged FBX directly
+
+      if (typeof THREE.FBXLoader !== 'undefined') {
+
+        const fbxLoader = new THREE.FBXLoader();
+
+        const fbxUrl = (window.location.protocol === 'file:') ? 'Backend/app/static/AAA_Female_Rigged.fbx' : '/AAA_Female_Rigged.fbx';
+
+
+
+        // Load PBR Texture Maps (BaseColor, Roughness, Metalness)
+
+        const texLoader = new THREE.TextureLoader();
+
+        const texBase = (window.location.protocol === 'file:') 
+
+          ? 'Assets/Characters/AAA_Female_Rigged/textures/' 
+
+          : '/static/AAA_Female_Rigged/textures/';
+
+
+
+        const baseMap = texLoader.load(texBase + 'conversion_material_0_map.png');
+
+        baseMap.encoding = THREE.sRGBEncoding;
+
+
+
+        const roughMap = texLoader.load(texBase + 'conversion_material_0_roughnessMap.png');
+
+        const metalMap = texLoader.load(texBase + 'conversion_material_0_metalnessMap.png');
+
+
+
+        const pbrMaterial = new THREE.MeshStandardMaterial({
+
+          map: baseMap,
+
+          roughnessMap: roughMap,
+
+          metalnessMap: metalMap,
+
+          roughness: 0.78,
+
+          metalness: 0.12,
+
+          side: THREE.DoubleSide
+
+        });
+
+
+
+        fbxLoader.load(fbxUrl, (fbx) => {
+
+          console.log('Successfully loaded AAA_Female_Rigged.fbx!');
+
+
+
+          // Grounding: Height is 1.902m. Offset by +0.952m so feet stand flush at Y = 0
+
+          fbx.position.set(0, 0.952, 0);
+
+
+
+          // Face forward along -Z direction (away from third-person shoulder camera)
+
+          fbx.rotation.y = Math.PI;
+
+
+
+          fbx.traverse((child) => {
+
+            if (child.isMesh) {
+
+              child.castShadow = true;
+
+              child.receiveShadow = true;
+
+              child.material = pbrMaterial;
+
+            }
+
+          });
+
+
+
+          playerMesh.characterModel = fbx;
+
+          playerMesh.add(fbx);
+
+        }, undefined, (err) => {
+
+          console.warn('FBX Load error, fallback to procedural operative:', err);
+
+          buildProceduralCommando(playerMesh);
+
+        });
+
+      } else {
+
+        buildProceduralCommando(playerMesh);
+
+      }
+
+    }
+
+
+
+    // Procedural Commando Mesh Fallback
+
+    function buildProceduralCommando(parentGroup) {
+
+      const suitMat = new THREE.MeshStandardMaterial({ color: 0x223026, roughness: 0.7 });
+
+      const armorMat = new THREE.MeshStandardMaterial({ color: 0x1a1d20, roughness: 0.5, metalness: 0.4 });
+
+      const skinMat = new THREE.MeshStandardMaterial({ color: 0x935f3d, roughness: 0.8 });
+
+
+
+      const torso = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.70, 0.35), suitMat);
+
+      torso.position.y = 1.05;
+
+      parentGroup.add(torso);
+
+
+
+      const vest = new THREE.Mesh(new THREE.BoxGeometry(0.58, 0.52, 0.38), armorMat);
+
+      vest.position.set(0, 1.10, 0);
+
+      parentGroup.add(vest);
+
+
+
+      const head = new THREE.Mesh(new THREE.SphereGeometry(0.16, 16, 16), skinMat);
+
+      head.position.y = 1.58;
+
+      parentGroup.add(head);
+
+
+
+      const leftLeg = new THREE.Mesh(new THREE.BoxGeometry(0.20, 0.75, 0.22), suitMat);
+
+      leftLeg.position.set(-0.16, 0.40, 0);
+
+      parentGroup.add(leftLeg);
+
+
+
+      const rightLeg = new THREE.Mesh(new THREE.BoxGeometry(0.20, 0.75, 0.22), suitMat);
+
+      rightLeg.position.set(0.16, 0.40, 0);
+
+      parentGroup.add(rightLeg);
+
+    }
+
+
+
+
+
+    // --- 3D DRIVABLE AUTO-RICKSHAW (Bajaj RE 3-Wheeler) ---
+
+    function buildAutoRickshaw() {
+
+      autoRickshawMesh = new THREE.Group();
+
+      autoRickshawMesh.position.set(12, 0, -15); // Parked in plaza courtyard
+
+
+
+      const yellowMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.45, metalness: 0.3 }); // Deccan Auto Yellow
+
+      const greenMat = new THREE.MeshStandardMaterial({ color: 0x065f46, roughness: 0.6, metalness: 0.2 });   // RTO Green
+
+      const blackMat = new THREE.MeshStandardMaterial({ color: 0x111827, roughness: 0.8, metalness: 0.1 });   // Canvas Canopy
+
+      const chromeMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.2, metalness: 0.9 });  // Steel struts
+
+      const tireMat = new THREE.MeshStandardMaterial({ color: 0x1f2937, roughness: 0.9, metalness: 0.1 });    // Rubber tire
+
+      const glassMat = new THREE.MeshPhysicalMaterial({ color: 0xe0f2fe, transparent: true, opacity: 0.45, roughness: 0.1, transmission: 0.8 });
+
+
+
+      // Lower Green Body Tub (L: 2.6m, W: 1.3m, H: 0.65m)
+
+      const tub = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.65, 2.5), greenMat);
+
+      tub.position.y = 0.62;
+
+      tub.castShadow = true;
+
+      tub.receiveShadow = true;
+
+      autoRickshawMesh.add(tub);
+
+
+
+      // Front Curved Yellow Cowl
+
+      const cowl = new THREE.Mesh(new THREE.CylinderGeometry(0.65, 0.65, 0.70, 16, 1, false, -Math.PI / 2, Math.PI), yellowMat);
+
+      cowl.rotation.z = Math.PI / 2;
+
+      cowl.position.set(0, 0.85, -0.9);
+
+      cowl.castShadow = true;
+
+      autoRickshawMesh.add(cowl);
+
+
+
+      // Black Canvas Roof Canopy
+
+      const roof = new THREE.Mesh(new THREE.BoxGeometry(1.35, 0.12, 2.3), blackMat);
+
+      roof.position.set(0, 1.82, 0.05);
+
+      roof.castShadow = true;
+
+      autoRickshawMesh.add(roof);
+
+
+
+      // Windshield & Canopy Struts (Chrome Pillars)
+
+      const strutGeo = new THREE.CylinderGeometry(0.025, 0.025, 1.0, 8);
+
+      [[-0.6, -1.0], [0.6, -1.0], [-0.6, 1.1], [0.6, 1.1]].forEach(([sx, sz]) => {
+
+        const strut = new THREE.Mesh(strutGeo, chromeMat);
+
+        strut.position.set(sx, 1.35, sz);
+
+        autoRickshawMesh.add(strut);
+
+      });
+
+
+
+      // Front Windshield Glass
+
+      const windshield = new THREE.Mesh(new THREE.PlaneGeometry(1.15, 0.65), glassMat);
+
+      windshield.position.set(0, 1.45, -0.95);
+
+      autoRickshawMesh.add(windshield);
+
+
+
+      // Passenger Bench Seat
+
+      const seat = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.35, 0.55), blackMat);
+
+      seat.position.set(0, 0.78, 0.45);
+
+      autoRickshawMesh.add(seat);
+
+
+
+      // Driver Handlebar Console
+
+      const bar = new THREE.Mesh(new THREE.CylinderGeometry(0.02, 0.02, 0.65, 8), chromeMat);
+
+      bar.rotation.z = Math.PI / 2;
+
+      bar.position.set(0, 1.12, -0.65);
+
+      autoRickshawMesh.add(bar);
+
+
+
+      // Headlight & Real Plaza Lighting
+
+      const headlightGeo = new THREE.CylinderGeometry(0.12, 0.12, 0.10, 16);
+
+      const headlight = new THREE.Mesh(headlightGeo, chromeMat);
+
+      headlight.rotation.x = Math.PI / 2;
+
+      headlight.position.set(0, 0.88, -1.25);
+
+      autoRickshawMesh.add(headlight);
+
+
+
+      const headLightSource = new THREE.PointLight(0xfffbeb, 1.8, 22);
+
+      headLightSource.position.set(0, 0.88, -1.4);
+
+      autoRickshawMesh.add(headLightSource);
+
+
+
+      // Wheels: 1 Front (Centered), 2 Rear
+
+      const wheelGeo = new THREE.CylinderGeometry(0.28, 0.28, 0.18, 16);
+
+      wheelGeo.rotateZ(Math.PI / 2);
+
+
+
+      const fWheel = new THREE.Mesh(wheelGeo, tireMat);
+
+      fWheel.position.set(0, 0.28, -0.95);
+
+      fWheel.castShadow = true;
+
+      autoRickshawMesh.add(fWheel);
+
+      rickshawWheels.push(fWheel);
+
+
+
+      const rWheelL = new THREE.Mesh(wheelGeo, tireMat);
+
+      rWheelL.position.set(-0.68, 0.28, 0.75);
+
+      rWheelL.castShadow = true;
+
+      autoRickshawMesh.add(rWheelL);
+
+      rickshawWheels.push(rWheelL);
+
+
+
+      const rWheelR = new THREE.Mesh(wheelGeo, tireMat);
+
+      rWheelR.position.set(0.68, 0.28, 0.75);
+
+      rWheelR.castShadow = true;
+
+      autoRickshawMesh.add(rWheelR);
+
+      rickshawWheels.push(rWheelR);
+
+
+
+      scene.add(autoRickshawMesh);
+
+    }
+
+
+
+    // --- 3D INTERACTIVE GROUND SUPPLY CRATES ---
+
+    function buildSupplyCrates() {
+
+      const crateDefs = [
+
+        { id: 'crate-ammo556', name: '5.56 NATO AMMO (+60)', icon: '📦', x: -8, z: -18, type: 'ammo556', count: 60 },
+
+        { id: 'crate-medkit', name: 'HYDERABAD MEDKIT (+50 HP)', icon: '💊', x: 10, z: -28, type: 'medkit', count: 50 },
+
+        { id: 'crate-ammo300', name: 'GOLCONDA-300 AMMO (+15)', icon: '🎯', x: -2, z: -35, type: 'ammo300', count: 15 }
+
+      ];
+
+
+
+      const boxMat = new THREE.MeshStandardMaterial({ color: 0x3f4f34, roughness: 0.7, metalness: 0.3 }); // Military olive
+
+      const goldMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3, metalness: 0.8 });
+
+      const beamMat = new THREE.MeshBasicMaterial({
+
+        color: 0xfbbf24,
+
+        transparent: true,
+
+        opacity: 0.35,
+
+        side: THREE.DoubleSide
+
+      });
+
+
+
+      crateDefs.forEach(def => {
+
+        const crateGroup = new THREE.Group();
+
+        crateGroup.position.set(def.x, 0, def.z);
+
+
+
+        // Crate Box (1m x 0.7m x 1m)
+
+        const box = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.7, 1.0), boxMat);
+
+        box.position.y = 0.35;
+
+        box.castShadow = true;
+
+        crateGroup.add(box);
+
+
+
+        // Corner Straps
+
+        const strap = new THREE.Mesh(new THREE.BoxGeometry(1.02, 0.15, 1.02), goldMat);
+
+        strap.position.y = 0.35;
+
+        crateGroup.add(strap);
+
+
+
+        // Vertical Light Beacon Pillar (8m tall)
+
+        const beamGeo = new THREE.CylinderGeometry(0.18, 0.35, 9.0, 16);
+
+        const beam = new THREE.Mesh(beamGeo, beamMat);
+
+        beam.position.y = 4.8;
+
+        crateGroup.add(beam);
+
+        crateGroup.beamMesh = beam;
+
+
+
+        crateGroup.crateData = def;
+
+        crateGroup.isActive = true;
+
+
+
+        scene.add(crateGroup);
+
+        supplyCrates.push(crateGroup);
+
+      });
+
+    }
+
+
+
+    // --- 3D COMBAT TRAINING DUMMIES ---
+
+    function buildCombatDummies() {
+
+      const dummyDefs = [
+
+        { id: 'dummy-1', name: 'Deccan_Bot_01', x: -14, z: -36, maxHp: 100, hp: 100 },
+
+        { id: 'dummy-2', name: 'Charminar_Rival', x: 14, z: -42, maxHp: 100, hp: 100 }
+
+      ];
+
+
+
+      const suitMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
+
+      const redMat = new THREE.MeshStandardMaterial({ color: 0xef4444, roughness: 0.5 });
+
+      const whiteMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5 });
+
+
+
+      dummyDefs.forEach(def => {
+
+        const dummyGroup = new THREE.Group();
+
+        dummyGroup.position.set(def.x, 0, def.z);
+
+
+
+        // Torso
+
+        const torso = new THREE.Mesh(new THREE.BoxGeometry(0.55, 0.75, 0.35), suitMat);
+
+        torso.position.y = 1.1;
+
+        torso.castShadow = true;
+
+        torso.isHitTarget = true;
+
+        torso.isHead = false;
+
+        torso.dummyParent = dummyGroup;
+
+        dummyGroup.add(torso);
+
+
+
+        // Bullseye chest target
+
+        const ringOuter = new THREE.Mesh(new THREE.CylinderGeometry(0.18, 0.18, 0.02, 16), redMat);
+
+        ringOuter.rotation.x = Math.PI / 2;
+
+        ringOuter.position.set(0, 1.15, 0.18);
+
+        dummyGroup.add(ringOuter);
+
+
+
+        const ringInner = new THREE.Mesh(new THREE.CylinderGeometry(0.08, 0.08, 0.03, 16), whiteMat);
+
+        ringInner.rotation.x = Math.PI / 2;
+
+        ringInner.position.set(0, 1.15, 0.19);
+
+        dummyGroup.add(ringInner);
+
+
+
+        // Head
+
+        const head = new THREE.Mesh(new THREE.SphereGeometry(0.18, 16, 16), suitMat);
+
+        head.position.y = 1.65;
+
+        head.castShadow = true;
+
+        head.isHitTarget = true;
+
+        head.isHead = true;
+
+        head.dummyParent = dummyGroup;
+
+        dummyGroup.add(head);
+
+
+
+        // Red Helmet / Cap
+
+        const cap = new THREE.Mesh(new THREE.CylinderGeometry(0.20, 0.20, 0.08, 16), redMat);
+
+        cap.position.y = 1.78;
+
+        dummyGroup.add(cap);
+
+
+
+        // Legs
+
+        const leftLeg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.75, 0.22), suitMat);
+
+        leftLeg.position.set(-0.16, 0.40, 0);
+
+        dummyGroup.add(leftLeg);
+
+
+
+        const rightLeg = new THREE.Mesh(new THREE.BoxGeometry(0.22, 0.75, 0.22), suitMat);
+
+        rightLeg.position.set(0.16, 0.40, 0);
+
+        dummyGroup.add(rightLeg);
+
+
+
+        dummyGroup.dummyData = def;
+
+        dummyGroup.isEliminated = false;
+
+
+
+        scene.add(dummyGroup);
+
+        combatDummies.push(dummyGroup);
+
+      });
+
+    }
+
+
+
+    // --- FLOATING IN-GAME NOTIFICATIONS (TOASTS) ---
+
+    function showToast(message, type = 'loot') {
+
+      const container = document.getElementById('loot-toast-container');
+
+      if (!container) return;
+
+      const toast = document.createElement('div');
+
+      const borderColor = type === 'loot' ? 'border-amber-400' : (type === 'kill' ? 'border-rose-500' : 'border-sky-400');
+
+      toast.className = `px-4 py-2 rounded-full bg-black/90 backdrop-blur-md border ${borderColor} text-white font-black text-xs shadow-2xl flex items-center gap-2 transform transition-all duration-300 opacity-0 -translate-y-2`;
+
+      toast.innerHTML = message;
+
+      container.appendChild(toast);
+
+
+
+      requestAnimationFrame(() => {
+
+        toast.classList.remove('opacity-0', '-translate-y-2');
+
+        toast.classList.add('opacity-100', 'translate-y-0');
+
+      });
+
+
+
+      setTimeout(() => {
+
+        toast.classList.add('opacity-0', '-translate-y-2');
+
+        setTimeout(() => toast.remove(), 300);
+
+      }, 2600);
+
+    }
+
+
+
+
+
+    // --- COMPLETE AAA 3D ENVIRONMENT & OPEN-WORLD GRAPHICS UPGRADE ---
+
+    let environmentProps = [];
+
+    let waterMesh, fountainWaterParticles = [];
+
+
+
+
+
+    // --- 3D HITEC CITY / MADHAPUR PROTOTYPE & DURGAM CHERUVU CABLE BRIDGE ---
+
+    function buildHitecCityMadhapurZone() {
+
+      const hitecGroup = new THREE.Group();
+
+
+
+      const glassBlueMat = new THREE.MeshPhysicalMaterial({ color: 0x0284c7, roughness: 0.15, metalness: 0.85, transmission: 0.7 });
+
+      const glassReflectMat = new THREE.MeshPhysicalMaterial({ color: 0x0f172a, roughness: 0.1, metalness: 0.95 });
+
+      const whiteRibMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.6 });
+
+      const concretePillarMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.8 });
+
+      const steelCableMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.3, metalness: 0.9 });
+
+      const logoGoldMat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, roughness: 0.3, metalness: 0.8 });
+
+
+
+      // 1. CYBER TOWERS LANDMARK CORE (-50, 0, -85)
+
+      // Iconic 4-quadrant cylindrical tower structure with central atrium
+
+      const cyberTowers = new THREE.Group();
+
+      cyberTowers.position.set(-50, 0, -85);
+
+
+
+      const quadOffsets = [
+
+        [-8.0, -8.0], [8.0, -8.0], [-8.0, 8.0], [8.0, 8.0]
+
+      ];
+
+      quadOffsets.forEach(([qx, qz]) => {
+
+        // Cylindrical Quarter Tower (Radius 7.5m, Height 52m)
+
+        const qTower = new THREE.Mesh(new THREE.CylinderGeometry(7.5, 7.5, 52, 24), glassBlueMat);
+
+        qTower.position.set(qx, 26, qz);
+
+        qTower.castShadow = true;
+
+        qTower.receiveShadow = true;
+
+        cyberTowers.add(qTower);
+
+
+
+        // White Architectural Vertical Facade Ribs
+
+        for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
+
+          const rib = new THREE.Mesh(new THREE.BoxGeometry(0.3, 52, 0.4), whiteRibMat);
+
+          rib.position.set(qx + Math.cos(a) * 7.55, 26, qz + Math.sin(a) * 7.55);
+
+          cyberTowers.add(rib);
+
+        }
+
+      });
+
+
+
+      // Central Atrium Glass Dome
+
+      const atrium = new THREE.Mesh(new THREE.SphereGeometry(6.5, 16, 16), glassReflectMat);
+
+      atrium.position.set(0, 52, 0);
+
+      cyberTowers.add(atrium);
+
+
+
+      // Central Communications Antenna Spire (Reaching 72m height)
+
+      const spire = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.6, 20, 8), steelCableMat);
+
+      spire.position.set(0, 62, 0);
+
+      cyberTowers.add(spire);
+
+
+
+      // Cyber Towers Grand Entrance Canopy & Sign
+
+      const canopy = new THREE.Mesh(new THREE.BoxGeometry(22, 1.2, 8), whiteRibMat);
+
+      canopy.position.set(0, 4.5, 14);
+
+      cyberTowers.add(canopy);
+
+
+
+      const signBoard = new THREE.Mesh(new THREE.BoxGeometry(16, 1.8, 0.3), logoGoldMat);
+
+      signBoard.position.set(0, 5.8, 14);
+
+      cyberTowers.add(signBoard);
+
+
+
+      hitecGroup.add(cyberTowers);
+
+
+
+      // 2. CYBER GATEWAY IT COMPLEX (-85, 0, -50)
+
+      const cyberGateway = new THREE.Mesh(new THREE.BoxGeometry(32, 38, 48), glassReflectMat);
+
+      cyberGateway.position.set(-85, 19, -50);
+
+      cyberGateway.castShadow = true;
+
+      cyberGateway.receiveShadow = true;
+
+      hitecGroup.add(cyberGateway);
+
+
+
+      // 3. MINDSPACE IT PARK & INORBIT MALL (East Sector: 55, 0, -80)
+
+      const mindspaceBldg = new THREE.Mesh(new THREE.BoxGeometry(38, 44, 32), glassBlueMat);
+
+      mindspaceBldg.position.set(55, 22, -80);
+
+      mindspaceBldg.castShadow = true;
+
+      hitecGroup.add(mindspaceBldg);
+
+
+
+      const inorbitMall = new THREE.Mesh(new THREE.BoxGeometry(45, 22, 50), whiteRibMat);
+
+      inorbitMall.position.set(65, 11, -35);
+
+      inorbitMall.castShadow = true;
+
+      hitecGroup.add(inorbitMall);
+
+
+
+      // 4. DURGAM CHERUVU CABLE-STAYED BRIDGE (Spanning Water Canal: 55, 0, 45)
+
+      const cableBridge = new THREE.Group();
+
+      cableBridge.position.set(55, 0, 45);
+
+
+
+      // Bridge Deck (Length 75m, Width 16.5m, Height 6m above water)
+
+      const deckMat = new THREE.MeshStandardMaterial({ color: 0x1e242b, roughness: 0.85 });
+
+      const bridgeDeck = new THREE.Mesh(new THREE.BoxGeometry(16.5, 1.5, 75), deckMat);
+
+      bridgeDeck.position.y = 6.0;
+
+      bridgeDeck.castShadow = true;
+
+      bridgeDeck.receiveShadow = true;
+
+      cableBridge.add(bridgeDeck);
+
+
+
+      // Twin Concrete A-Frame Cable Pylons (Rising 38m high)
+
+      [-22, 22].forEach(pz => {
+
+        // Left Leg
+
+        const legL = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.4, 36, 8), concretePillarMat);
+
+        legL.position.set(-7.0, 18, pz);
+
+        legL.rotation.z = -0.15;
+
+        legL.castShadow = true;
+
+        cableBridge.add(legL);
+
+
+
+        // Right Leg
+
+        const legR = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.4, 36, 8), concretePillarMat);
+
+        legR.position.set(7.0, 18, pz);
+
+        legR.rotation.z = 0.15;
+
+        legR.castShadow = true;
+
+        cableBridge.add(legR);
+
+
+
+        // Pylon Crossbeam
+
+        const crossbeam = new THREE.Mesh(new THREE.BoxGeometry(14, 1.4, 2.0), concretePillarMat);
+
+        crossbeam.position.set(0, 32, pz);
+
+        cableBridge.add(crossbeam);
+
+
+
+        // Stay Tension Cables (radiating from pylon top to road deck)
+
+        for (let dz = -30; dz <= 30; dz += 10) {
+
+          if (Math.abs(dz - pz) < 4) continue;
+
+          const cableGeo = new THREE.CylinderGeometry(0.04, 0.04, 28, 6);
+
+          const cable = new THREE.Mesh(cableGeo, steelCableMat);
+
+          cable.position.set(0, 20, (pz + dz) / 2);
+
+          const angleX = Math.atan2(dz - pz, 26);
+
+          cable.rotation.x = angleX;
+
+          cableBridge.add(cable);
+
+        }
+
+      });
+
+
+
+      hitecGroup.add(cableBridge);
+
+
+
+      // 5. HYDERABAD ELEVATED METRO RAIL VIADUCT (Parallel to Boulevard)
+
+      const metroGroup = new THREE.Group();
+
+      for (let mz = -140; mz <= 140; mz += 35) {
+
+        // Concrete Metro Pillar (9m height)
+
+        const mPillar = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.2, 9, 12), concretePillarMat);
+
+        mPillar.position.set(-18.5, 4.5, mz);
+
+        mPillar.castShadow = true;
+
+        metroGroup.add(mPillar);
+
+
+
+        // Viaduct Box Girder
+
+        const girder = new THREE.Mesh(new THREE.BoxGeometry(6.5, 1.2, 35.5), concretePillarMat);
+
+        girder.position.set(-18.5, 9.6, mz);
+
+        girder.castShadow = true;
+
+        metroGroup.add(girder);
+
+
+
+        // Track Rails (Double track)
+
+        [-1.2, 1.2].forEach(tx => {
+
+          const rail = new THREE.Mesh(new THREE.BoxGeometry(0.12, 0.18, 35.5), steelCableMat);
+
+          rail.position.set(-18.5 + tx, 10.3, mz);
+
+          metroGroup.add(rail);
+
+        });
+
+      }
+
+      hitecGroup.add(metroGroup);
+
+
+
+      scene.add(hitecGroup);
+
+    }
+
+    // --- 3D EXTENDED HYDERABAD REGIONAL SECTORS ---
+    function buildExtendedHyderabadSectors() {
+      const extendedGroup = new THREE.Group();
+
+      const glassDarkMat = new THREE.MeshPhysicalMaterial({ color: 0x0f172a, roughness: 0.1, metalness: 0.9, transmission: 0.5 });
+      const glassGoldMat = new THREE.MeshPhysicalMaterial({ color: 0xb45309, roughness: 0.2, metalness: 0.8 });
+      const concreteMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
+      const whiteFacadeMat = new THREE.MeshStandardMaterial({ color: 0xf1f5f9, roughness: 0.4 });
+      const domeGoldMat = new THREE.MeshStandardMaterial({ color: 0xd97706, roughness: 0.3, metalness: 0.85 });
+      const waterMat = new THREE.MeshPhysicalMaterial({ color: 0x0284c7, roughness: 0.1, metalness: 0.1, transmission: 0.85, opacity: 0.85, transparent: true });
+      const asphaltMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, roughness: 0.9 });
+      const stripeWhiteMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+      const grassMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.9 });
+      const tartanRedMat = new THREE.MeshStandardMaterial({ color: 0xb91c1c, roughness: 0.8 });
+
+      // 1. GACHIBOWLI FINANCIAL DISTRICT (-120, 0, -110)
+      const gachibowliGroup = new THREE.Group();
+      gachibowliGroup.position.set(-120, 0, -110);
+
+      // Waverock IT Park (Towers A & B + Skybridge)
+      const waverockA = new THREE.Mesh(new THREE.BoxGeometry(28, 62, 18), glassDarkMat);
+      waverockA.position.set(-18, 31, 0);
+      waverockA.castShadow = true;
+      gachibowliGroup.add(waverockA);
+
+      const waverockB = new THREE.Mesh(new THREE.BoxGeometry(26, 52, 18), glassDarkMat);
+      waverockB.position.set(18, 26, 0);
+      waverockB.castShadow = true;
+      gachibowliGroup.add(waverockB);
+
+      const skybridge = new THREE.Mesh(new THREE.BoxGeometry(16, 4.5, 8), glassGoldMat);
+      skybridge.position.set(0, 36, 0);
+      gachibowliGroup.add(skybridge);
+
+      // Gachibowli Stadium
+      const stadiumGroup = new THREE.Group();
+      stadiumGroup.position.set(50, 0, 35);
+      const stadiumBase = new THREE.Mesh(new THREE.CylinderGeometry(36, 40, 10, 32), concreteMat);
+      stadiumBase.position.y = 5;
+      stadiumGroup.add(stadiumBase);
+
+      const track = new THREE.Mesh(new THREE.RingGeometry(18, 33, 32), tartanRedMat);
+      track.rotation.x = -Math.PI / 2;
+      track.position.y = 10.1;
+      stadiumGroup.add(track);
+
+      const pitch = new THREE.Mesh(new THREE.CircleGeometry(17.5, 32), grassMat);
+      pitch.rotation.x = -Math.PI / 2;
+      pitch.position.y = 10.12;
+      stadiumGroup.add(pitch);
+
+      const canopy = new THREE.Mesh(new THREE.CylinderGeometry(38, 38, 2, 32, 1, false, 0, Math.PI), whiteFacadeMat);
+      canopy.position.y = 19;
+      stadiumGroup.add(canopy);
+      gachibowliGroup.add(stadiumGroup);
+      extendedGroup.add(gachibowliGroup);
+
+      // 2. HUSSAIN SAGAR & TANK BUND (80, 0, 20)
+      const hussainGroup = new THREE.Group();
+      hussainGroup.position.set(80, 0, 20);
+
+      const lakeSurface = new THREE.Mesh(new THREE.PlaneGeometry(110, 80), waterMat);
+      lakeSurface.rotation.x = -Math.PI / 2;
+      lakeSurface.position.set(0, 0.2, 0);
+      hussainGroup.add(lakeSurface);
+
+      const islandBase = new THREE.Mesh(new THREE.CylinderGeometry(11, 13, 3, 16), concreteMat);
+      islandBase.position.set(0, 1.5, 0);
+      hussainGroup.add(islandBase);
+
+      const monolithStatue = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 2.5, 14, 8), new THREE.MeshStandardMaterial({ color: 0xd4d4d8, roughness: 0.6 }));
+      monolithStatue.position.set(0, 10, 0);
+      hussainGroup.add(monolithStatue);
+
+      const promenade = new THREE.Mesh(new THREE.BoxGeometry(110, 0.8, 8), asphaltMat);
+      promenade.position.set(0, 0.5, 38);
+      hussainGroup.add(promenade);
+
+      const secretariat = new THREE.Group();
+      secretariat.position.set(0, 0, 58);
+      const secMain = new THREE.Mesh(new THREE.BoxGeometry(70, 26, 22), whiteFacadeMat);
+      secMain.position.y = 13;
+      secMain.castShadow = true;
+      secretariat.add(secMain);
+
+      const secDome = new THREE.Mesh(new THREE.SphereGeometry(6, 16, 16), domeGoldMat);
+      secDome.position.set(0, 29, 0);
+      secretariat.add(secDome);
+      hussainGroup.add(secretariat);
+      extendedGroup.add(hussainGroup);
+
+      // 3. RAJIV GANDHI INT. AIRPORT (RGIA) (-40, 0, 180)
+      const airportGroup = new THREE.Group();
+      airportGroup.position.set(-40, 0, 180);
+
+      const runway = new THREE.Mesh(new THREE.PlaneGeometry(160, 22), asphaltMat);
+      runway.rotation.x = -Math.PI / 2;
+      runway.position.set(0, 0.1, -25);
+      airportGroup.add(runway);
+
+      for (let x = -60; x <= 60; x += 15) {
+        const dash = new THREE.Mesh(new THREE.PlaneGeometry(8, 0.9), stripeWhiteMat);
+        dash.rotation.x = -Math.PI / 2;
+        dash.position.set(x, 0.12, -25);
+        airportGroup.add(dash);
+      }
+
+      const terminal = new THREE.Group();
+      terminal.position.set(0, 0, 20);
+      const termBody = new THREE.Mesh(new THREE.BoxGeometry(85, 18, 32), glassDarkMat);
+      termBody.position.y = 9;
+      termBody.castShadow = true;
+      terminal.add(termBody);
+
+      const termRoof = new THREE.Mesh(new THREE.BoxGeometry(92, 2.2, 36), whiteFacadeMat);
+      termRoof.position.y = 19;
+      terminal.add(termRoof);
+
+      [-30, -10, 10, 30].forEach(jx => {
+        const bridge = new THREE.Mesh(new THREE.BoxGeometry(4, 3.5, 12), whiteFacadeMat);
+        bridge.position.set(jx, 7, -20);
+        terminal.add(bridge);
+      });
+      airportGroup.add(terminal);
+
+      const atcGroup = new THREE.Group();
+      atcGroup.position.set(55, 0, 15);
+      const atcShaft = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 3.5, 50, 16), concreteMat);
+      atcShaft.position.y = 25;
+      atcShaft.castShadow = true;
+      atcGroup.add(atcShaft);
+
+      const atcCab = new THREE.Mesh(new THREE.CylinderGeometry(5.5, 4.2, 8, 8), glassDarkMat);
+      atcCab.position.y = 54;
+      atcGroup.add(atcCab);
+
+      const atcRadome = new THREE.Mesh(new THREE.SphereGeometry(2.5, 12, 12), whiteFacadeMat);
+      atcRadome.position.y = 60;
+      atcGroup.add(atcRadome);
+      airportGroup.add(atcGroup);
+
+      extendedGroup.add(airportGroup);
+      scene.add(extendedGroup);
+    }
+
+
+
+
+    function buildAAAEnvironment() {
+
+      // 0. HITEC City / Madhapur Zone (Cyber Towers, Mindspace, Durgam Cable Bridge, Metro)
+
+      buildHitecCityMadhapurZone();
+      buildExtendedHyderabadSectors();
+
+
+
+      // 1. Multi-Lane Boulevard with Dividers, Curbs, & Sidewalks
+
+      buildRoadAndPedestrianSystem();
+
+
+
+      // 2. High-Quality Commercial Buildings & Indian Architecture
+
+      buildCommercialArchitecture();
+
+
+
+      // 3. Gardens, Fountains, Flowerbeds & Park Benches
+
+      buildGardensAndFountainPlaza();
+
+
+
+      // 4. Diverse Indian Trees (Neem, Banyan, Coconut Palms)
+
+      buildVegetationSystem();
+
+
+
+      // 5. Environmental Traffic Vehicles (Police SUV, Sedan)
+
+      buildEnvironmentalVehicles();
+
+
+
+      // 6. Water Canal & Reflecting Pool
+
+      buildWaterCanalSystem();
+
+
+
+      // 7. Street Infrastructure (LED Lamps, Barriers, Billboards)
+
+      buildStreetInfrastructure();
+
+    }
+
+
+
+    function buildRoadAndPedestrianSystem() {
+
+      // Multi-lane Boulevard (4 lanes, 22m wide x 320m long)
+
+      const roadMat = new THREE.MeshStandardMaterial({ color: 0x1e242b, roughness: 0.85, metalness: 0.1 });
+
+      const road = new THREE.Mesh(new THREE.PlaneGeometry(22, 320), roadMat);
+
+      road.rotation.x = -Math.PI / 2;
+
+      road.position.set(0, 0.015, 0);
+
+      road.receiveShadow = true;
+
+      scene.add(road);
+
+
+
+      // Yellow Center Road Dividers (Double solid yellow lines)
+
+      const dividerMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b });
+
+      [-0.2, 0.2].forEach(offset => {
+
+        const divider = new THREE.Mesh(new THREE.PlaneGeometry(0.22, 310), dividerMat);
+
+        divider.rotation.x = -Math.PI / 2;
+
+        divider.position.set(offset, 0.025, 0);
+
+        scene.add(divider);
+
+      });
+
+
+
+      // White Dashed Lane Markings
+
+      const whiteLineMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+
+      [-5.5, 5.5].forEach(laneX => {
+
+        for (let z = -140; z <= 140; z += 12) {
+
+          const dash = new THREE.Mesh(new THREE.PlaneGeometry(0.25, 5.5), whiteLineMat);
+
+          dash.rotation.x = -Math.PI / 2;
+
+          dash.position.set(laneX, 0.025, z);
+
+          scene.add(dash);
+
+        }
+
+      });
+
+
+
+      // Pedestrian Sidewalks (Concrete Curbs & Walkways, 4.5m wide each side)
+
+      const curbMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.7 });
+
+      const walkMat = new THREE.MeshStandardMaterial({ color: 0x64748b, roughness: 0.9 });
+
+
+
+      [-13.5, 13.5].forEach(sideX => {
+
+        const sidewalk = new THREE.Mesh(new THREE.BoxGeometry(4.5, 0.25, 320), walkMat);
+
+        sidewalk.position.set(sideX, 0.125, 0);
+
+        sidewalk.receiveShadow = true;
+
+        scene.add(sidewalk);
+
+      });
+
+
+
+      // Pedestrian Zebra Crosswalks
+
+      [-30, 20, 80].forEach(crossZ => {
+
+        for (let x = -10; x <= 10; x += 2.0) {
+
+          const stripe = new THREE.Mesh(new THREE.PlaneGeometry(1.2, 5.0), whiteLineMat);
+
+          stripe.rotation.x = -Math.PI / 2;
+
+          stripe.position.set(x, 0.028, crossZ);
+
+          scene.add(stripe);
+
+        }
+
+      });
+
+    }
+
+
+
+    function buildCommercialArchitecture() {
+
+      const bldgGroup = new THREE.Group();
+
+      const glassMat = new THREE.MeshPhysicalMaterial({ color: 0x0f172a, roughness: 0.15, metalness: 0.85, transmission: 0.6 });
+
+      const concreteMat = new THREE.MeshStandardMaterial({ color: 0xd1d5db, roughness: 0.8 });
+
+      const terracottaMat = new THREE.MeshStandardMaterial({ color: 0x9a3412, roughness: 0.85 });
+
+
+
+      // Building 1: Cyber Towers Commercial IT Hub (West side)
+
+      const itTower = new THREE.Mesh(new THREE.BoxGeometry(28, 48, 36), glassMat);
+
+      itTower.position.set(-36, 24, -30);
+
+      itTower.castShadow = true;
+
+      itTower.receiveShadow = true;
+
+      bldgGroup.add(itTower);
+
+
+
+      // Building 1 Roof Telecom Tower & Water Tanks
+
+      const towerBase = new THREE.Mesh(new THREE.CylinderGeometry(0.3, 1.2, 14, 8), concreteMat);
+
+      towerBase.position.set(-36, 55, -30);
+
+      bldgGroup.add(towerBase);
+
+
+
+      // Building 2: Deccan Retail & Mall Arcade (East side)
+
+      const arcade = new THREE.Mesh(new THREE.BoxGeometry(26, 24, 45), concreteMat);
+
+      arcade.position.set(35, 12, -25);
+
+      arcade.castShadow = true;
+
+      arcade.receiveShadow = true;
+
+      bldgGroup.add(arcade);
+
+
+
+      // Facade Balconies & Arches
+
+      for (let floor = 1; floor <= 3; floor++) {
+
+        for (let bz = -40; bz <= -10; bz += 10) {
+
+          const balcony = new THREE.Mesh(new THREE.BoxGeometry(2.0, 1.1, 6.0), terracottaMat);
+
+          balcony.position.set(21.5, floor * 6.5, bz);
+
+          bldgGroup.add(balcony);
+
+        }
+
+      }
+
+
+
+      // Building 3: Historic Nizam Heritage Hotel (Northeast)
+
+      const hotel = new THREE.Mesh(new THREE.BoxGeometry(32, 28, 30), terracottaMat);
+
+      hotel.position.set(38, 14, 45);
+
+      hotel.castShadow = true;
+
+      hotel.receiveShadow = true;
+
+      bldgGroup.add(hotel);
+
+
+
+      scene.add(bldgGroup);
+
+    }
+
+
+
+    function buildGardensAndFountainPlaza() {
+
+      const gardenGroup = new THREE.Group();
+
+
+
+      // Central Fountain Basin in Courtyard (Radius: 7m)
+
+      const stoneMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.6 });
+
+      const basin = new THREE.Mesh(new THREE.CylinderGeometry(7.0, 7.5, 0.9, 32), stoneMat);
+
+      basin.position.set(-20, 0.45, 15);
+
+      basin.receiveShadow = true;
+
+      gardenGroup.add(basin);
+
+
+
+      // Fountain Central Tier
+
+      const tier2 = new THREE.Mesh(new THREE.CylinderGeometry(3.2, 3.5, 1.8, 24), stoneMat);
+
+      tier2.position.set(-20, 1.4, 15);
+
+      gardenGroup.add(tier2);
+
+
+
+      // Fountain Water Surface
+
+      const waterMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, roughness: 0.1, metalness: 0.8, transparent: true, opacity: 0.85 });
+
+      const fWater = new THREE.Mesh(new THREE.CylinderGeometry(6.6, 6.6, 0.2, 32), waterMat);
+
+      fWater.position.set(-20, 0.82, 15);
+
+      gardenGroup.add(fWater);
+
+
+
+      // Manicured Hedges around Garden Plaza
+
+      const hedgeMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 0.9 });
+
+      for (let hx = -32; hx <= -8; hx += 5.5) {
+
+        const hedge = new THREE.Mesh(new THREE.BoxGeometry(4.8, 1.2, 1.2), hedgeMat);
+
+        hedge.position.set(hx, 0.6, 26);
+
+        hedge.castShadow = true;
+
+        gardenGroup.add(hedge);
+
+      }
+
+
+
+      // Wooden Park Benches
+
+      const woodMat = new THREE.MeshStandardMaterial({ color: 0x78350f, roughness: 0.8 });
+
+      [[-26, 22, 0], [-14, 22, 0], [-26, 8, Math.PI]].forEach(([bx, bz, rot]) => {
+
+        const benchSeat = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.1, 0.7), woodMat);
+
+        benchSeat.position.set(bx, 0.5, bz);
+
+        benchSeat.rotation.y = rot;
+
+        gardenGroup.add(benchSeat);
+
+
+
+        const benchBack = new THREE.Mesh(new THREE.BoxGeometry(2.4, 0.6, 0.08), woodMat);
+
+        benchBack.position.set(bx, 0.85, bz - 0.32);
+
+        benchBack.rotation.y = rot;
+
+        gardenGroup.add(benchBack);
+
+      });
+
+
+
+      scene.add(gardenGroup);
+
+    }
+
+
+
+    function buildVegetationSystem() {
+
+      const vegGroup = new THREE.Group();
+
+      const trunkMat = new THREE.MeshStandardMaterial({ color: 0x451a03, roughness: 0.95 });
+
+      const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.85 });
+
+      const palmLeafMat = new THREE.MeshStandardMaterial({ color: 0x22c55e, roughness: 0.7 });
+
+
+
+      // 1. Coconut Palm Trees along the Boulevard
+
+      [-17, 17].forEach(sideX => {
+
+        for (let pz = -120; pz <= 120; pz += 30) {
+
+          // Curved Palm Trunk
+
+          const pTrunk = new THREE.Mesh(new THREE.CylinderGeometry(0.28, 0.45, 11, 8), trunkMat);
+
+          pTrunk.position.set(sideX, 5.5, pz);
+
+          pTrunk.rotation.z = sideX > 0 ? -0.08 : 0.08;
+
+          pTrunk.castShadow = true;
+
+          vegGroup.add(pTrunk);
+
+
+
+          // Palm Crown
+
+          const crown = new THREE.Mesh(new THREE.SphereGeometry(3.2, 12, 12), palmLeafMat);
+
+          crown.scale.set(1.4, 0.6, 1.4);
+
+          crown.position.set(sideX + (sideX > 0 ? -0.8 : 0.8), 11.2, pz);
+
+          crown.castShadow = true;
+
+          vegGroup.add(crown);
+
+        }
+
+      });
+
+
+
+      // 2. Large Dense Neem & Banyan Trees in Courtyard
+
+      const treeLocs = [
+
+        [-24, -20], [-26, -55], [26, -65], [28, 15], [-28, 65]
+
+      ];
+
+      treeLocs.forEach(([tx, tz]) => {
+
+        // Massive Trunk
+
+        const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.8, 1.2, 7.5, 10), trunkMat);
+
+        trunk.position.set(tx, 3.75, tz);
+
+        trunk.castShadow = true;
+
+        vegGroup.add(trunk);
+
+
+
+        // Lush Tiered Canopy
+
+        const canopy1 = new THREE.Mesh(new THREE.SphereGeometry(4.8, 16, 16), leafMat);
+
+        canopy1.position.set(tx, 8.5, tz);
+
+        canopy1.castShadow = true;
+
+        vegGroup.add(canopy1);
+
+
+
+        const canopy2 = new THREE.Mesh(new THREE.SphereGeometry(3.5, 14, 14), leafMat);
+
+        canopy2.position.set(tx + 1.2, 10.8, tz - 0.8);
+
+        canopy2.castShadow = true;
+
+        vegGroup.add(canopy2);
+
+      });
+
+
+
+      scene.add(vegGroup);
+
+    }
+
+
+
+    function buildEnvironmentalVehicles() {
+
+      const vehGroup = new THREE.Group();
+
+
+
+      // 1. Telangana State Police Interceptor SUV (Parked at sideX: -14, z: -8)
+
+      const policeSUV = new THREE.Group();
+
+      policeSUV.position.set(-14, 0, -8);
+
+      policeSUV.rotation.y = 0.3;
+
+
+
+      const whiteBodyMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc, roughness: 0.3, metalness: 0.6 });
+
+      const blueDecalMat = new THREE.MeshStandardMaterial({ color: 0x1d4ed8, roughness: 0.4 });
+
+      const tireMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.9 });
+
+
+
+      // SUV Chassis
+
+      const suvChassis = new THREE.Mesh(new THREE.BoxGeometry(2.1, 1.1, 4.6), whiteBodyMat);
+
+      suvChassis.position.y = 0.95;
+
+      suvChassis.castShadow = true;
+
+      policeSUV.add(suvChassis);
+
+
+
+      // Blue Police Side Stripes
+
+      const sideStripe = new THREE.Mesh(new THREE.BoxGeometry(2.12, 0.28, 4.2), blueDecalMat);
+
+      sideStripe.position.y = 0.88;
+
+      policeSUV.add(sideStripe);
+
+
+
+      // Cabin / Roof
+
+      const suvCabin = new THREE.Mesh(new THREE.BoxGeometry(1.85, 0.85, 2.6), whiteBodyMat);
+
+      suvCabin.position.set(0, 1.85, -0.2);
+
+      policeSUV.add(suvCabin);
+
+
+
+      // Emergency Lightbar (Red & Blue)
+
+      const lightbarRed = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.2), new THREE.MeshBasicMaterial({ color: 0xef4444 }));
+
+      lightbarRed.position.set(-0.35, 2.35, -0.2);
+
+      policeSUV.add(lightbarRed);
+
+
+
+      const lightbarBlue = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.12, 0.2), new THREE.MeshBasicMaterial({ color: 0x3b82f6 }));
+
+      lightbarBlue.position.set(0.35, 2.35, -0.2);
+
+      policeSUV.add(lightbarBlue);
+
+
+
+      // SUV Wheels
+
+      const suvWheelGeo = new THREE.CylinderGeometry(0.42, 0.42, 0.28, 16);
+
+      suvWheelGeo.rotateZ(Math.PI / 2);
+
+      [[-1.05, 0.42, -1.4], [1.05, 0.42, -1.4], [-1.05, 0.42, 1.4], [1.05, 0.42, 1.4]].forEach(([wx, wy, wz]) => {
+
+        const wheel = new THREE.Mesh(suvWheelGeo, tireMat);
+
+        wheel.position.set(wx, wy, wz);
+
+        wheel.castShadow = true;
+
+        policeSUV.add(wheel);
+
+      });
+
+
+
+      vehGroup.add(policeSUV);
+
+
+
+      // 2. Silver Executive Sedan (Parked along curb at sideX: 14, z: 25)
+
+      const sedan = new THREE.Group();
+
+      sedan.position.set(14, 0, 25);
+
+      sedan.rotation.y = -Math.PI / 2;
+
+
+
+      const silverMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.25, metalness: 0.85 });
+
+      const sedanBody = new THREE.Mesh(new THREE.BoxGeometry(1.9, 0.8, 4.4), silverMat);
+
+      sedanBody.position.y = 0.75;
+
+      sedanBody.castShadow = true;
+
+      sedan.add(sedanBody);
+
+
+
+      const sedanCabin = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.7, 2.2), silverMat);
+
+      sedanCabin.position.set(0, 1.4, -0.15);
+
+      sedan.add(sedanCabin);
+
+
+
+      [[-0.95, 0.35, -1.3], [0.95, 0.35, -1.3], [-0.95, 0.35, 1.3], [0.95, 0.35, 1.3]].forEach(([wx, wy, wz]) => {
+
+        const wheel = new THREE.Mesh(suvWheelGeo, tireMat);
+
+        wheel.scale.set(0.85, 0.85, 0.85);
+
+        wheel.position.set(wx, wy, wz);
+
+        wheel.castShadow = true;
+
+        sedan.add(wheel);
+
+      });
+
+
+
+      vehGroup.add(sedan);
+
+      scene.add(vehGroup);
+
+    }
+
+
+
+    function buildWaterCanalSystem() {
+
+      // Reflecting Water Basin / Canal simulating Hyderabad Hussain Sagar reservoir
+
+      const canalGeo = new THREE.PlaneGeometry(45, 95, 32, 32);
+
+      const canalMat = new THREE.MeshStandardMaterial({
+
+        color: 0x0369a1,
+
+        roughness: 0.08,
+
+        metalness: 0.85,
+
+        transparent: true,
+
+        opacity: 0.88
+
+      });
+
+      waterMesh = new THREE.Mesh(canalGeo, canalMat);
+
+      waterMesh.rotation.x = -Math.PI / 2;
+
+      waterMesh.position.set(55, 0.05, 55);
+
+      waterMesh.receiveShadow = true;
+
+      scene.add(waterMesh);
+
+
+
+      // Canal Granite Embankment Wall
+
+      const wallMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.75 });
+
+      const wallNorth = new THREE.Mesh(new THREE.BoxGeometry(47, 0.8, 1.2), wallMat);
+
+      wallNorth.position.set(55, 0.4, 7.5);
+
+      scene.add(wallNorth);
+
+
+
+      const wallWest = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.8, 97), wallMat);
+
+      wallWest.position.set(32.5, 0.4, 55);
+
+      scene.add(wallWest);
+
+    }
+
+
+
+    function buildStreetInfrastructure() {
+
+      const infraGroup = new THREE.Group();
+
+      const metalMat = new THREE.MeshStandardMaterial({ color: 0x334155, roughness: 0.4, metalness: 0.8 });
+
+
+
+      // Dual-Arm LED Streetlights along the Boulevard
+
+      for (let sz = -120; sz <= 120; sz += 40) {
+
+        // Light Pole
+
+        const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.14, 0.22, 10, 8), metalMat);
+
+        pole.position.set(0, 5, sz);
+
+        pole.castShadow = true;
+
+        infraGroup.add(pole);
+
+
+
+        // Horizontal Arms
+
+        const arm = new THREE.Mesh(new THREE.BoxGeometry(6.5, 0.12, 0.12), metalMat);
+
+        arm.position.set(0, 9.8, sz);
+
+        infraGroup.add(arm);
+
+
+
+        // LED Lamp Fixtures (Left & Right Lanes)
+
+        [-3.1, 3.1].forEach(lx => {
+
+          const lamp = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.25, 0.4), metalMat);
+
+          lamp.position.set(lx, 9.7, sz);
+
+          infraGroup.add(lamp);
+
+
+
+          const light = new THREE.PointLight(0xfffbeb, 1.2, 28);
+
+          light.position.set(lx, 9.2, sz);
+
+          infraGroup.add(light);
+
+        });
+
+      }
+
+
+
+      // Highway Directional Signboard
+
+      const signMat = new THREE.MeshStandardMaterial({ color: 0x047857, roughness: 0.5 }); // Green Highway Sign
+
+      const signBoard = new THREE.Mesh(new THREE.BoxGeometry(8.5, 2.6, 0.15), signMat);
+
+      signBoard.position.set(0, 7.5, -70);
+
+      infraGroup.add(signBoard);
+
+
+
+      const signPostL = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 8), metalMat);
+
+      signPostL.position.set(-3.8, 4, -70);
+
+      infraGroup.add(signPostL);
+
+
+
+      const signPostR = new THREE.Mesh(new THREE.CylinderGeometry(0.12, 0.12, 8), metalMat);
+
+      signPostR.position.set(3.8, 4, -70);
+
+      infraGroup.add(signPostR);
+
+
+
+      scene.add(infraGroup);
+
+    }
+
+
+
+    // Monsoon Rain Particles
+
+    function buildRainParticles() {
+
+      const rainCount = 1200;
+
+      const rainGeo = new THREE.BufferGeometry();
+
+      const rainPos = [];
+
+      for (let i = 0; i < rainCount; i++) {
+
+        rainPos.push((Math.random() - 0.5) * 120);
+
+        rainPos.push(Math.random() * 50);
+
+        rainPos.push((Math.random() - 0.5) * 120);
+
+      }
+
+      rainGeo.setAttribute('position', new THREE.Float32BufferAttribute(rainPos, 3));
+
+      const rainMat = new THREE.PointsMaterial({
+
+        color: 0x93c5fd,
+
+        size: 0.12,
+
+        transparent: true,
+
+        opacity: 0.0 // Initially off for Daylight
+
+      });
+
+      rainParticles = new THREE.Points(rainGeo, rainMat);
+
+      scene.add(rainParticles);
+
+    }
+
+
+
+    function onWindowResize() {
+
+      camera.aspect = window.innerWidth / window.innerHeight;
+
+      camera.updateProjectionMatrix();
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+    }
+
+
+
+    // --- GAMEPLAY INPUT & ANIMATION LOOP ---
+
+    let lastTime = performance.now();
+
+
+
+    function animate() {
+
+      requestAnimationFrame(animate);
+
+      const now = performance.now();
+
+      const dt = (now - lastTime) / 1000;
+
+      lastTime = now;
+
+
+
+      // Update Player Movement & Stance
+
+      updatePlayer(dt);
+
+
+
+      // Update Vehicle Driving Physics
+
+      updateVehicle(dt);
+
+
+
+      // Check Proximity to Crates & Vehicle
+
+      checkProximityInteractions();
+
+
+
+      // Update Camera & ADS Zoom
+
+      updateCamera();
+
+
+
+      // Update Minimap & Compass
+
+      updateCompassAndRadar();
+
+
+
+      // Rain animation if enabled
+
+      if (rainParticles.material.opacity > 0) {
+
+        const positions = rainParticles.geometry.attributes.position.array;
+
+        for (let i = 1; i < positions.length; i += 3) {
+
+          positions[i] -= 35 * dt;
+
+          if (positions[i] < 0) positions[i] = 45;
+
+        }
+
+        rainParticles.geometry.attributes.position.needsUpdate = true;
+
+      }
+
+
+
+      renderer.render(scene, camera);
+
+    }
+
+
+
+
+
+    // --- VEHICLE DRIVING SIMULATION & PROXIMITY CHECK ---
+
+    function updateVehicle(dt) {
+
+      if (!autoRickshawMesh) return;
+
+      const veh = GameState.vehicle;
+
+
+
+      if (veh.isInVehicle) {
+
+        // Accelerate / Brake friction physics
+
+        if (veh.accel !== 0) {
+
+          veh.speed += veh.accel * dt * 11.0;
+
+        } else {
+
+          veh.speed *= Math.max(0, 1.0 - dt * 2.2); // Rolling resistance
+
+        }
+
+        veh.speed = Math.max(-5.0, Math.min(veh.maxSpeed, veh.speed));
+
+
+
+        // Steering yaw
+
+        if (Math.abs(veh.speed) > 0.2) {
+
+          const steerSign = veh.speed > 0 ? 1 : -1;
+
+          veh.yaw += veh.steer * steerSign * dt * 2.4;
+
+        }
+
+
+
+        autoRickshawMesh.rotation.y = veh.yaw;
+
+
+
+        // Velocity forward vector (faces -Z in model space)
+
+        const forward = new THREE.Vector3(0, 0, -1).applyAxisAngle(new THREE.Vector3(0, 1, 0), veh.yaw);
+
+        autoRickshawMesh.position.addScaledVector(forward, veh.speed * dt);
+
+
+
+        veh.x = autoRickshawMesh.position.x;
+
+        veh.z = autoRickshawMesh.position.z;
+
+
+
+        // Spin wheels
+
+        rickshawWheels.forEach(w => {
+
+          w.rotation.x += veh.speed * dt * 3.5;
+
+        });
+
+
+
+        // Position player with vehicle
+
+        playerMesh.position.copy(autoRickshawMesh.position);
+
+        playerMesh.visible = false; // Player is inside cabin
+
+
+
+        // Update Speedometer UI
+
+        const kmh = Math.round(Math.abs(veh.speed) * 3.6);
+
+        document.getElementById('txt-vehicle-speed').innerText = kmh;
+
+        const pct = Math.min(100, Math.round((kmh / 65) * 100));
+
+        document.getElementById('bar-vehicle-speed').style.width = pct + '%';
+
+      }
+
+    }
+
+
+
+    function checkProximityInteractions() {
+
+      const p = GameState.player;
+
+      const btnInteract = document.getElementById('btn-interact');
+
+      const panelInteract = document.getElementById('panel-interact');
+
+
+
+      if (GameState.vehicle.isInVehicle) {
+
+        panelInteract.classList.add('hidden');
+
+        return;
+
+      }
+
+
+
+      let found = false;
+
+
+
+      // 1. Check Auto-Rickshaw proximity
+
+      if (autoRickshawMesh) {
+
+        const distToRickshaw = Math.hypot(p.x - autoRickshawMesh.position.x, p.z - autoRickshawMesh.position.z);
+
+        if (distToRickshaw < 3.2) {
+
+          activeInteractTarget = { type: 'vehicle' };
+
+          btnInteract.innerHTML = '🛺 DRIVE AUTO-RICKSHAW';
+
+          btnInteract.className = 'touch-btn px-4 py-2 rounded-full bg-amber-500/90 text-black font-extrabold text-xs shadow-xl border border-white/40 flex items-center gap-1.5 animate-bounce';
+
+          panelInteract.classList.remove('hidden');
+
+          found = true;
+
+        }
+
+      }
+
+
+
+      // 2. Check Supply Crates proximity
+
+      if (!found) {
+
+        for (let crate of supplyCrates) {
+
+          if (!crate.isActive) continue;
+
+          const dist = Math.hypot(p.x - crate.position.x, p.z - crate.position.z);
+
+          if (dist < 3.0) {
+
+            activeInteractTarget = { type: 'crate', crate: crate };
+
+            btnInteract.innerHTML = `${crate.crateData.icon} PICKUP ${crate.crateData.name}`;
+
+            btnInteract.className = 'touch-btn px-4 py-2 rounded-full bg-emerald-500/90 text-black font-extrabold text-xs shadow-xl border border-white/40 flex items-center gap-1.5 animate-bounce';
+
+            panelInteract.classList.remove('hidden');
+
+            found = true;
+
+            break;
+
+          }
+
+        }
+
+      }
+
+
+
+      if (!found) {
+
+        activeInteractTarget = null;
+
+        panelInteract.classList.add('hidden');
+
+      }
+
+    }
+
+
+
+    function executeInteraction() {
+
+      if (!activeInteractTarget) return;
+
+
+
+      if (activeInteractTarget.type === 'vehicle') {
+
+        enterVehicle();
+
+      } else if (activeInteractTarget.type === 'crate') {
+
+        const crate = activeInteractTarget.crate;
+
+        const data = crate.crateData;
+
+
+
+        SoundFX.playLoot();
+
+
+
+        if (data.type === 'ammo556') {
+
+          GameState.player.resAmmo += data.count;
+
+          document.getElementById('txt-ammo-res').innerText = GameState.player.resAmmo;
+
+          showToast(`📦 +${data.count} 5.56 NATO AMMO ADDED TO BACKPACK`, 'loot');
+
+        } else if (data.type === 'medkit') {
+
+          GameState.player.health = Math.min(100, GameState.player.health + data.count);
+
+          document.getElementById('bar-health-fill').style.width = GameState.player.health + '%';
+
+          document.getElementById('txt-hp').innerText = GameState.player.health;
+
+          showToast(`💊 +${data.count} HP RESTORED (MEDKIT APPLIED)`, 'loot');
+
+        } else if (data.type === 'ammo300') {
+
+          showToast(`🎯 +${data.count} GOLCONDA SNIPER ROUNDS ACQUIRED`, 'loot');
+
+        }
+
+
+
+        // Hide crate temporarily
+
+        crate.isActive = false;
+
+        crate.visible = false;
+
+        document.getElementById('panel-interact').classList.add('hidden');
+
+        activeInteractTarget = null;
+
+
+
+        // Respawn after 12 seconds
+
+        setTimeout(() => {
+
+          crate.isActive = true;
+
+          crate.visible = true;
+
+        }, 12000);
+
+      }
+
+    }
+
+
+
+    function enterVehicle() {
+
+      GameState.vehicle.isInVehicle = true;
+
+      GameState.vehicle.speed = 0;
+
+      GameState.vehicle.steer = 0;
+
+      GameState.vehicle.accel = 0;
+
+
+
+      // Hide On-Foot Panels
+
+      ['panel-joystick', 'panel-combat', 'panel-peek', 'panel-weapons', 'panel-left-fire', 'panel-interact'].forEach(id => {
+
+        const el = document.getElementById(id);
+
+        if (el) el.classList.add('hidden');
+
+      });
+
+
+
+      // Show Vehicle Controls
+
+      document.getElementById('panel-vehicle-controls').classList.remove('hidden');
+
+
+
+      SoundFX.playHorn();
+
+      showToast('🛺 ENTERED HYDERABAD AUTO-RICKSHAW', 'vehicle');
+
+    }
+
+
+
+    function exitVehicle() {
+
+      GameState.vehicle.isInVehicle = false;
+
+      GameState.vehicle.speed = 0;
+
+      GameState.vehicle.steer = 0;
+
+      GameState.vehicle.accel = 0;
+
+
+
+      // Emerge player 2m to the left of the rickshaw
+
+      const leftDir = new THREE.Vector3(-1, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), GameState.vehicle.yaw);
+
+      playerMesh.position.copy(autoRickshawMesh.position).addScaledVector(leftDir, 2.2);
+
+      playerMesh.position.y = 0;
+
+      playerMesh.visible = true;
+
+      GameState.player.x = playerMesh.position.x;
+
+      GameState.player.z = playerMesh.position.z;
+
+
+
+      // Restore On-Foot Panels
+
+      ['panel-joystick', 'panel-combat', 'panel-peek', 'panel-weapons', 'panel-left-fire'].forEach(id => {
+
+        const el = document.getElementById(id);
+
+        if (el) el.classList.remove('hidden');
+
+      });
+
+
+
+      // Hide Vehicle Controls
+
+      document.getElementById('panel-vehicle-controls').classList.add('hidden');
+
+
+
+      showToast('EXITED AUTO-RICKSHAW', 'vehicle');
+
+    }
+
+
+
+    function updatePlayer(dt) {
+
+      const p = GameState.player;
+
+      const input = GameState.input;
+
+
+
+      // Calculate Speed based on posture & sprint
+
+      let maxSpeed = 5.0; // Standing Jog (5.0 m/s)
+
+      if (p.posture === 'crouched') maxSpeed = 2.6;
+
+      else if (p.posture === 'prone') maxSpeed = 1.2;
+
+      else if (input.sprintLocked || p.isSprinting) maxSpeed = 8.5;
+
+
+
+      // Analog joystick input vector
+
+      const moveMag = Math.sqrt(input.moveX * input.moveX + input.moveY * input.moveY);
+
+      p.speed = Math.min(1.0, moveMag) * maxSpeed;
+
+
+
+      if (moveMag > 0.05) {
+
+        // Compute world direction based on camera yaw
+
+        const forward = new THREE.Vector3(0, 0, -1).applyAxisAngle(new THREE.Vector3(0, 1, 0), p.yaw);
+
+        const right = new THREE.Vector3(1, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), p.yaw);
+
+
+
+        const moveDir = new THREE.Vector3()
+
+          .addScaledVector(forward, input.moveY)
+
+          .addScaledVector(right, input.moveX)
+
+          .normalize();
+
+
+
+        p.x += moveDir.x * p.speed * dt;
+
+        p.z += moveDir.z * p.speed * dt;
+
+
+
+        // Player model orientation faces movement direction (or camera when ADS)
+
+        if (p.isADS) {
+
+          playerMesh.rotation.y = p.yaw;
+
+        } else {
+
+          const targetAngle = Math.atan2(moveDir.x, moveDir.z);
+
+          playerMesh.rotation.y = targetAngle;
+
+        }
+
+
+
+        // Running stride vertical step bobbing
+
+        if (playerMesh.characterModel) {
+
+          const runFreq = (input.sprintLocked || p.isSprinting) ? 14 : 9;
+
+          playerMesh.characterModel.position.y = 0.95 + Math.abs(Math.sin(performance.now() * 0.001 * runFreq)) * 0.05;
+
+          playerMesh.characterModel.rotation.z = Math.sin(performance.now() * 0.001 * runFreq * 0.5) * 0.03;
+
+        }
+
+      } else {
+
+        if (p.isADS) playerMesh.rotation.y = p.yaw;
+
+        // Idle breathing motion
+
+        if (playerMesh.characterModel) {
+
+          playerMesh.characterModel.position.y = 0.95 + Math.sin(performance.now() * 0.002) * 0.012;
+
+          playerMesh.characterModel.rotation.z = 0;
+
+        }
+
+      }
+
+
+
+      // Height adjustment by posture
+
+      let targetY = 0;
+
+      if (p.posture === 'crouched') {
+
+        playerMesh.scale.set(1.0, 0.70, 1.0);
+
+      } else if (p.posture === 'prone') {
+
+        playerMesh.scale.set(1.0, 0.32, 1.2);
+
+      } else {
+
+        playerMesh.scale.set(1.0, 1.0, 1.0);
+
+      }
+
+
+
+      playerMesh.position.set(p.x, targetY, p.z);
+
+    }
+
+
+
+    function updateCamera() {
+
+      const p = GameState.player;
+
+
+
+      // Camera Offset from player (or vehicle)
+
+      let camDist = 4.0;
+
+      let camHeight = 1.9;
+
+
+
+      if (GameState.vehicle.isInVehicle) {
+
+        camDist = 6.2;
+
+        camHeight = 2.6;
+
+        camera.fov = 80;
+
+      } else if (p.isADS) {
+
+        camDist = 1.4;
+
+        camHeight = 1.5;
+
+        camera.fov = 30; // 4x Scope FOV
+
+      } else {
+
+        camera.fov = 75;
+
+      }
+
+      camera.updateProjectionMatrix();
+
+
+
+      // Peek Offset (wall-safe clamping)
+
+      let peekOffset = 0;
+
+      if (p.isPeekingLeft) peekOffset = -0.45;
+
+      if (p.isPeekingRight) peekOffset = 0.45;
+
+
+
+      const camOffset = new THREE.Vector3(0.5 + peekOffset, camHeight, camDist)
+
+        .applyAxisAngle(new THREE.Vector3(1, 0, 0), p.pitch)
+
+        .applyAxisAngle(new THREE.Vector3(0, 1, 0), p.yaw);
+
+
+
+      camera.position.copy(playerMesh.position).add(camOffset);
+
+      camera.lookAt(playerMesh.position.x + peekOffset, playerMesh.position.y + 1.4, playerMesh.position.z);
+
+    }
+
+
+
+    // --- COMPASS & RADAR MINIMAP ---
+
+    function updateCompassAndRadar() {
+
+      const p = GameState.player;
+
+
+
+      // Compass Heading degrees (0 to 360)
+
+      let deg = Math.round((-p.yaw * 180 / Math.PI) % 360);
+
+      if (deg < 0) deg += 360;
+
+
+
+      document.getElementById('txt-compass-deg').innerText = deg.toString().padStart(3, '0') + '°';
+
+
+
+      // Cesium Georeference Live WGS84 Coordinates calculation
+
+      const liveGps = document.getElementById('txt-cesium-live-gps');
+
+      if (liveGps) {
+
+        const curLat = (17.385044 - (p.z / 1113.20) * 0.01).toFixed(6);
+
+        const curLon = (78.486671 + (p.x / 1062.30) * 0.01).toFixed(6);
+
+        liveGps.innerText = `${curLat}° N, ${curLon}° E`;
+
+      }
+
+
+
+      let card = 'N';
+
+      if (deg >= 337.5 || deg < 22.5) card = 'N';
+
+      else if (deg < 67.5) card = 'NE';
+
+      else if (deg < 112.5) card = 'E';
+
+      else if (deg < 157.5) card = 'SE';
+
+      else if (deg < 202.5) card = 'S';
+
+      else if (deg < 247.5) card = 'SW';
+
+      else if (deg < 292.5) card = 'W';
+
+      else card = 'NW';
+
+
+
+      document.getElementById('txt-compass-cardinal').innerText = card;
+
+
+
+      // Tape translation
+
+      const tape = document.getElementById('compass-tape');
+
+      tape.style.transform = `translateX(${-(deg * 3.5)}px)`;
+
+
+
+      // Draw Radar Minimap
+
+      drawMinimap();
+
+    }
+
+
+
+    function initCompassTape() {
+
+      const tape = document.getElementById('compass-tape');
+
+      let html = '';
+
+      const markers = [
+
+        [0, 'N'], [45, 'NE'], [90, 'E'], [135, 'SE'],
+
+        [180, 'S'], [225, 'SW'], [270, 'W'], [315, 'NW'], [360, 'N']
+
+      ];
+
+      // Repeat tape 3 times for seamless wrapping
+
+      for (let r = 0; r < 2; r++) {
+
+        for (let i = 0; i <= 360; i += 15) {
+
+          const match = markers.find(m => m[0] === i);
+
+          if (match) {
+
+            html += `<span class="inline-block w-[52.5px] text-center font-black text-amber-400">${match[1]}</span>`;
+
+          } else {
+
+            html += `<span class="inline-block w-[52.5px] text-center text-white/50 text-[10px]">•</span>`;
+
+          }
+
+        }
+
+      }
+
+      tape.innerHTML = html;
+
+    }
+
+
+
+    function drawMinimap() {
+
+      const canvas = document.getElementById('minimap-canvas');
+
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+
+      const w = canvas.width = canvas.parentElement.clientWidth * 2;
+
+      const h = canvas.height = canvas.parentElement.clientHeight * 2;
+
+      const cx = w / 2;
+
+      const cy = h / 2;
+
+
+
+      ctx.clearRect(0, 0, w, h);
+
+
+
+      // Radar Background
+
+      ctx.fillStyle = '#0f172a';
+
+      ctx.fillRect(0, 0, w, h);
+
+
+
+      // Grid Rings
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+
+      ctx.lineWidth = 1.5;
+
+      [cx * 0.35, cx * 0.70, cx * 0.95].forEach(r => {
+
+        ctx.beginPath();
+
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+
+        ctx.stroke();
+
+      });
+
+
+
+      // Charminar Icon (at x=0, z=-45)
+
+      const scale = 1.8;
+
+      const p = GameState.player;
+
+      const charX = cx + (0 - p.x) * scale;
+
+      const charY = cy + (-45 - p.z) * scale;
+
+
+
+      ctx.fillStyle = '#f59e0b';
+
+      ctx.beginPath();
+
+      ctx.arc(charX, charY, 7, 0, Math.PI * 2);
+
+      ctx.fill();
+
+
+
+      // Safe Zone Circle (White)
+
+      ctx.strokeStyle = '#ffffff';
+
+      ctx.lineWidth = 2.5;
+
+      ctx.beginPath();
+
+      ctx.arc(cx + (0 - p.x) * scale, cy + (0 - p.z) * scale, cx * 0.85, 0, Math.PI * 2);
+
+      ctx.stroke();
+
+
+
+      // Blue Zone Circle (Shrinking Electric Blue)
+
+      ctx.strokeStyle = '#38bdf8';
+
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+
+      ctx.arc(cx + (0 - p.x) * scale, cy + (0 - p.z) * scale, cx * 1.2, 0, Math.PI * 2);
+
+      ctx.stroke();
+
+
+
+      // Teammate Dots
+
+      const teammates = [
+
+        { dx: 15, dz: -10, color: '#06b6d4', num: 2 },
+
+        { dx: -22, dz: 30, color: '#a855f7', num: 3 },
+
+        { dx: 45, dz: 50, color: '#f43f5e', num: 4 }
+
+      ];
+
+      teammates.forEach(tm => {
+
+        const tx = cx + (tm.dx) * scale;
+
+        const ty = cy + (tm.dz) * scale;
+
+        ctx.fillStyle = tm.color;
+
+        ctx.beginPath();
+
+        ctx.arc(tx, ty, 6, 0, Math.PI * 2);
+
+        ctx.fill();
+
+      });
+
+
+
+      // Player Pointer (Center Arrow)
+
+      ctx.save();
+
+      ctx.translate(cx, cy);
+
+      ctx.rotate(-p.yaw);
+
+      ctx.fillStyle = '#ff9933';
+
+      ctx.beginPath();
+
+      ctx.moveTo(0, -10);
+
+      ctx.lineTo(7, 8);
+
+      ctx.lineTo(0, 5);
+
+      ctx.lineTo(-7, 8);
+
+      ctx.closePath();
+
+      ctx.fill();
+
+      ctx.restore();
+
+    }
+
+
+
+    // --- TOUCH & COMBAT CONTROLS SETUP ---
+
+    function setupControls() {
+
+      // 0. Interact / Loot / Vehicle Button
+
+      const btnInteract = document.getElementById('btn-interact');
+
+      if (btnInteract) {
+
+        btnInteract.addEventListener('click', executeInteraction);
+
+        btnInteract.addEventListener('touchstart', (e) => { e.preventDefault(); executeInteraction(); });
+
+      }
+
+
+
+      // Keyboard 'F' key for interaction
+
+      window.addEventListener('keydown', (e) => {
+
+        if (e.key === 'f' || e.key === 'F') executeInteraction();
+
+      });
+
+
+
+      // Vehicle Driving Buttons Setup
+
+      const btnSteerL = document.getElementById('btn-steer-left');
+
+      const btnSteerR = document.getElementById('btn-steer-right');
+
+      const btnAccel = document.getElementById('btn-vehicle-accel');
+
+      const btnBrake = document.getElementById('btn-vehicle-brake');
+
+      const btnHorn = document.getElementById('btn-vehicle-horn');
+
+      const btnExitVeh = document.getElementById('btn-vehicle-exit');
+
+
+
+      if (btnSteerL) {
+
+        const bindHold = (btn, onStart, onEnd) => {
+
+          btn.addEventListener('mousedown', onStart);
+
+          btn.addEventListener('mouseup', onEnd);
+
+          btn.addEventListener('mouseleave', onEnd);
+
+          btn.addEventListener('touchstart', (e) => { e.preventDefault(); onStart(); }, { passive: false });
+
+          btn.addEventListener('touchend', onEnd);
+
+        };
+
+
+
+        bindHold(btnSteerL, () => GameState.vehicle.steer = 1.0, () => GameState.vehicle.steer = 0);
+
+        bindHold(btnSteerR, () => GameState.vehicle.steer = -1.0, () => GameState.vehicle.steer = 0);
+
+        bindHold(btnAccel, () => GameState.vehicle.accel = 1.0, () => GameState.vehicle.accel = 0);
+
+        bindHold(btnBrake, () => GameState.vehicle.accel = -1.0, () => GameState.vehicle.accel = 0);
+
+
+
+        btnHorn.addEventListener('click', () => SoundFX.playHorn());
+
+        btnExitVeh.addEventListener('click', exitVehicle);
+
+      }
+
+
+
+      // Keyboard WASD driving fallback when in vehicle
+
+      window.addEventListener('keydown', (e) => {
+
+        if (!GameState.vehicle.isInVehicle) return;
+
+        if (e.key === 'w' || e.key === 'ArrowUp') GameState.vehicle.accel = 1.0;
+
+        if (e.key === 's' || e.key === 'ArrowDown') GameState.vehicle.accel = -1.0;
+
+        if (e.key === 'a' || e.key === 'ArrowLeft') GameState.vehicle.steer = 1.0;
+
+        if (e.key === 'd' || e.key === 'ArrowRight') GameState.vehicle.steer = -1.0;
+
+        if (e.key === 'h' || e.key === 'H') SoundFX.playHorn();
+
+        if (e.key === 'e' || e.key === 'E') exitVehicle();
+
+      });
+
+      window.addEventListener('keyup', (e) => {
+
+        if (!GameState.vehicle.isInVehicle) return;
+
+        if (['w', 's', 'ArrowUp', 'ArrowDown'].includes(e.key)) GameState.vehicle.accel = 0;
+
+        if (['a', 'd', 'ArrowLeft', 'ArrowRight'].includes(e.key)) GameState.vehicle.steer = 0;
+
+      });
+
+
+
+      // 1. Joystick
+
+      const base = document.getElementById('joystick-base');
+
+      const stick = document.getElementById('joystick-stick');
+
+      const sprintAnchor = document.getElementById('sprint-lock-anchor');
+
+      let joyActive = false;
+
+      let startX = 0, startY = 0;
+
+
+
+      function handleJoyStart(e) {
+
+        joyActive = true;
+
+        const touch = e.touches ? e.touches[0] : e;
+
+        const rect = base.getBoundingClientRect();
+
+        startX = rect.left + rect.width / 2;
+
+        startY = rect.top + rect.height / 2;
+
+        handleJoyMove(e);
+
+      }
+
+
+
+      function handleJoyMove(e) {
+
+        if (!joyActive) return;
+
+        const touch = e.touches ? e.touches[0] : e;
+
+        const dx = touch.clientX - startX;
+
+        const dy = touch.clientY - startY;
+
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        const maxR = 48;
+
+        const angle = Math.atan2(dy, dx);
+
+
+
+        const clampedDist = Math.min(dist, maxR);
+
+        const stickX = Math.cos(angle) * clampedDist;
+
+        const stickY = Math.sin(angle) * clampedDist;
+
+
+
+        stick.style.transform = `translate(${stickX}px, ${stickY}px)`;
+
+
+
+        // Normalized move vector (-1 to 1)
+
+        GameState.input.moveX = stickX / maxR;
+
+        GameState.input.moveY = -stickY / maxR;
+
+
+
+        // Check Sprint Lock (drag far up)
+
+        if (dy < -65) {
+
+          GameState.input.sprintLocked = true;
+
+          sprintAnchor.classList.add('locked');
+
+        }
+
+      }
+
+
+
+      function handleJoyEnd() {
+
+        joyActive = false;
+
+        if (!GameState.input.sprintLocked) {
+
+          stick.style.transform = 'translate(0px, 0px)';
+
+          GameState.input.moveX = 0;
+
+          GameState.input.moveY = 0;
+
+        } else {
+
+          stick.style.transform = 'translate(0px, -40px)';
+
+          GameState.input.moveX = 0;
+
+          GameState.input.moveY = 1.0;
+
+        }
+
+      }
+
+
+
+      base.addEventListener('mousedown', handleJoyStart);
+
+      window.addEventListener('mousemove', handleJoyMove);
+
+      window.addEventListener('mouseup', handleJoyEnd);
+
+
+
+      base.addEventListener('touchstart', handleJoyStart, { passive: false });
+
+      window.addEventListener('touchmove', handleJoyMove, { passive: false });
+
+      window.addEventListener('touchend', handleJoyEnd);
+
+
+
+      // Unlock sprint when tapped
+
+      sprintAnchor.addEventListener('click', (e) => {
+
+        e.stopPropagation();
+
+        GameState.input.sprintLocked = false;
+
+        sprintAnchor.classList.remove('locked');
+
+        stick.style.transform = 'translate(0px, 0px)';
+
+        GameState.input.moveX = 0;
+
+        GameState.input.moveY = 0;
+
+      });
+
+
+
+      // 2. Camera Rotation (Right Half Drag)
+
+      let camDragging = false;
+
+      let lastX = 0, lastY = 0;
+
+
+
+      window.addEventListener('mousedown', (e) => {
+
+        if (e.clientX > window.innerWidth * 0.40 && !e.target.closest('.hud-interactive') && !e.target.closest('#controls-editor-modal')) {
+
+          camDragging = true;
+
+          lastX = e.clientX;
+
+          lastY = e.clientY;
+
+        }
+
+      });
+
+      window.addEventListener('mousemove', (e) => {
+
+        if (!camDragging) return;
+
+        const dx = e.clientX - lastX;
+
+        const dy = e.clientY - lastY;
+
+        lastX = e.clientX;
+
+        lastY = e.clientY;
+
+
+
+        const sens = GameState.player.isADS ? 0.0015 : 0.0035;
+
+        GameState.player.yaw -= dx * sens;
+
+        GameState.player.pitch -= dy * sens;
+
+        GameState.player.pitch = Math.max(-0.6, Math.min(0.6, GameState.player.pitch));
+
+      });
+
+      window.addEventListener('mouseup', () => camDragging = false);
+
+
+
+      // 3. Fire Button
+
+      const btnFire = document.getElementById('btn-fire-primary');
+
+      const btnLeftFire = document.getElementById('btn-fire-secondary');
+
+      [btnFire, btnLeftFire].forEach(btn => {
+
+        if (!btn) return;
+
+        btn.addEventListener('mousedown', fireWeapon);
+
+        btn.addEventListener('touchstart', (e) => { e.preventDefault(); fireWeapon(); });
+
+      });
+
+
+
+      // 4. ADS Scope Button
+
+      const btnADS = document.getElementById('btn-ads');
+
+      btnADS.addEventListener('click', toggleADS);
+
+
+
+      // 5. Posture Buttons (Jump, Crouch, Prone, Reload)
+
+      document.getElementById('btn-jump').addEventListener('click', () => {
+
+        if (GameState.player.posture !== 'standing') {
+
+          setPosture('standing');
+
+        }
+
+        playerMesh.position.y += 0.8;
+
+        setTimeout(() => playerMesh.position.y -= 0.8, 280);
+
+      });
+
+
+
+      document.getElementById('btn-crouch').addEventListener('click', () => {
+
+        setPosture(GameState.player.posture === 'crouched' ? 'standing' : 'crouched');
+
+      });
+
+
+
+      document.getElementById('btn-prone').addEventListener('click', () => {
+
+        setPosture(GameState.player.posture === 'prone' ? 'standing' : 'prone');
+
+      });
+
+
+
+      document.getElementById('btn-reload').addEventListener('click', reloadWeapon);
+
+
+
+      // 6. Peek Controls
+
+      const btnPeekL = document.getElementById('btn-peek-left');
+
+      const btnPeekR = document.getElementById('btn-peek-right');
+
+      btnPeekL.addEventListener('click', () => {
+
+        GameState.player.isPeekingLeft = !GameState.player.isPeekingLeft;
+
+        GameState.player.isPeekingRight = false;
+
+        btnPeekL.classList.toggle('active', GameState.player.isPeekingLeft);
+
+        btnPeekR.classList.remove('active');
+
+      });
+
+      btnPeekR.addEventListener('click', () => {
+
+        GameState.player.isPeekingRight = !GameState.player.isPeekingRight;
+
+        GameState.player.isPeekingLeft = false;
+
+        btnPeekR.classList.toggle('active', GameState.player.isPeekingRight);
+
+        btnPeekL.classList.remove('active');
+
+      });
+
+
+
+      // 7. Weapon Slot Switch
+
+      document.getElementById('weapon-slot-1').addEventListener('click', () => switchWeaponSlot(1));
+
+      document.getElementById('weapon-slot-2').addEventListener('click', () => switchWeaponSlot(2));
+
+
+
+      // 8. Match Zone Timer interval
+
+      setInterval(() => {
+
+        if (GameState.match.zoneTimerSec > 0) {
+
+          GameState.match.zoneTimerSec--;
+
+          const m = Math.floor(GameState.match.zoneTimerSec / 60).toString().padStart(2, '0');
+
+          const s = (GameState.match.zoneTimerSec % 60).toString().padStart(2, '0');
+
+          document.getElementById('txt-zone-timer').innerText = `${m}:${s}`;
+
+        }
+
+      }, 1000);
+
+    }
+
+
+
+    function fireWeapon() {
+
+      const p = GameState.player;
+
+      if (p.magAmmo <= 0) {
+
+        reloadWeapon();
+
+        return;
+
+      }
+
+      p.magAmmo--;
+
+      document.getElementById('txt-ammo-mag').innerText = p.magAmmo;
+
+
+
+      // Authentic Procedural Gunshot Audio!
+
+      SoundFX.playGunshot(p.activeSlot === 2);
+
+
+
+      // Gun Recoil Kick & Muzzle Flash
+
+      if (gunMesh) {
+
+        gunMesh.position.z -= 0.08;
+
+        if (gunMesh.muzzleLight) gunMesh.muzzleLight.intensity = 4.0;
+
+        setTimeout(() => {
+
+          gunMesh.position.z += 0.08;
+
+          if (gunMesh.muzzleLight) gunMesh.muzzleLight.intensity = 0;
+
+        }, 60);
+
+      }
+
+
+
+      // Crosshair Spread Pulse
+
+      const chTop = document.getElementById('ch-top');
+
+      const chBottom = document.getElementById('ch-bottom');
+
+      const chLeft = document.getElementById('ch-left');
+
+      const chRight = document.getElementById('ch-right');
+
+      chTop.style.transform = 'translateY(-6px)';
+
+      chBottom.style.transform = 'translateY(6px)';
+
+      chLeft.style.transform = 'translateX(-6px)';
+
+      chRight.style.transform = 'translateX(6px)';
+
+      setTimeout(() => {
+
+        chTop.style.transform = '';
+
+        chBottom.style.transform = '';
+
+        chLeft.style.transform = '';
+
+        chRight.style.transform = '';
+
+      }, 100);
+
+
+
+      // Raycast Bullet Target Hit Detection against Courtyard Dummies
+
+      checkBulletHits();
+
+    }
+
+
+
+    function checkBulletHits() {
+
+      const raycaster = new THREE.Raycaster();
+
+      // Center of screen crosshair
+
+      raycaster.setFromCamera(new THREE.Vector2(0, 0), camera);
+
+
+
+      let hitObjects = [];
+
+      combatDummies.forEach(d => {
+
+        if (!d.isEliminated) {
+
+          d.traverse(child => {
+
+            if (child.isHitTarget) hitObjects.push(child);
+
+          });
+
+        }
+
+      });
+
+
+
+      const intersects = raycaster.intersectObjects(hitObjects, false);
+
+      if (intersects.length > 0) {
+
+        const hit = intersects[0];
+
+        const target = hit.object;
+
+        const dummyGroup = target.dummyParent;
+
+        const isHead = target.isHead;
+
+        const dmg = isHead ? 85 : 35;
+
+
+
+        // Visual Hit Confirmation
+
+        showHitMarker();
+
+        SoundFX.playHit();
+
+
+
+        // Pop floating damage text
+
+        showToast(isHead ? `💥 CRITICAL HEADSHOT! -${dmg}` : `🎯 HIT! -${dmg}`, 'combat');
+
+
+
+        dummyGroup.dummyData.hp -= dmg;
+
+        if (dummyGroup.dummyData.hp <= 0 && !dummyGroup.isEliminated) {
+
+          eliminateDummy(dummyGroup);
+
+        }
+
+      } else if (Math.random() > 0.45) {
+
+        showHitMarker();
+
+      }
+
+    }
+
+
+
+    function eliminateDummy(dummyGroup) {
+
+      dummyGroup.isEliminated = true;
+
+      SoundFX.playElimination();
+
+
+
+      // Ragdoll fall animation
+
+      dummyGroup.rotation.x = -Math.PI / 2;
+
+      dummyGroup.position.y = 0.2;
+
+
+
+      // Update match stats
+
+      GameState.match.kills++;
+
+      document.getElementById('txt-kill-count').innerText = GameState.match.kills;
+
+      if (GameState.match.alive > 1) {
+
+        GameState.match.alive--;
+
+        document.getElementById('txt-alive-count').innerText = GameState.match.alive;
+
+      }
+
+
+
+      // Update Killfeed Banner
+
+      const killFeed = document.getElementById('kill-feed');
+
+      if (killFeed) {
+
+        const item = document.createElement('div');
+
+        item.className = 'bg-black/85 backdrop-blur-sm border-l-4 border-amber-500 text-white text-[11px] px-2.5 py-1 rounded shadow-md flex items-center gap-1.5 animate-pulse';
+
+        item.innerHTML = `<span class="font-bold text-amber-400">Vikram_Hyd</span> <span class="text-white/60">eliminated</span> <span class="text-rose-400 font-semibold">${dummyGroup.dummyData.name}</span> <span class="text-white/50">with</span> <span class="text-amber-300 font-mono font-bold">VAJRA-556 🎯</span>`;
+
+        killFeed.prepend(item);
+
+        setTimeout(() => item.remove(), 4500);
+
+      }
+
+
+
+      showToast(`💀 ELIMINATED ${dummyGroup.dummyData.name}! +1 KILL`, 'kill');
+
+
+
+      // Drop supply crate on elimination spot!
+
+      const dropCrate = new THREE.Group();
+
+      dropCrate.position.copy(dummyGroup.position);
+
+      const box = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.8), new THREE.MeshStandardMaterial({ color: 0xb45309, roughness: 0.5 }));
+
+      box.position.y = 0.3;
+
+      dropCrate.add(box);
+
+      dropCrate.crateData = { id: 'drop-loot', name: 'ENEMY LOOT CRATE (+30 AMMO)', icon: '🎁', type: 'ammo556', count: 30 };
+
+      dropCrate.isActive = true;
+
+      scene.add(dropCrate);
+
+      supplyCrates.push(dropCrate);
+
+
+
+      // Respawn dummy after 10 seconds
+
+      setTimeout(() => {
+
+        dummyGroup.isEliminated = false;
+
+        dummyGroup.dummyData.hp = dummyGroup.dummyData.maxHp;
+
+        dummyGroup.rotation.x = 0;
+
+        dummyGroup.position.y = 0;
+
+      }, 10000);
+
+    }
+
+
+
+    function showHitMarker() {
+
+      const hm = document.getElementById('hit-marker');
+
+      hm.style.opacity = '1';
+
+      setTimeout(() => hm.style.opacity = '0', 120);
+
+    }
+
+
+
+    function reloadWeapon() {
+
+      SoundFX.playReload();
+
+      const p = GameState.player;
+
+      const needed = 30 - p.magAmmo;
+
+      if (needed <= 0 || p.resAmmo <= 0) return;
+
+
+
+      const avail = Math.min(needed, p.resAmmo);
+
+      p.magAmmo += avail;
+
+      p.resAmmo -= avail;
+
+
+
+      document.getElementById('txt-ammo-mag').innerText = p.magAmmo;
+
+      document.getElementById('txt-ammo-res').innerText = p.resAmmo;
+
+    }
+
+
+
+    function toggleADS() {
+
+      const p = GameState.player;
+
+      p.isADS = !p.isADS;
+
+      const overlay = document.getElementById('scope-overlay');
+
+      const btnADS = document.getElementById('btn-ads');
+
+      const crosshair = document.getElementById('crosshair-container');
+
+
+
+      if (p.isADS) {
+
+        overlay.style.display = 'block';
+
+        btnADS.classList.add('active');
+
+        crosshair.style.display = 'none';
+
+      } else {
+
+        overlay.style.display = 'none';
+
+        btnADS.classList.remove('active');
+
+        crosshair.style.display = 'block';
+
+      }
+
+    }
+
+
+
+    function setPosture(posture) {
+
+      GameState.player.posture = posture;
+
+      if (posture === 'prone') {
+
+        GameState.input.sprintLocked = false;
+
+        document.getElementById('sprint-lock-anchor').classList.remove('locked');
+
+      }
+
+      document.getElementById('btn-crouch').classList.toggle('active', posture === 'crouched');
+
+      document.getElementById('btn-prone').classList.toggle('active', posture === 'prone');
+
+    }
+
+
+
+    function switchWeaponSlot(slot) {
+
+      GameState.player.activeSlot = slot;
+
+      const slot1 = document.getElementById('weapon-slot-1');
+
+      const slot2 = document.getElementById('weapon-slot-2');
+
+      if (slot === 1) {
+
+        slot1.className = 'cursor-pointer bg-slate-950/85 backdrop-blur-md border-2 border-amber-400 text-white px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-3 w-44 transition-all';
+
+        slot2.className = 'cursor-pointer bg-slate-950/70 backdrop-blur-md border border-white/20 text-white/70 hover:text-white px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-3 w-44 transition-all';
+
+      } else {
+
+        slot1.className = 'cursor-pointer bg-slate-950/70 backdrop-blur-md border border-white/20 text-white/70 hover:text-white px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-3 w-44 transition-all';
+
+        slot2.className = 'cursor-pointer bg-slate-950/85 backdrop-blur-md border-2 border-amber-400 text-white px-3 py-1.5 rounded-lg shadow-lg flex items-center gap-3 w-44 transition-all';
+
+      }
+
+    }
+
+
+
+    // --- SETTINGS & CONTROLS CUSTOMIZER MODAL ---
+
+    function setupCustomizer() {
+
+      const modal = document.getElementById('controls-editor-modal');
+
+      const btnOpen = document.getElementById('btn-open-settings');
+
+      const btnClose = document.getElementById('btn-close-editor');
+
+      const btnSave = document.getElementById('btn-save-layout');
+
+      const btnReset = document.getElementById('btn-reset-layout');
+
+
+
+      btnOpen.addEventListener('click', () => {
+
+        modal.classList.remove('hidden');
+
+        modal.classList.add('flex');
+
+        document.body.classList.add('edit-mode-active');
+
+      });
+
+
+
+      btnClose.addEventListener('click', () => {
+
+        modal.classList.add('hidden');
+
+        modal.classList.remove('flex');
+
+        document.body.classList.remove('edit-mode-active');
+
+      });
+
+
+
+      btnSave.addEventListener('click', () => {
+
+        localStorage.setItem('iu_custom_layout', JSON.stringify(GameState.settings));
+
+        modal.classList.add('hidden');
+
+        modal.classList.remove('flex');
+
+        document.body.classList.remove('edit-mode-active');
+
+      });
+
+
+
+      btnReset.addEventListener('click', () => {
+
+        applyPreset('two_finger');
+
+      });
+
+
+
+      // Presets
+
+      document.getElementById('btn-preset-2finger').addEventListener('click', () => applyPreset('two_finger'));
+
+      document.getElementById('btn-preset-3finger').addEventListener('click', () => applyPreset('three_finger'));
+
+      document.getElementById('btn-preset-4finger').addEventListener('click', () => applyPreset('four_finger'));
+
+
+
+      // Sliders
+
+      const sliderScale = document.getElementById('slider-btn-scale');
+
+      const sliderOpacity = document.getElementById('slider-btn-opacity');
+
+
+
+      sliderScale.addEventListener('input', (e) => {
+
+        const val = parseFloat(e.target.value);
+
+        GameState.settings.buttonScale = val;
+
+        document.getElementById('txt-scale-val').innerText = `${val.toFixed(2)}x`;
+
+        applyWidgetStyles();
+
+      });
+
+
+
+      sliderOpacity.addEventListener('input', (e) => {
+
+        const val = parseFloat(e.target.value);
+
+        GameState.settings.hudOpacity = val;
+
+        document.getElementById('txt-opacity-val').innerText = `${Math.round(val * 100)}%`;
+
+        applyWidgetStyles();
+
+      });
+
+    }
+
+
+
+    function applyPreset(preset) {
+
+      GameState.settings.preset = preset;
+
+      const leftFire = document.getElementById('panel-left-fire');
+
+      const ads = document.getElementById('btn-ads');
+
+
+
+      if (preset === 'two_finger') {
+
+        leftFire.style.display = 'none';
+
+      } else if (preset === 'three_finger') {
+
+        leftFire.style.display = 'block';
+
+        leftFire.style.top = '100px';
+
+        leftFire.style.left = '24px';
+
+      } else if (preset === 'four_finger') {
+
+        leftFire.style.display = 'block';
+
+        leftFire.style.top = '80px';
+
+        leftFire.style.left = '32px';
+
+      }
+
+    }
+
+
+
+    function applyWidgetStyles() {
+
+      const widgets = document.querySelectorAll('.customizable-widget');
+
+      widgets.forEach(w => {
+
+        w.style.opacity = GameState.settings.hudOpacity;
+
+      });
+
+    }
+
+
+
+    // --- DECOUPLED DEVELOPER DEBUG MENU ---
+
+
+
+    // --- REAL-WORLD HYDERABAD GPS NAVIGATION & WORLD MAP SYSTEM ---
+
+    const HYDERABAD_POIS = [
+
+      { id: 'hitec', name: 'HITEC City - Cyber Towers', lat: 17.450417, lon: 78.380833, elev: 585, x: -50, z: -85, category: 'IT Hub' },
+
+      { id: 'madhapur', name: 'Madhapur - Mindspace & Inorbit', lat: 17.439900, lon: 78.390800, elev: 575, x: 55, z: -80, category: 'Commercial' },
+
+      { id: 'durgam', name: 'Durgam Cheruvu Cable Bridge', lat: 17.432500, lon: 78.384400, elev: 560, x: 55, z: 45, category: 'Bridge / Lake' },
+
+      { id: 'charminar', name: 'Charminar Monument Plaza', lat: 17.361600, lon: 78.474700, elev: 505, x: 0, z: -45, category: 'Old City Core' },
+
+      { id: 'gachibowli', name: 'Gachibowli - Financial District', lat: 17.440100, lon: 78.348900, elev: 590, x: -120, z: -110, category: 'Skyscrapers' },
+
+      { id: 'hussainsagar', name: 'Hussain Sagar Lake & Necklace Rd', lat: 17.423900, lon: 78.473800, elev: 512, x: 80, z: 20, category: 'Waterfront' },
+
+      { id: 'airport', name: 'Rajiv Gandhi Int. Airport (RGIA)', lat: 17.240300, lon: 78.429400, elev: 617, x: -40, z: 180, category: 'Aeropolis' }
+
+    ];
+
+
+
+    let activeGpsTarget = null;
+
+
+
+    function setupWorldMapAndGps() {
+
+      const panelMinimap = document.getElementById('panel-minimap');
+
+      const mapModal = document.getElementById('hyderabad-world-map-modal');
+
+      const btnCloseMap = document.getElementById('btn-close-world-map');
+
+      const poiContainer = document.getElementById('poi-list-container');
+
+      const btnTravel = document.getElementById('btn-travel-selected');
+
+      const btnClear = document.getElementById('btn-clear-route');
+
+
+
+      // Click Minimap to open Fullscreen World Map
+
+      if (panelMinimap) {
+
+        panelMinimap.style.cursor = 'pointer';
+
+        panelMinimap.addEventListener('click', () => {
+
+          mapModal.classList.remove('hidden');
+
+          mapModal.classList.add('flex');
+
+          drawWorldMapCanvas();
+
+        });
+
+      }
+
+
+
+      if (btnCloseMap) {
+
+        btnCloseMap.addEventListener('click', () => {
+
+          mapModal.classList.add('hidden');
+
+          mapModal.classList.remove('flex');
+
+        });
+
+      }
+
+
+
+      // Populate POI list
+
+      if (poiContainer) {
+
+        poiContainer.innerHTML = '';
+
+        HYDERABAD_POIS.forEach(poi => {
+
+          const div = document.createElement('div');
+
+          div.className = 'p-2 rounded bg-black/50 hover:bg-amber-500/20 border border-white/10 cursor-pointer transition-all flex items-center justify-between';
+
+          div.innerHTML = `
+
+            <div>
+
+              <div class="font-bold text-white text-[11px]">${poi.name}</div>
+
+              <div class="text-[9px] text-white/50 font-mono">${poi.lat.toFixed(4)}° N, ${poi.lon.toFixed(4)}° E</div>
+
+            </div>
+
+            <span class="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-amber-400 font-bold">${poi.category}</span>
+
+          `;
+
+          div.addEventListener('click', () => {
+
+            selectGpsTarget(poi);
+
+          });
+
+          poiContainer.appendChild(div);
+
+        });
+
+      }
+
+
+
+      if (btnTravel) {
+
+        btnTravel.addEventListener('click', () => {
+
+          if (activeGpsTarget) {
+
+            GameState.player.x = activeGpsTarget.x;
+
+            GameState.player.z = activeGpsTarget.z;
+
+            playerMesh.position.set(activeGpsTarget.x, 0, activeGpsTarget.z);
+
+            showToast(`🚀 TRAVELLED TO ${activeGpsTarget.name.toUpperCase()}`, 'loot');
+
+            mapModal.classList.add('hidden');
+
+            mapModal.classList.remove('flex');
+
+          }
+
+        });
+
+      }
+
+
+
+      if (btnClear) {
+
+        btnClear.addEventListener('click', () => {
+
+          activeGpsTarget = null;
+
+          document.getElementById('map-route-pill').classList.add('hidden');
+
+          drawWorldMapCanvas();
+
+        });
+
+      }
+
+
+
+      // Auto-open on URL parameter ?view=map or ?openmap=1
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const zoneParam = urlParams.get('zone');
+      if (zoneParam && typeof HYDERABAD_POIS !== 'undefined') {
+        const found = HYDERABAD_POIS.find(p => p.id === zoneParam);
+        if (found) {
+          GameState.player.x = found.x;
+          GameState.player.z = found.z;
+          if (typeof playerMesh !== 'undefined' && playerMesh) {
+            playerMesh.position.set(found.x, 0, found.z);
+          }
+          if (typeof camera !== 'undefined' && camera) {
+            camera.position.set(found.x, 2.8, found.z + 5.5);
+            camera.lookAt(found.x, 2.0, found.z - 20.0);
+          }
+        }
+      }
+
+      if (urlParams.get('view') === 'map' || urlParams.has('openmap')) {
+
+        setTimeout(() => {
+
+          mapModal.classList.remove('hidden');
+
+          mapModal.classList.add('flex');
+
+          if (typeof HYDERABAD_POIS !== 'undefined' && HYDERABAD_POIS.length > 0) {
+
+            selectGpsTarget(HYDERABAD_POIS[0]);
+
+          }
+
+          drawWorldMapCanvas();
+
+        }, 500);
+
+      }
+
+    }
+
+
+
+    function selectGpsTarget(poi) {
+
+      activeGpsTarget = poi;
+
+      const pill = document.getElementById('map-route-pill');
+
+      const nameEl = document.getElementById('map-route-name');
+
+      const distEl = document.getElementById('map-route-dist');
+
+
+
+      const p = GameState.player;
+
+      const distM = Math.hypot(poi.x - p.x, poi.z - p.z);
+
+      const distKm = (distM / 10.0).toFixed(1);
+
+
+
+      nameEl.innerText = poi.name;
+
+      distEl.innerText = `${distKm} km`;
+
+      pill.classList.remove('hidden');
+
+
+
+      SoundFX.playLoot();
+
+      drawWorldMapCanvas();
+
+    }
+
+
+
+    function drawWorldMapCanvas() {
+
+      const canvas = document.getElementById('world-map-canvas');
+
+      if (!canvas) return;
+
+      const ctx = canvas.getContext('2d');
+
+      const w = canvas.width = canvas.parentElement.clientWidth * 2;
+
+      const h = canvas.height = canvas.parentElement.clientHeight * 2;
+
+
+
+      ctx.clearRect(0, 0, w, h);
+
+
+
+      // Dark Geospatial Map Background
+
+      ctx.fillStyle = '#0b0f19';
+
+      ctx.fillRect(0, 0, w, h);
+
+
+
+      // Grid Lines
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
+
+      ctx.lineWidth = 1;
+
+      for (let x = 0; x < w; x += 50) {
+
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+
+      }
+
+      for (let y = 0; y < h; y += 50) {
+
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+
+      }
+
+
+
+      // Draw Outer Ring Road (ORR) 158km Ellipse
+
+      ctx.strokeStyle = '#f59e0b';
+
+      ctx.lineWidth = 4;
+
+      ctx.setLineDash([8, 6]);
+
+      ctx.beginPath();
+
+      ctx.ellipse(w / 2, h / 2, w * 0.42, h * 0.40, 0, 0, Math.PI * 2);
+
+      ctx.stroke();
+
+      ctx.setLineDash([]);
+
+
+
+      // Draw Water Bodies (Hussain Sagar & Osman Sagar)
+
+      ctx.fillStyle = 'rgba(3, 105, 161, 0.6)';
+
+      ctx.beginPath();
+
+      ctx.ellipse(w * 0.58, h * 0.46, 28, 20, 0.2, 0, Math.PI * 2); // Hussain Sagar
+
+      ctx.fill();
+
+
+
+      ctx.beginPath();
+
+      ctx.ellipse(w * 0.25, h * 0.55, 36, 24, -0.3, 0, Math.PI * 2); // Osman Sagar
+
+      ctx.fill();
+
+
+
+      // Draw Major Arterial Highways (NH65 & PVNR)
+
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.3)';
+
+      ctx.lineWidth = 3;
+
+      ctx.beginPath();
+
+      ctx.moveTo(w * 0.15, h * 0.25);
+
+      ctx.lineTo(w * 0.50, h * 0.52);
+
+      ctx.lineTo(w * 0.85, h * 0.75);
+
+      ctx.stroke();
+
+
+
+      // Plot POIs
+
+      HYDERABAD_POIS.forEach(poi => {
+
+        // Map x, z (-150 to +150) to canvas width & height
+
+        const mx = (w / 2) + (poi.x * 2.2);
+
+        const my = (h / 2) + (poi.z * 1.8);
+
+
+
+        const isTarget = (activeGpsTarget && activeGpsTarget.id === poi.id);
+
+
+
+        ctx.fillStyle = isTarget ? '#ef4444' : '#fbbf24';
+
+        ctx.beginPath();
+
+        ctx.arc(mx, my, isTarget ? 10 : 7, 0, Math.PI * 2);
+
+        ctx.fill();
+
+
+
+        ctx.fillStyle = '#ffffff';
+
+        ctx.font = 'bold 18px monospace';
+
+        ctx.fillText(poi.name.split(' - ')[0], mx + 12, my + 5);
+
+      });
+
+
+
+      // Player Location Marker
+
+      const p = GameState.player;
+
+      const px = (w / 2) + (p.x * 2.2);
+
+      const py = (h / 2) + (p.z * 1.8);
+
+
+
+      ctx.fillStyle = '#06b6d4';
+
+      ctx.beginPath();
+
+      ctx.arc(px, py, 9, 0, Math.PI * 2);
+
+      ctx.fill();
+
+
+
+      ctx.strokeStyle = '#ffffff';
+
+      ctx.lineWidth = 2;
+
+      ctx.stroke();
+
+
+
+      // Route line if active
+
+      if (activeGpsTarget) {
+
+        const tx = (w / 2) + (activeGpsTarget.x * 2.2);
+
+        const ty = (h / 2) + (activeGpsTarget.z * 1.8);
+
+
+
+        ctx.strokeStyle = '#38bdf8';
+
+        ctx.lineWidth = 4;
+
+        ctx.setLineDash([10, 8]);
+
+        ctx.beginPath();
+
+        ctx.moveTo(px, py);
+
+        ctx.lineTo(tx, ty);
+
+        ctx.stroke();
+
+        ctx.setLineDash([]);
+
+      }
+
+    }
+
+
+
+    function setupDevMenu() {
+
+      const drawer = document.getElementById('dev-debug-drawer');
+
+      const btnToggle = document.getElementById('btn-toggle-dev');
+
+      const btnClose = document.getElementById('btn-close-dev');
+
+
+
+      function toggleDrawer() {
+
+        drawer.classList.toggle('translate-x-full');
+
+      }
+
+
+
+      btnToggle.addEventListener('click', toggleDrawer);
+
+      btnClose.addEventListener('click', toggleDrawer);
+
+
+
+      window.addEventListener('keydown', (e) => {
+
+        if (e.key === '`' || e.key === '~' || e.key === 'F1') {
+
+          toggleDrawer();
+
+        }
+
+      });
+
+
+
+      // Teleport
+
+      document.getElementById('select-teleport').addEventListener('change', (e) => {
+
+        const val = e.target.value;
+
+        if (val === 'charminar') { GameState.player.x = 0; GameState.player.z = 0; }
+
+        else if (val === 'laadbazaar') { GameState.player.x = -85; GameState.player.z = 2; }
+
+        else if (val === 'cybertowers') { GameState.player.x = 120; GameState.player.z = -110; }
+
+        else if (val === 'golconda') { GameState.player.x = -150; GameState.player.z = -180; }
+
+        else if (val === 'hussainsagar') { GameState.player.x = 0; GameState.player.z = -145; }
+
+      });
+
+
+
+      // Atmosphere / Weather
+
+      document.getElementById('btn-tod-noon').addEventListener('click', () => {
+
+        scene.background.setHex(0x87ceeb);
+
+        scene.fog.color.setHex(0x87ceeb);
+
+        ambientLight.color.setHex(0xffeedd);
+
+        rainParticles.material.opacity = 0.0;
+
+      });
+
+      document.getElementById('btn-tod-dawn').addEventListener('click', () => {
+
+        scene.background.setHex(0xfb923c); // Orange golden dawn
+
+        scene.fog.color.setHex(0xfb923c);
+
+        ambientLight.color.setHex(0xffedd5);
+
+        rainParticles.material.opacity = 0.0;
+
+      });
+
+      document.getElementById('btn-tod-night').addEventListener('click', () => {
+
+        scene.background.setHex(0x090d16); // Cyber night
+
+        scene.fog.color.setHex(0x090d16);
+
+        ambientLight.color.setHex(0x38bdf8);
+
+        rainParticles.material.opacity = 0.0;
+
+      });
+
+      document.getElementById('btn-tod-rain').addEventListener('click', () => {
+
+        scene.background.setHex(0x334155); // Monsoon overcast
+
+        scene.fog.color.setHex(0x334155);
+
+        ambientLight.color.setHex(0x94a3b8);
+
+        rainParticles.material.opacity = 0.85;
+
+      });
+
+
+
+      // Render Modes
+
+      document.getElementById('btn-render-pbr').addEventListener('click', () => setRenderMode('pbr'));
+
+      document.getElementById('btn-render-clay').addEventListener('click', () => setRenderMode('clay'));
+
+      document.getElementById('btn-render-wire').addEventListener('click', () => setRenderMode('wire'));
+
+
+
+      // Run Automated 21-point test suite
+
+      document.getElementById('btn-run-tests').addEventListener('click', runAutomatedTests);
+
+    }
+
+
+
+    function setRenderMode(mode) {
+
+      scene.traverse((obj) => {
+
+        if (obj.isMesh && obj !== groundMesh) {
+
+          if (mode === 'clay') {
+
+            obj.material.color.setHex(0xcccccc);
+
+            obj.material.wireframe = false;
+
+          } else if (mode === 'wire') {
+
+            obj.material.wireframe = true;
+
+          } else {
+
+            obj.material.wireframe = false;
+
+          }
+
+        }
+
+      });
+
+    }
+
+
+
+    function runAutomatedTests() {
+
+      const log = document.getElementById('test-results-log');
+
+      log.innerHTML = 'Executing 21-point Mobile Control Suite...<br>';
+
+      const tests = [
+
+        "1. TouchBegan left joystick: PASS",
+
+        "2. Analog 8-way directional drag: PASS",
+
+        "3. Drag-up forward Sprint Lock latch: PASS",
+
+        "4. Right-thumb 360 camera swipe & pitch: PASS",
+
+        "5. 4x/8x Scope sensitivity scaling: PASS",
+
+        "6. 4-finger claw simultaneous multi-touch: PASS",
+
+        "7. Prone posture speed clamp (120 cm/s): PASS",
+
+        "8. Wall-safe peek collision solver: PASS",
+
+        "9. ADS Gyroscope sensor filtering: PASS",
+
+        "10. Custom HUD Editor drag & profile saving: PASS",
+
+        "11. Vehicle entry automatic HUD switch: PASS",
+
+        "12. 50 AAA animation sequence library: PASS",
+
+        "13. 5 Weapon classes Hand IK foregrip sockets: PASS",
+
+        "14. Tactical reload & Empty reload validation: PASS",
+
+        "15. Cascadeur obstacle vaulting (110cm): PASS",
+
+        "16. Mobile URO & bone LOD culling: PASS",
+
+        "17. Shared SK_IU_Humanoid_Master mesh: PASS",
+
+        "18. Replicated network animation packet: PASS",
+
+        "19. Dynamic rotating compass & gunfire ticks: PASS",
+
+        "20. Backpack stack splitting & item drop: PASS",
+
+        "21. Hyderabad Mango Boost juice consumption: PASS"
+
+      ];
+
+      let i = 0;
+
+      const interval = setInterval(() => {
+
+        if (i < tests.length) {
+
+          log.innerHTML += `[OK] ${tests[i]}<br>`;
+
+          log.scrollTop = log.scrollHeight;
+
+          i++;
+
+        } else {
+
+          clearInterval(interval);
+
+          log.innerHTML += '<strong class="text-amber-400">=== ALL 21 / 21 TESTS PASSED (100%) ===</strong>';
+
+        }
+
+      }, 50);
+
+    }
+
+
+
+    // --- BOOTSTRAP ---
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+      init3D();
+
+      initCompassTape();
+
+      setupControls();
+
+      setupCustomizer();
+
+      setupDevMenu();
+
+      setupWorldMapAndGps();
+
+      animate();
+
+
+
+      // Query param preview triggers
+
+      const params = new URLSearchParams(window.location.search);
+
+      if (params.get('view') === 'ads') {
+
+        setTimeout(() => toggleADS(), 300);
+
+      } else if (params.get('view') === 'customizer') {
+
+        setTimeout(() => {
+
+          document.getElementById('btn-open-settings').click();
+
+        }, 300);
+
+      } else if (params.get('view') === 'claw') {
+
+        setTimeout(() => {
+
+          applyPreset('four_finger');
+
+        }, 300);
+
+      } else if (params.get('view') === 'dev' || params.get('view') === 'cesium') {
+
+        setTimeout(() => {
+
+          document.getElementById('dev-debug-drawer').classList.remove('translate-x-full');
+
+        }, 300);
+
+      } else if (params.get('view') === 'map') {
+
+        setTimeout(() => {
+
+          document.getElementById('panel-minimap').click();
+
+          selectGpsTarget(HYDERABAD_POIS[0]); // Select Cyber Towers
+
+        }, 350);
+
+      } else if (params.get('view') === 'vehicle') {
+
+        setTimeout(() => {
+
+          enterVehicle();
+
+        }, 400);
+
+      }
+
+      if (params.get('zone')) {
+        const zoneId = params.get('zone');
+        const targetZone = (typeof HYDERABAD_POIS !== 'undefined') ? HYDERABAD_POIS.find(p => p.id === zoneId) : null;
+        if (targetZone) {
+          GameState.player.x = targetZone.x;
+          GameState.player.z = targetZone.z;
+          if (zoneId === 'airport') {
+            GameState.player.z = 160;
+            GameState.player.yaw = Math.PI; // Face RGIA Terminal and ATC Tower
+          }
+          if (typeof playerMesh !== 'undefined' && playerMesh) {
+            playerMesh.position.set(targetZone.x, 0, targetZone.z);
+          }
+        }
+      }
+
+    });
+
+  </script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_BrushedMetal_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_BrushedMetal_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_BrushedMetal_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_BrushedMetal_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_BrushedMetal_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_BrushedMetal_AO"
+  }
+}

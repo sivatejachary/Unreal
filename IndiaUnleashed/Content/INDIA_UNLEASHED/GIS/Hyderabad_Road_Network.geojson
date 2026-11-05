@@ -1,0 +1,260 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "ROAD_ORR_EXPRESSWAY",
+        "name": "Outer Ring Road (ORR) - 8-Lane Expressway",
+        "road_type": "Motorway_Expressway",
+        "lanes": 8,
+        "width_m": 35.0,
+        "speed_limit_kmh": 120,
+        "surface": "HighPerformance_Asphalt",
+        "has_divider": true,
+        "divider_width_m": 4.5,
+        "streetlights": "Continuous_CentralLED"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.2647,
+            17.5332
+          ],
+          [
+            78.3489,
+            17.4401
+          ],
+          [
+            78.398,
+            17.26
+          ],
+          [
+            78.48,
+            17.24
+          ],
+          [
+            78.6,
+            17.32
+          ],
+          [
+            78.6833,
+            17.4478
+          ],
+          [
+            78.58,
+            17.56
+          ],
+          [
+            78.42,
+            17.58
+          ],
+          [
+            78.2647,
+            17.5332
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "ROAD_PVNR_EXPRESSWAY",
+        "name": "PVNR Elevated Expressway (Airport Corridor)",
+        "road_type": "Elevated_Expressway_Pillared",
+        "lanes": 4,
+        "width_m": 18.2,
+        "speed_limit_kmh": 80,
+        "surface": "Polymer_Modified_Asphalt",
+        "has_divider": true,
+        "elevated_height_m": 8.5
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.4417,
+            17.3916
+          ],
+          [
+            78.435,
+            17.36
+          ],
+          [
+            78.428,
+            17.32
+          ],
+          [
+            78.412,
+            17.28
+          ],
+          [
+            78.398,
+            17.26
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "ROAD_HITEC_MAIN_BLVD",
+        "name": "HITEC City Main Boulevard (Cyber Towers to Mindspace)",
+        "road_type": "Primary_Urban_Arterial",
+        "lanes": 6,
+        "width_m": 24.0,
+        "speed_limit_kmh": 60,
+        "surface": "Asphalt_HeavyTraffic",
+        "has_divider": true,
+        "metro_viaduct_overhead": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.375,
+            17.455
+          ],
+          [
+            78.3808,
+            17.4504
+          ],
+          [
+            78.386,
+            17.445
+          ],
+          [
+            78.3908,
+            17.4399
+          ],
+          [
+            78.3844,
+            17.4325
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "ROAD_DURGAM_CABLE_BRIDGE",
+        "name": "Durgam Cheruvu Cable-Stayed Bridge",
+        "road_type": "Bridge_CableStayed",
+        "lanes": 4,
+        "width_m": 16.5,
+        "speed_limit_kmh": 50,
+        "surface": "Mastic_Asphalt",
+        "has_divider": true,
+        "stay_cable_pylons": 2,
+        "architectural_lighting": "Dynamic_LED_Illuminated"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.3844,
+            17.4325
+          ],
+          [
+            78.392,
+            17.4335
+          ],
+          [
+            78.4,
+            17.434
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "ROAD_NH65_CORRIDOR",
+        "name": "National Highway 65 (Pune-Hyderabad-Vijayawada)",
+        "road_type": "National_Highway",
+        "lanes": 6,
+        "width_m": 28.0,
+        "speed_limit_kmh": 90,
+        "surface": "Dense_Bituminous_Macadam",
+        "has_divider": true
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.2647,
+            17.5332
+          ],
+          [
+            78.3614,
+            17.4968
+          ],
+          [
+            78.405,
+            17.485
+          ],
+          [
+            78.445,
+            17.435
+          ],
+          [
+            78.4764,
+            17.3911
+          ],
+          [
+            78.4867,
+            17.3828
+          ],
+          [
+            78.53,
+            17.368
+          ],
+          [
+            78.6808,
+            17.2543
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "road_id": "ROAD_NECKLACE_WATERFRONT",
+        "name": "Necklace Road (PV Narasimha Rao Marg)",
+        "road_type": "Scenic_Waterfront_Boulevard",
+        "lanes": 4,
+        "width_m": 16.0,
+        "speed_limit_kmh": 50,
+        "surface": "Smooth_Asphalt",
+        "has_divider": true,
+        "pedestrian_footpath_m": 5.0
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            78.462,
+            17.432
+          ],
+          [
+            78.468,
+            17.428
+          ],
+          [
+            78.4738,
+            17.4239
+          ],
+          [
+            78.481,
+            17.418
+          ],
+          [
+            78.472,
+            17.412
+          ]
+        ]
+      }
+    }
+  ]
+}

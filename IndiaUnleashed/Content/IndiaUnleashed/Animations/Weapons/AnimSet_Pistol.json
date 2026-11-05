@@ -1,0 +1,23 @@
+{
+  "weaponClass": "Pistol",
+  "codeName": "WPN_P92_Deccan_Sidearm",
+  "displayName": "P92 / Deccan Tactical 9mm Pistol",
+  "gripType": "TwoHanded_Teacup_PistolWeaver",
+  "rightHandSocket": "socket_weapon_r_pistol",
+  "leftHandIKOffsetCm": [
+    -4.5,
+    18.0,
+    8.0
+  ],
+  "adsEyeOffsetCm": [
+    0.0,
+    32.0,
+    14.0
+  ],
+  "verticalRecoilDegPerShot": 1.1,
+  "horizontalRecoilDegPerShot": 0.25,
+  "tacticalReloadSec": 1.35,
+  "emptyReloadSec": 1.68,
+  "equipDurationSec": 0.28,
+  "moveSpeedMultiplier": 1.0
+}

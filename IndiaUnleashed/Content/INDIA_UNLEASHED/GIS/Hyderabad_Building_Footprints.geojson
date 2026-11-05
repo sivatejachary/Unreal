@@ -1,0 +1,272 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_CYBER_TOWERS",
+        "name": "Cyber Towers Core Structure",
+        "height_m": 52.0,
+        "floors": 11,
+        "category": "Commercial_Iconic_IT",
+        "geometry_profile": "Cylindrical_Quarters_With_Central_Atrium",
+        "material": "Precast_Concrete_ReflectiveGlass"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.3803,
+              17.45
+            ],
+            [
+              78.3813,
+              17.45
+            ],
+            [
+              78.3813,
+              17.4508
+            ],
+            [
+              78.3803,
+              17.4508
+            ],
+            [
+              78.3803,
+              17.45
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_CYBER_GATEWAY",
+        "name": "Cyber Gateway Complex",
+        "height_m": 38.0,
+        "floors": 8,
+        "category": "Commercial_IT_Block",
+        "material": "Granite_GlassCurtainWall"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.385,
+              17.4445
+            ],
+            [
+              78.387,
+              17.4445
+            ],
+            [
+              78.387,
+              17.4455
+            ],
+            [
+              78.385,
+              17.4455
+            ],
+            [
+              78.385,
+              17.4445
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_INORBIT_MALL",
+        "name": "Inorbit Mall Hyderabad",
+        "height_m": 28.0,
+        "floors": 6,
+        "category": "Mega_Retail_Mall",
+        "material": "Composite_Aluminum_Panel_Glass"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.3895,
+              17.439
+            ],
+            [
+              78.392,
+              17.439
+            ],
+            [
+              78.392,
+              17.441
+            ],
+            [
+              78.3895,
+              17.441
+            ],
+            [
+              78.3895,
+              17.439
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_THUB_2",
+        "name": "T-Hub 2.0 Global Innovation Hub",
+        "height_m": 45.0,
+        "floors": 10,
+        "category": "Futuristic_Tech_Incubator",
+        "material": "Sculptural_Cantilever_Steel_Glass"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.376,
+              17.442
+            ],
+            [
+              78.3785,
+              17.442
+            ],
+            [
+              78.3785,
+              17.4438
+            ],
+            [
+              78.376,
+              17.4438
+            ],
+            [
+              78.376,
+              17.442
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_WAVEROCK_GACHIBOWLI",
+        "name": "Waverock SEZ Complex (TSIIC)",
+        "height_m": 68.0,
+        "floors": 16,
+        "category": "Highrise_IT_SEZ",
+        "material": "DoubleGlazed_LowE_Glass_WhiteConcrete"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.347,
+              17.439
+            ],
+            [
+              78.351,
+              17.439
+            ],
+            [
+              78.351,
+              17.4415
+            ],
+            [
+              78.347,
+              17.4415
+            ],
+            [
+              78.347,
+              17.439
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_SECRETARIAT_TELANGANA",
+        "name": "Dr. B.R. Ambedkar Telangana Secretariat",
+        "height_m": 82.0,
+        "floors": 7,
+        "category": "State_Government_Heritage_Inspired",
+        "material": "Deccan_RedSandstone_WhiteDomes"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.471,
+              17.41
+            ],
+            [
+              78.475,
+              17.41
+            ],
+            [
+              78.475,
+              17.4135
+            ],
+            [
+              78.471,
+              17.4135
+            ],
+            [
+              78.471,
+              17.41
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "bldg_id": "BLDG_RGIA_TERMINAL",
+        "name": "Rajiv Gandhi International Airport Passenger Terminal",
+        "height_m": 32.0,
+        "floors": 4,
+        "category": "Aviation_MegaTerminal",
+        "material": "Curved_Tensile_Steel_Roof_Glass"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              78.427,
+              17.238
+            ],
+            [
+              78.432,
+              17.238
+            ],
+            [
+              78.432,
+              17.2425
+            ],
+            [
+              78.427,
+              17.2425
+            ],
+            [
+              78.427,
+              17.238
+            ]
+          ]
+        ]
+      }
+    }
+  ]
+}

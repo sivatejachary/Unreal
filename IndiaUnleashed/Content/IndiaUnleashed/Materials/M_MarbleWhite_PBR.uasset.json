@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_MarbleWhite_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_MarbleWhite_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_MarbleWhite_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_MarbleWhite_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_MarbleWhite_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_MarbleWhite_AO"
+  }
+}

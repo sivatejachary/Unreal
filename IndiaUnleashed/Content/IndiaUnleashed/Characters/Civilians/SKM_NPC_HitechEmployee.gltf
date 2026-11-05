@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_NPC_HitechEmployee",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_NPC_HitechEmployee_LOD0",
+      "extras": {
+        "DimensionsM": [
+          0.52,
+          0.32,
+          1.75
+        ],
+        "Material": "M_CottonKurtaFabric_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 9100,
+          "LOD1_PC_High": 4550,
+          "LOD2_Android_High": 2275,
+          "LOD3_Android_Low": 1092
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_NPC_HitechEmployee",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

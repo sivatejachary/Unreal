@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_DarkHair_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_DarkHair_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_DarkHair_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_DarkHair_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_DarkHair_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_DarkHair_AO"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "weaponClass": "SniperRifle",
+  "codeName": "WPN_AWM_Magnum_Sniper",
+  "displayName": "AWM .300 Magnum Bolt-Action Sniper (8x)",
+  "gripType": "TwoHanded_HeavyBarrel_BoltAction",
+  "rightHandSocket": "socket_weapon_r_sniper",
+  "leftHandIKOffsetCm": [
+    -21.0,
+    54.0,
+    13.0
+  ],
+  "adsEyeOffsetCm": [
+    0.0,
+    22.0,
+    15.2
+  ],
+  "verticalRecoilDegPerShot": 4.8,
+  "horizontalRecoilDegPerShot": 0.6,
+  "tacticalReloadSec": 3.2,
+  "emptyReloadSec": 4.1,
+  "equipDurationSec": 0.72,
+  "moveSpeedMultiplier": 0.86
+}

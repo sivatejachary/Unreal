@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SM_LaadBazaar_Colonnade",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SM_LaadBazaar_Colonnade_LOD0",
+      "extras": {
+        "DimensionsM": [
+          24.0,
+          8.5,
+          7.5
+        ],
+        "Material": "M_OldCityBrick_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 6400,
+          "LOD1_PC_High": 3200,
+          "LOD2_Android_High": 1600,
+          "LOD3_Android_Low": 768
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SM_LaadBazaar_Colonnade",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

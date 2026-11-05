@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_ChowmahallaPalace",
+  "real_world_name": "Chowmahalla Palace (Khilwat Mubarak)",
+  "district": "Old City",
+  "wgs84_coordinates": {
+    "lat": 17.3578,
+    "lon": 78.4717,
+    "elevation_m": 504.5
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 231296.16,
+    "utm_northing_m": 1921069.44,
+    "ue5_x_cm": -31883.8,
+    "ue5_y_cm": 42055.8,
+    "ue5_z_cm": -50.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 85.0,
+    "depth_y": 42.0,
+    "height_z": 18.0
+  },
+  "source_url": "https://commons.wikimedia.org/wiki/File:Chowmahalla-palace-hyderabad.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Chowmahalla-palace-hyderabad.jpg",
+  "secondary_reference_url": "https://en.wikipedia.org/wiki/Charminar",
+  "osm_gis_reference": "https://www.openstreetmap.org/way/247829425",
+  "license": "CC BY-SA 3.0",
+  "attribution": "Wikimedia Commons Contributors",
+  "viewing_angles_collected": 9,
+  "reconstruction_method": "METHOD_C_MODULAR_ARCHITECTURAL_MODELING",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}

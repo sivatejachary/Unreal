@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_CyberTowers_HitechCity",
+  "real_world_name": "Cyber Towers Quadrant, HITEC City Madhapur",
+  "district": "Modern Hyderabad",
+  "wgs84_coordinates": {
+    "lat": 17.4504,
+    "lon": 78.3808,
+    "elevation_m": 542.0
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 221635.36,
+    "utm_northing_m": 1931317.78,
+    "ue5_x_cm": -997964.3,
+    "ue5_y_cm": -982778.1,
+    "ue5_z_cm": 3700.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 68.0,
+    "depth_y": 68.0,
+    "height_z": 48.0
+  },
+  "source_url": "https://commons.wikimedia.org/wiki/File:Cyber_Towers_in_HITEC_city.jpg",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Cyber_Towers_in_HITEC_city.jpg",
+  "secondary_reference_url": "https://commons.wikimedia.org/wiki/File:Cyber_Towers,_Hitech_city,_Hyderabad.jpg",
+  "osm_gis_reference": "https://en.wikipedia.org/wiki/HITEC_City",
+  "license": "CC BY-SA 4.0",
+  "attribution": "Wikimedia Commons Contributors",
+  "viewing_angles_collected": 14,
+  "reconstruction_method": "METHOD_D_GEOSPATIAL_AND_CAD_BIM",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}

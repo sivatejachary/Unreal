@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_HussainSagarWater_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_HussainSagarWater_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_HussainSagarWater_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_HussainSagarWater_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_HussainSagarWater_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_HussainSagarWater_AO"
+  }
+}

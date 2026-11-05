@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_RGIA_Airport",
+  "real_world_name": "Rajiv Gandhi International Airport Terminal (Shamshabad)",
+  "district": "Airport District",
+  "wgs84_coordinates": {
+    "lat": 17.2403,
+    "lon": 78.4294,
+    "elevation_m": 617.0
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 226800.54,
+    "utm_northing_m": 1908065.34,
+    "ue5_x_cm": -481446.0,
+    "ue5_y_cm": 1342466.0,
+    "ue5_z_cm": 11200.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 320.0,
+    "depth_y": 140.0,
+    "height_z": 45.0
+  },
+  "source_url": "https://en.wikipedia.org/wiki/Rajiv_Gandhi_International_Airport",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/4/4c/Interior_of_Rajiv_Gandhi_International_Airport%2C_Hyderabad_03.jpg",
+  "secondary_reference_url": "https://ro.wikipedia.org/wiki/Fi%C8%99ier:Interior_of_Rajiv_Gandhi_International_Airport,_Hyderabad_03.jpg",
+  "osm_gis_reference": "https://ceb.wikipedia.org/wiki/Rajiv_Gandhi_International_Airport",
+  "license": "CC BY-SA 4.0",
+  "attribution": "Wikimedia Commons Contributors",
+  "viewing_angles_collected": 10,
+  "reconstruction_method": "METHOD_D_GEOSPATIAL_AND_CAD_BIM",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}

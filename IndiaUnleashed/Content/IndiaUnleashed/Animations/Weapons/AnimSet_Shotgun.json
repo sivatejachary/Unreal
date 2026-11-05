@@ -1,0 +1,23 @@
+{
+  "weaponClass": "Shotgun",
+  "codeName": "WPN_S1897_Pump_Shotgun",
+  "displayName": "S1897 12-Gauge Trench Pump Shotgun",
+  "gripType": "TwoHanded_PumpAction_SlideForend",
+  "rightHandSocket": "socket_weapon_r_shotgun",
+  "leftHandIKOffsetCm": [
+    -16.5,
+    46.0,
+    10.5
+  ],
+  "adsEyeOffsetCm": [
+    0.0,
+    27.0,
+    14.2
+  ],
+  "verticalRecoilDegPerShot": 3.9,
+  "horizontalRecoilDegPerShot": 0.75,
+  "tacticalReloadSec": 2.85,
+  "emptyReloadSec": 3.6,
+  "equipDurationSec": 0.58,
+  "moveSpeedMultiplier": 0.92
+}

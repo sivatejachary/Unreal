@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SM_DurgamCheruvu_Bridge",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SM_DurgamCheruvu_Bridge_LOD0",
+      "extras": {
+        "DimensionsM": [
+          120.0,
+          25.8,
+          42.0
+        ],
+        "Material": "M_DeccanGranite_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 10500,
+          "LOD1_PC_High": 5250,
+          "LOD2_Android_High": 2625,
+          "LOD3_Android_Low": 1260
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SM_DurgamCheruvu_Bridge",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

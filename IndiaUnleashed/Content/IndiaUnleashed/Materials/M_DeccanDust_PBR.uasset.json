@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_DeccanDust_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_DeccanDust_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_DeccanDust_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_DeccanDust_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_DeccanDust_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_DeccanDust_AO"
+  }
+}

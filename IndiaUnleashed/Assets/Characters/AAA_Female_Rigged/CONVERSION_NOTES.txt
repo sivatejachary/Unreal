@@ -1,0 +1,11 @@
+Texture UV transforms were baked into export-only UV0 coordinates; texture transforms were reset to identity.
+
+Legacy FBX materials approximate PBR. The shared FBX wrapper preserves material maps as sidecars for explicit PBR reconstruction.
+
+Images were normalized to file-image orientation. PNG/canvas re-encoding, importer material support and color management can still differ; this is not a lossless-PBR guarantee.
+
+This FBX writer does not serialize source tangent attributes. Configure the target importer to calculate tangent space (for example MikkTSpace) consistently with the normal map; identical specular lighting across renderers is not guaranteed.
+
+FBX legacy Phong highlights use average effective roughness/metalness, not spatially varying PBR. All supported material maps are included in the ZIP for explicit reconstruction. A preview is not a PBR fidelity guarantee.
+
+FBX UnitScaleFactor is 100: numeric scene coordinates are meters, not centimeters. No positions, topology, normals, skin weights or animation curves were simplified by this wrapper.

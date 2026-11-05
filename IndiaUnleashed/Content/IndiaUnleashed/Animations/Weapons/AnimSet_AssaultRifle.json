@@ -1,0 +1,23 @@
+{
+  "weaponClass": "AssaultRifle",
+  "codeName": "WPN_M416_Glacier_AR",
+  "displayName": "M416 Glacier Assault Rifle (5.56mm)",
+  "gripType": "TwoHanded_Foregrip_Angled",
+  "rightHandSocket": "socket_weapon_r_rifle",
+  "leftHandIKOffsetCm": [
+    -18.0,
+    42.0,
+    12.0
+  ],
+  "adsEyeOffsetCm": [
+    0.0,
+    28.0,
+    14.5
+  ],
+  "verticalRecoilDegPerShot": 1.35,
+  "horizontalRecoilDegPerShot": 0.35,
+  "tacticalReloadSec": 2.1,
+  "emptyReloadSec": 2.65,
+  "equipDurationSec": 0.5,
+  "moveSpeedMultiplier": 0.94
+}

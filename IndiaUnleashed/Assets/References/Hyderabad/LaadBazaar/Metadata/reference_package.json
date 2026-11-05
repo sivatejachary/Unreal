@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_LaadBazaar",
+  "real_world_name": "Laad Bazaar Historic Bangle Street",
+  "district": "Old City",
+  "wgs84_coordinates": {
+    "lat": 17.3618,
+    "lon": 78.4728,
+    "elevation_m": 505.5
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 231413.07,
+    "utm_northing_m": 1921512.13,
+    "ue5_x_cm": -20193.1,
+    "ue5_y_cm": -2213.5,
+    "ue5_z_cm": 50.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 180.0,
+    "depth_y": 14.0,
+    "height_z": 8.5
+  },
+  "source_url": "https://en.wikipedia.org/wiki/Charminar",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Charminar-Pride_of_Hyderabad.jpg",
+  "secondary_reference_url": "https://epsg.io/32644",
+  "osm_gis_reference": "https://www.openstreetmap.org/way/162489103",
+  "license": "CC BY-SA 4.0 / OpenStreetMap ODbL",
+  "attribution": "Wikimedia Commons & OpenStreetMap Contributors",
+  "viewing_angles_collected": 12,
+  "reconstruction_method": "METHOD_C_MODULAR_ARCHITECTURAL_MODELING",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}

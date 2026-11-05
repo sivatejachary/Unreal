@@ -1,0 +1,56 @@
+[
+  {
+    "RowName": "POI_OLD_01",
+    "DisplayName": "Charminar Monument Plaza",
+    "District": "OldCity",
+    "X": 0,
+    "Y": 0,
+    "Z": 0,
+    "Alpha01Playable": true
+  },
+  {
+    "RowName": "POI_OLD_02",
+    "DisplayName": "Laad Bazaar Bangle Market",
+    "District": "OldCity",
+    "X": -8500,
+    "Y": 200,
+    "Z": 0,
+    "Alpha01Playable": true
+  },
+  {
+    "RowName": "POI_OLD_03",
+    "DisplayName": "Char Kaman Archway",
+    "District": "OldCity",
+    "X": 0,
+    "Y": -9500,
+    "Z": 0,
+    "Alpha01Playable": true
+  },
+  {
+    "RowName": "POI_OLD_04",
+    "DisplayName": "Mecca Masjid Courtyard",
+    "District": "OldCity",
+    "X": -1500,
+    "Y": 7200,
+    "Z": 0,
+    "Alpha01Playable": true
+  },
+  {
+    "RowName": "POI_TB_01",
+    "DisplayName": "Hussain Sagar Lake & Buddha Statue Island",
+    "District": "TankBund",
+    "X": 0,
+    "Y": -145000,
+    "Z": -120,
+    "Alpha01Playable": true
+  },
+  {
+    "RowName": "POI_TB_02",
+    "DisplayName": "Tank Bund Embankment Promenade",
+    "District": "TankBund",
+    "X": 18000,
+    "Y": -130000,
+    "Z": 200,
+    "Alpha01Playable": true
+  }
+]

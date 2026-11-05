@@ -1,0 +1,12 @@
+{
+  "MaterialName": "M_HumanSkin_PBR",
+  "ShadingModel": "DefaultLit",
+  "TwoSided": false,
+  "Textures": {
+    "BaseColor": "/Game/IndiaUnleashed/Textures/T_HumanSkin_BaseColor",
+    "Normal": "/Game/IndiaUnleashed/Textures/T_HumanSkin_Normal",
+    "Roughness": "/Game/IndiaUnleashed/Textures/T_HumanSkin_Roughness",
+    "Metallic": "/Game/IndiaUnleashed/Textures/T_HumanSkin_Metallic",
+    "AmbientOcclusion": "/Game/IndiaUnleashed/Textures/T_HumanSkin_AO"
+  }
+}

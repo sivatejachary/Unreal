@@ -1,0 +1,26 @@
+version: "3.9"
+services:
+  iu-backend-api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - IU_ENV=production
+      - IU_POSTGRES_DSN=postgresql://iu_user:iu_pass@postgres:5432/india_unleashed
+      - IU_REDIS_URL=redis://redis:6379/0
+      - IU_SERVER_HMAC_SECRET=iu_dedicated_server_master_secret_2026
+    depends_on:
+      - postgres
+      - redis
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=iu_user
+      - POSTGRES_PASSWORD=iu_pass
+      - POSTGRES_DB=india_unleashed
+    ports:
+      - "5432:5432"
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"

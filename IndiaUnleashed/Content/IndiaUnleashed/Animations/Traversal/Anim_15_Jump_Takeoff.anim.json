@@ -1,0 +1,199 @@
+{
+  "sequenceId": 15,
+  "sequenceName": "Anim_15_Jump_Takeoff",
+  "animationGroup": "Traversal",
+  "sourceToolPipeline": "Unreal Game Animation Sample + Cascadeur",
+  "targetSkeleton": "/Game/IndiaUnleashed/Characters/Player/SK_IU_Humanoid_Master.SK_IU_Humanoid_Master",
+  "boneCount": 56,
+  "durationSeconds": 0.38,
+  "bLooping": false,
+  "bEnableRootMotion": true,
+  "referenceSpeedCmPerSec": 420.0,
+  "cascadeurAutoPhysicsValidated": true,
+  "footSlidingErrorMm": 0.0,
+  "compressionFormat": "ACL_Uniform_16Bit",
+  "keyframes": [
+    {
+      "timeSec": 0.0,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "spinePitchDeg": 3.0,
+      "leftHipPitchDeg": 0.0,
+      "rightHipPitchDeg": 0.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    },
+    {
+      "timeSec": 0.032,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        2.25
+      ],
+      "spinePitchDeg": 6.25,
+      "leftHipPitchDeg": 19.0,
+      "rightHipPitchDeg": -19.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 0.0,
+      "footLockRight": 1.0
+    },
+    {
+      "timeSec": 0.063,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        3.9
+      ],
+      "spinePitchDeg": 8.63,
+      "leftHipPitchDeg": 32.91,
+      "rightHipPitchDeg": -32.91,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 0.0,
+      "footLockRight": 1.0
+    },
+    {
+      "timeSec": 0.095,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        4.5
+      ],
+      "spinePitchDeg": 9.5,
+      "leftHipPitchDeg": 38.0,
+      "rightHipPitchDeg": -38.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 0.0,
+      "footLockRight": 1.0
+    },
+    {
+      "timeSec": 0.127,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        3.9
+      ],
+      "spinePitchDeg": 8.63,
+      "leftHipPitchDeg": 32.91,
+      "rightHipPitchDeg": -32.91,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 0.0,
+      "footLockRight": 1.0
+    },
+    {
+      "timeSec": 0.158,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        2.25
+      ],
+      "spinePitchDeg": 6.25,
+      "leftHipPitchDeg": 19.0,
+      "rightHipPitchDeg": -19.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 0.0,
+      "footLockRight": 1.0
+    },
+    {
+      "timeSec": 0.19,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "spinePitchDeg": 3.0,
+      "leftHipPitchDeg": 0.0,
+      "rightHipPitchDeg": -0.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 0.0,
+      "footLockRight": 1.0
+    },
+    {
+      "timeSec": 0.222,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        -2.25
+      ],
+      "spinePitchDeg": -0.25,
+      "leftHipPitchDeg": -19.0,
+      "rightHipPitchDeg": 19.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    },
+    {
+      "timeSec": 0.253,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        -3.9
+      ],
+      "spinePitchDeg": -2.63,
+      "leftHipPitchDeg": -32.91,
+      "rightHipPitchDeg": 32.91,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    },
+    {
+      "timeSec": 0.285,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        -4.5
+      ],
+      "spinePitchDeg": -3.5,
+      "leftHipPitchDeg": -38.0,
+      "rightHipPitchDeg": 38.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    },
+    {
+      "timeSec": 0.317,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        -3.9
+      ],
+      "spinePitchDeg": -2.63,
+      "leftHipPitchDeg": -32.91,
+      "rightHipPitchDeg": 32.91,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    },
+    {
+      "timeSec": 0.348,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        -2.25
+      ],
+      "spinePitchDeg": -0.25,
+      "leftHipPitchDeg": -19.0,
+      "rightHipPitchDeg": 19.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    },
+    {
+      "timeSec": 0.38,
+      "pelvisOffsetCm": [
+        0.0,
+        0.0,
+        -0.0
+      ],
+      "spinePitchDeg": 3.0,
+      "leftHipPitchDeg": -0.0,
+      "rightHipPitchDeg": 0.0,
+      "leftHandIKWeight": 1.0,
+      "footLockLeft": 1.0,
+      "footLockRight": 0.0
+    }
+  ]
+}

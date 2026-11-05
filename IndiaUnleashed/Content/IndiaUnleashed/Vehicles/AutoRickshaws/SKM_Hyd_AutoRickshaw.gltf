@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_Hyd_AutoRickshaw",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_Hyd_AutoRickshaw_LOD0",
+      "extras": {
+        "DimensionsM": [
+          2.65,
+          1.3,
+          1.75
+        ],
+        "Material": "M_AutoRickshawPaint_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 11500,
+          "LOD1_PC_High": 5750,
+          "LOD2_Android_High": 2875,
+          "LOD3_Android_Low": 1380
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_Hyd_AutoRickshaw",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

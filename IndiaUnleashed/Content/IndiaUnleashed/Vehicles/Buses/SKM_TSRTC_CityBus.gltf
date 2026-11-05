@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SKM_TSRTC_CityBus",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SKM_TSRTC_CityBus_LOD0",
+      "extras": {
+        "DimensionsM": [
+          10.8,
+          2.55,
+          3.15
+        ],
+        "Material": "M_BrushedMetal_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 14600,
+          "LOD1_PC_High": 7300,
+          "LOD2_Android_High": 3650,
+          "LOD3_Android_Low": 1752
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SKM_TSRTC_CityBus",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

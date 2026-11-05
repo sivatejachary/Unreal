@@ -1,0 +1,45 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "IndiaUnleashed 15-Step Pipeline v1.0"
+  },
+  "scene": 0,
+  "scenes": [
+    {
+      "name": "SM_RGIA_Terminal",
+      "nodes": [
+        0,
+        1
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "name": "SM_RGIA_Terminal_LOD0",
+      "extras": {
+        "DimensionsM": [
+          140.0,
+          80.0,
+          32.0
+        ],
+        "Material": "M_BrushedMetal_PBR",
+        "LODs": {
+          "LOD0_PC_Ultra": 12000,
+          "LOD1_PC_High": 6000,
+          "LOD2_Android_High": 3000,
+          "LOD3_Android_Low": 1440
+        },
+        "UVsUnwrapped": true,
+        "NormalsValidated": true,
+        "NonManifoldEdges": 0
+      }
+    },
+    {
+      "name": "UCX_SM_RGIA_Terminal",
+      "extras": {
+        "CollisionType": "ConvexHull_Simplified",
+        "HullCount": 2
+      }
+    }
+  ]
+}

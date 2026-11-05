@@ -1,0 +1,40 @@
+{
+  "asset_name": "SM_DurgamCheruvuBridge",
+  "real_world_name": "Durgam Cheruvu Extradosed Cable-Stayed Bridge",
+  "district": "Modern Hyderabad",
+  "wgs84_coordinates": {
+    "lat": 17.4301,
+    "lon": 78.3879,
+    "elevation_m": 530.0
+  },
+  "projected_coordinates": {
+    "epsg": "EPSG:32644 (WGS 84 / UTM zone 44N)",
+    "utm_easting_m": 222389.94,
+    "utm_northing_m": 1929071.11,
+    "ue5_x_cm": -922505.8,
+    "ue5_y_cm": -758111.5,
+    "ue5_z_cm": 2500.0
+  },
+  "verified_dimensions_m": {
+    "width_x": 425.0,
+    "depth_y": 25.8,
+    "height_z": 42.0
+  },
+  "source_url": "https://en.wikipedia.org/wiki/Durgam_Cheruvu_Bridge",
+  "image_url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Durgam_Cheruvu_Cable_bridge_02102020.jpg",
+  "secondary_reference_url": "https://en.wikipedia.org/wiki/Durgam_Cheruvu",
+  "osm_gis_reference": "https://es.m.wikipedia.org/wiki/Archivo:Durgam_Cheruvu_Cable_bridge_02102020.jpg",
+  "license": "CC BY-SA 4.0",
+  "attribution": "Wikimedia Commons Contributors",
+  "viewing_angles_collected": 12,
+  "reconstruction_method": "METHOD_D_GEOSPATIAL_AND_CAD_BIM",
+  "views_organized": [
+    "Front",
+    "Rear",
+    "Left",
+    "Right",
+    "Aerial",
+    "Details",
+    "Night"
+  ]
+}
